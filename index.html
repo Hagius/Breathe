@@ -410,8 +410,20 @@
     }
     
     @media (max-width: 480px) {
-      .session-progress-container { width: 80%; }
-      .breathing-circle { width: 250px; height: 250px; }
+      .session-progress-container {
+        width: calc(100% - 40px); /* Make it extend to match the space between corner buttons */
+        bottom: calc(var(--safe-bottom) + 60px); /* Move it above the corner buttons */
+      }
+      
+      .breathing-circle { 
+        width: 250px; 
+        height: 250px; 
+      }
+      
+      /* Add some extra bottom padding for the main container on smaller screens */
+      .main-container {
+        padding-bottom: 100px;
+      }
     }
   </style>
 </head>
