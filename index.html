@@ -58,6 +58,23 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       transition: transform 1s ease-in-out;
       cursor: default;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Timer */
+    .timer {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.3s ease;
+    }
+    
+    .focus-mode .timer {
+      opacity: 0;
     }
     /* Bottom Corner Buttons */
     .corner-button {
@@ -107,7 +124,7 @@
       display: none;
       z-index: 50;
     }
-    #techniquePanel button {
+    #techniquePanel button, #techniquePanel .learn-more {
       background: transparent;
       border: none;
       padding: 6px 10px;
@@ -117,13 +134,128 @@
       width: 100%;
       cursor: pointer;
       transition: background 0.3s;
+      display: block;
     }
-    #techniquePanel button:hover {
+    #techniquePanel button:hover, #techniquePanel .learn-more:hover {
       background: rgba(255,255,255,0.3);
     }
+    #techniquePanel .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.3);
+      margin: 5px 0;
+    }
+
+    /* Knowledge Section Styles */
+    #knowledgeSection {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, #F28E47, #214B7A);
+      z-index: 100;
+      overflow-y: auto;
+      padding: calc(20px + env(safe-area-inset-top)) 20px calc(70px + env(safe-area-inset-bottom)) 20px;
+    }
+    
+    .knowledge-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .knowledge-header h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .knowledge-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    .knowledge-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    
+    .knowledge-nav button {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .knowledge-nav button:hover, .knowledge-nav button.active {
+      background: rgba(255,255,255,0.4);
+    }
+    
+    .knowledge-content {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 800px;
+    }
+    
+    .technique-info {
+      display: none;
+    }
+    
+    .technique-info.active {
+      display: block;
+    }
+    
+    .technique-info h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+    
+    .technique-info h3 {
+      font-size: 1.3rem;
+      margin: 20px 0 10px;
+    }
+    
+    .technique-info p, .technique-info ul, .technique-info ol {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .technique-info ul, .technique-info ol {
+      padding-left: 25px;
+    }
+    
+    .back-button {
+      position: fixed;
+      top: calc(20px + env(safe-area-inset-top));
+      left: 20px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 110;
+    }
+    
+    .back-button:hover {
+      background: rgba(255,255,255,0.4);
+    }
+    
     @media (min-width: 768px) {
       .header h1 { font-size: 3rem; }
       .breathing-circle { width: 350px; height: 350px; }
+      .knowledge-header h1 { font-size: 3rem; }
     }
   </style>
 </head>
@@ -136,7 +268,37 @@
   <!-- Main Container centered -->
   <div class="main-container">
     <!-- Breathing Circle (always animating) -->
-    <div id="breathingCircle" class="breathing-circle" aria-label="Breathing animation"></div>
+    <div id="breathingCircle" class="breathing-circle" aria-label="Breathing animation">
+      <div id="timer" class="timer">5      </div>
+      
+      <!-- Physiological Sigh Info -->
+      <div id="physio-sigh-info" class="technique-info">
+        <h2>Physiological Sigh</h2>
+        
+        <p>The physiological sigh is a breathing pattern that humans and many mammals naturally use to restore calm and regulate emotions. It consists of a double inhale followed by a longer exhale, and has been popularized by Stanford neuroscientist Dr. Andrew Huberman as a quick stress-relief technique.</p>
+        
+        <h3>How to Practice</h3>
+        <ol>
+          <li>Take a normal-sized inhale through your nose (1.5 seconds)</li>
+          <li>Immediately follow with a second, shorter "sniff" inhale (about 0.3 seconds) to completely fill your lungs</li>
+          <li>Exhale slowly through your mouth for about 4 seconds</li>
+          <li>Repeat 1-3 times as needed</li>
+        </ol>
+        
+        <h3>Benefits</h3>
+        <ul>
+          <li>Quickly reduces stress and anxiety</li>
+          <li>Resets breathing patterns during acute stress</li>
+          <li>Helps clear CO₂ from the lungs</li>
+          <li>May help with emotional regulation</li>
+          <li>Can be performed discreetly in any setting</li>
+          <li>Works rapidly, often within 30-60 seconds</li>
+        </ul>
+        
+        <h3>The Science</h3>
+        <p>The physiological sigh helps reinflate alveoli (tiny air sacs in the lungs) that collapse during stress. The double inhale increases the air volume in the lungs, while the extended exhale creates a slower emptying of the lungs, which activates the vagus nerve and triggers the parasympathetic "rest and digest" response. Research has shown this breathing pattern can quickly lower heart rate and blood pressure, making it an excellent tool for managing acute stress.</p>
+      </div>
+    </div>
   </div>
   
   <!-- Bottom Corner Buttons -->
@@ -145,9 +307,166 @@
   
   <!-- Technique Panel (dropdown) -->
   <div id="techniquePanel">
-    <button data-technique="resonance">Resonance (5:5)</button>
+    <button data-technique="resonance">Resonance (5.5:5.5)</button>
     <button data-technique="box">Box (4:4:4:4)</button>
     <button data-technique="478">4:7:8</button>
+    <button data-technique="physio-sigh">Physiological Sigh</button>
+    <div class="divider"></div>
+    <a href="#" class="learn-more" id="learnMoreButton">Learn More</a>
+  </div>
+  
+  <!-- Knowledge Section (hidden by default) -->
+  <div id="knowledgeSection">
+    <button class="back-button" id="backButton">Back</button>
+    
+    <div class="knowledge-header">
+      <h1>Breathing Techniques</h1>
+      <p>Learn about the science and benefits behind each technique</p>
+    </div>
+    
+    <div class="knowledge-nav">
+      <button class="technique-btn active" data-technique="basics">Basics</button>
+      <button class="technique-btn" data-technique="resonance">Resonance</button>
+      <button class="technique-btn" data-technique="box">Box</button>
+      <button class="technique-btn" data-technique="478">4-7-8</button>
+      <button class="technique-btn" data-technique="physio-sigh">Physiological Sigh</button>
+    </div>
+    
+    <div class="knowledge-content">
+      <!-- Basics Info -->
+      <div id="basics-info" class="technique-info active">
+        <h2>Breathing Basics</h2>
+        
+        <p>Conscious breathing is one of the most powerful tools we have for managing stress, improving focus, and enhancing overall well-being. Understanding how breathing affects your mind and body is the first step in harnessing its potential.</p>
+        
+        <h3>The Science of Breathing</h3>
+        <p>Your breath is the bridge between your conscious and unconscious processes. When you breathe, you activate your autonomic nervous system, which has two branches:</p>
+        <ul>
+          <li><strong>Sympathetic Nervous System</strong> - Your "fight or flight" response, activated by short, shallow breathing</li>
+          <li><strong>Parasympathetic Nervous System</strong> - Your "rest and digest" response, activated by slow, deep breathing</li>
+        </ul>
+        
+        <h3>Common Elements of Breathing Techniques</h3>
+        <ul>
+          <li><strong>Rate</strong> - How many breath cycles per minute</li>
+          <li><strong>Depth</strong> - How deeply you inhale and exhale</li>
+          <li><strong>Rhythm</strong> - The pattern of inhalation, holds, and exhalation</li>
+          <li><strong>Pathway</strong> - Whether you breathe through your nose or mouth</li>
+          <li><strong>Duration</strong> - How long you practice</li>
+        </ul>
+        
+        <h3>Getting Started</h3>
+        <p>For beginners, here are some tips to maximize the benefits of breathing practice:</p>
+        <ul>
+          <li>Start with just 5 minutes daily</li>
+          <li>Practice in a comfortable seated position</li>
+          <li>Breathe through your nose when possible</li>
+          <li>Notice how different techniques make you feel</li>
+          <li>Be patient - benefits increase with regular practice</li>
+        </ul>
+        
+        <h3>When to Practice</h3>
+        <p>Conscious breathing can be beneficial in many situations:</p>
+        <ul>
+          <li>First thing in the morning to set a calm tone for the day</li>
+          <li>Before important meetings or events to reduce anxiety</li>
+          <li>During stressful moments to regain composure</li>
+          <li>Before meals to improve digestion</li>
+          <li>Before bed to prepare for restful sleep</li>
+        </ul>
+      </div>
+      
+      <!-- Resonance Breathing Info -->
+      <div id="resonance-info" class="technique-info">
+        <h2>Resonance Breathing (5.5:5.5)</h2>
+        
+        <p>Resonance breathing, also known as coherent breathing, involves breathing at a rate of about 5-6 breaths per minute (inhaling for 5.5 seconds, exhaling for 5.5 seconds). This breathing rate has been found to optimize heart rate variability (HRV) and create resonance in the cardiovascular system.</p>
+        
+        <h3>How to Practice</h3>
+        <ol>
+          <li>Find a comfortable seated position with your spine straight</li>
+          <li>Breathe gently through your nose</li>
+          <li>Inhale slowly for 5 seconds, allowing your abdomen to expand</li>
+          <li>Exhale slowly for 5 seconds, allowing your abdomen to fall</li>
+          <li>Continue this rhythm for 5-20 minutes</li>
+        </ol>
+        
+        <h3>Benefits</h3>
+        <ul>
+          <li>Balances the autonomic nervous system</li>
+          <li>Increases heart rate variability (a marker of stress resilience)</li>
+          <li>Reduces stress and anxiety</li>
+          <li>Improves focus and concentration</li>
+          <li>May help lower blood pressure</li>
+          <li>Enhances overall sense of calm</li>
+        </ul>
+        
+        <h3>The Science</h3>
+        <p>The 5-second inhalation and 5-second exhalation cycle (creating about 6 breaths per minute) synchronizes with natural cardiovascular rhythms. This creates a state known as "cardiac coherence" where the heart, respiratory system, and blood pressure oscillations come into alignment. Research conducted at the HeartMath Institute has shown that this synchronized pattern optimizes heart-brain communication and improves cognitive function.</p>
+      </div>
+      
+      <!-- Box Breathing Info -->
+      <div id="box-info" class="technique-info">
+        <h2>Box Breathing (4:4:4:4)</h2>
+        
+        <p>Box breathing, also known as square breathing, is a simple technique used to calm the nervous system and improve focus. It gets its name from the equal duration used for inhalation, holding the breath, exhalation, and holding again.</p>
+        
+        <h3>How to Practice</h3>
+        <ol>
+          <li>Sit in a comfortable position with your back straight</li>
+          <li>Inhale through your nose slowly for 4 seconds</li>
+          <li>Hold your breath for 4 seconds</li>
+          <li>Exhale slowly through your mouth for 4 seconds</li>
+          <li>Hold your breath for 4 seconds</li>
+          <li>Repeat the cycle for 5-10 minutes</li>
+        </ol>
+        
+        <h3>Benefits</h3>
+        <ul>
+          <li>Reduces stress and anxiety</li>
+          <li>Improves concentration and mental clarity</li>
+          <li>Helps control emotional responses in high-stress situations</li>
+          <li>Regulates the autonomic nervous system</li>
+          <li>May help with insomnia when practiced before bedtime</li>
+        </ul>
+        
+        <h3>The Science</h3>
+        <p>Box breathing activates the parasympathetic nervous system, which is responsible for rest and digestion. By extending the exhale and adding breath holds, this technique increases carbon dioxide levels slightly, which has a calming effect on the brain. Navy SEALs and other military personnel are trained to use box breathing to remain calm in high-stress situations and maintain clear decision-making.</p>
+      </div>
+      
+      <!-- 4-7-8 Breathing Info -->
+      <div id="478-info" class="technique-info">
+        <h2>4-7-8 Breathing Technique</h2>
+        
+        <p>The 4-7-8 breathing technique was developed by Dr. Andrew Weil, a Harvard-trained physician, and is based on pranayama, an ancient yogic practice of breath control. It's specifically designed to promote relaxation and help manage stress and anxiety.</p>
+        
+        <h3>How to Practice</h3>
+        <ol>
+          <li>Sit in a comfortable position with your back straight</li>
+          <li>Place the tip of your tongue against the tissue behind your upper front teeth</li>
+          <li>Exhale completely through your mouth, making a whoosh sound</li>
+          <li>Close your mouth and inhale quietly through your nose for a count of 4</li>
+          <li>Hold your breath for a count of 7</li>
+          <li>Exhale completely through your mouth for a count of 8, making the whoosh sound</li>
+          <li>This completes one cycle; repeat for a total of 4 cycles</li>
+        </ol>
+        
+        <h3>Benefits</h3>
+        <ul>
+          <li>Helps with falling asleep</li>
+          <li>Reduces anxiety and stress</li>
+          <li>May help manage cravings and compulsive behaviors</li>
+          <li>Promotes overall relaxation</li>
+          <li>May help control anger responses</li>
+          <li>Can lower heart rate in moments of acute stress</li>
+        </ul>
+        
+        <h3>The Science</h3>
+        <p>The 4-7-8 technique works by forcing the mind and body to focus on regulating the breath, rather than replaying worries. The extended breath hold and long exhale help activate the parasympathetic nervous system, creating a natural tranquilizing effect. The longer exhale compared to inhale helps reduce the fight-or-flight response by reducing heart rate and blood pressure.</p>
+      </div>
+      
+
+    </div>
   </div>
   
   <!-- Audio Cues -->
@@ -161,8 +480,8 @@
      ************************************/
     const patterns = {
       resonance: [
-        { label: 'Inhale', duration: 5 },
-        { label: 'Exhale', duration: 5 }
+        { label: 'Inhale', duration: 5.5 },
+        { label: 'Exhale', duration: 5.5 }
       ],
       box: [
         { label: 'Inhale', duration: 4 },
@@ -174,6 +493,11 @@
         { label: 'Inhale', duration: 4 },
         { label: 'Hold',   duration: 7 },
         { label: 'Exhale', duration: 8 }
+      ],
+      'physio-sigh': [
+        { label: 'Inhale', duration: 1.5 },
+        { label: 'Inhale2', duration: 0.3 },
+        { label: 'Exhale', duration: 4 }
       ]
     };
     let currentPattern = patterns.resonance; // default
@@ -188,6 +512,11 @@
     const audioInhale     = document.getElementById('audioInhale');
     const audioHold       = document.getElementById('audioHold');
     const audioExhale     = document.getElementById('audioExhale');
+    const learnMoreButton = document.getElementById('learnMoreButton');
+    const knowledgeSection = document.getElementById('knowledgeSection');
+    const backButton      = document.getElementById('backButton');
+    const techniqueBtns   = document.querySelectorAll('.technique-btn');
+    const timerDisplay    = document.getElementById('timer');
 
     /************************************
      * 3) State Variables
@@ -227,6 +556,8 @@
       isFocusMode = !isFocusMode;
       document.body.classList.toggle('focus-mode', isFocusMode);
       focusButton.textContent = isFocusMode ? 'Exit Focus' : 'Focus';
+      
+      // Timer visibility is handled by CSS (see .focus-mode .timer)
     });
 
     /************************************
@@ -249,9 +580,16 @@
       currentPhaseTime = phase.duration;
       playAudioCue(phase.label);
       applyPhaseAnimation(phase.label, phase.duration);
+      
+      // Update timer display - show only full seconds
+      timerDisplay.textContent = Math.round(currentPhaseTime);
+      
       clearInterval(phaseIntervalId);
       phaseIntervalId = setInterval(() => {
         currentPhaseTime--;
+        // Update timer display - show only full seconds
+        timerDisplay.textContent = Math.round(currentPhaseTime > 0 ? currentPhaseTime : 0);
+        
         if (currentPhaseTime <= 0) {
           clearInterval(phaseIntervalId);
           const nextIndex = (phaseIndex + 1) % currentPattern.length;
@@ -263,6 +601,7 @@
       let nextScale = currentScale;
       switch (label.toLowerCase()) {
         case 'inhale': nextScale = 1.5; break;
+        case 'inhale2': nextScale = 1.8; break; // Bigger scale for second inhale
         case 'exhale': nextScale = 0.6; break;
         case 'hold':   nextScale = currentScale; break;
         default:       nextScale = 1.0;
@@ -283,6 +622,37 @@
         audioHold.play();
       }
     }
+
+    /************************************
+     * 7) Knowledge Section Logic
+     ************************************/
+    learnMoreButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      knowledgeSection.style.display = 'block';
+      techniquePanel.style.display = 'none';
+    });
+    
+    backButton.addEventListener('click', () => {
+      knowledgeSection.style.display = 'none';
+    });
+    
+    techniqueBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        techniqueBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        // Hide all technique info divs
+        document.querySelectorAll('.technique-info').forEach(div => {
+          div.classList.remove('active');
+        });
+        
+        // Show the selected technique info
+        const techniqueId = btn.getAttribute('data-technique');
+        document.getElementById(`${techniqueId}-info`).classList.add('active');
+      });
+    });
 
     // Start the continuous breathing animation on page load
     window.addEventListener('load', startBreathing);
