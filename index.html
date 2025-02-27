@@ -423,6 +423,11 @@
         bottom: calc(var(--safe-bottom) + 105px); /* Position above progress bar */
       }
       
+      /* Position technique panel higher on small screens to avoid overlap */
+      #techniquePanel {
+        bottom: calc(var(--safe-bottom) + 150px);
+      }
+      
       .breathing-circle { 
         width: 250px; 
         height: 250px; 
@@ -747,6 +752,9 @@
         toggleTechniquePanel: (e) => {
           e.stopPropagation();
           const panel = state.elements.techniquePanel;
+          // Close timer options if open
+          state.elements.timerOptions.style.display = 'none';
+          // Toggle technique panel
           panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
         },
         
@@ -768,6 +776,7 @@
           e.preventDefault();
           state.elements.knowledgeSection.style.display = 'block';
           state.elements.techniquePanel.style.display = 'none';
+          state.elements.timerOptions.style.display = 'none';
         },
         
         hideKnowledgeSection: () => {
@@ -797,6 +806,9 @@
         
         toggleTimerOptions: () => {
           const timerOptions = state.elements.timerOptions;
+          // Close technique panel if open
+          state.elements.techniquePanel.style.display = 'none';
+          // Toggle timer options
           timerOptions.style.display = (timerOptions.style.display === 'block') ? 'none' : 'block';
         },
         
