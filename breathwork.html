@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hagius Breathing</title>
+  <style>
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(to top, #F28E47, #214B7A);
+      color: #fff;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      margin: 0;
+    }
+    /* Header fixed at the top */
+    .header {
+      position: fixed;
+      top: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 10;
+    }
+    .header h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+    }
+    /* Main Container centered vertically and horizontally */
+    .main-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    /* Breathing Circle */
+    .breathing-circle {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 1s ease-in-out;
+      cursor: default;
+    }
+    /* Bottom Corner Buttons */
+    .corner-button {
+      position: absolute;
+      bottom: 20px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .corner-button:focus {
+      outline: 2px solid #fff;
+    }
+    .corner-button:hover {
+      background: rgba(255,255,255,0.4);
+    }
+    /* Positioning: Technique button at bottom left, Focus button at bottom right */
+    #techniqueButton { left: 20px; }
+    #focusButton { right: 20px; }
+    /* Focus Mode: Hide header */
+    .focus-mode .header {
+      display: none;
+    }
+    /* Technique Panel (dropdown-style) with transparent background */
+    #techniquePanel {
+      position: absolute;
+      bottom: 70px;
+      left: 20px;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border-radius: 12px;
+      padding: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 50;
+    }
+    #techniquePanel button {
+      background: transparent;
+      border: none;
+      padding: 6px 10px;
+      font-size: 1rem;
+      color: #fff;
+      text-align: left;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #techniquePanel button:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    @media (min-width: 768px) {
+      .header h1 { font-size: 3rem; }
+      .breathing-circle { width: 350px; height: 350px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header fixed at the top -->
+  <div class="header">
+    <h1>Hagius Breathing</h1>
+  </div>
+  
+  <!-- Main Container centered -->
+  <div class="main-container">
+    <!-- Breathing Circle (always animating) -->
+    <div id="breathingCircle" class="breathing-circle" aria-label="Breathing animation"></div>
+  </div>
+  
+  <!-- Bottom Corner Buttons -->
+  <button id="techniqueButton" class="corner-button" aria-label="Select breathing technique">Technique</button>
+  <button id="focusButton" class="corner-button" aria-label="Toggle focus mode">Focus</button>
+  
+  <!-- Technique Panel (dropdown) -->
+  <div id="techniquePanel">
+    <button data-technique="resonance">Resonance (5:5)</button>
+    <button data-technique="box">Box (4:4:4:4)</button>
+    <button data-technique="478">4:7:8</button>
+  </div>
+  
+  <!-- Audio Cues -->
+  <audio id="audioInhale" src="sounds/chime-inhale.mp3" preload="auto"></audio>
+  <audio id="audioHold" src="sounds/chime-hold.mp3" preload="auto"></audio>
+  <audio id="audioExhale" src="sounds/chime-exhale.mp3" preload="auto"></audio>
+  
+  <script>
+    /************************************
+     * 1) Breathing Patterns
+     ************************************/
+    const patterns = {
+      resonance: [
+        { label: 'Inhale', duration: 5 },
+        { label: 'Exhale', duration: 5 }
+      ],
+      box: [
+        { label: 'Inhale', duration: 4 },
+        { label: 'Hold', duration: 4 },
+        { label: 'Exhale', duration: 4 },
+        { label: 'Hold', duration: 4 }
+      ],
+      '478': [
+        { label: 'Inhale', duration: 4 },
+        { label: 'Hold', duration: 7 },
+        { label: 'Exhale', duration: 8 }
+      ]
+    };
+    let currentPattern = patterns.resonance; // default
+
+    /************************************
+     * 2) DOM Elements
+     ************************************/
+    const breathingCircle = document.getElementById('breathingCircle');
+    const techniqueButton = document.getElementById('techniqueButton');
+    const focusButton = document.getElementById('focusButton');
+    const techniquePanel = document.getElementById('techniquePanel');
+    const audioInhale = document.getElementById('audioInhale');
+    const audioHold = document.getElementById('audioHold');
+    const audioExhale = document.getElementById('audioExhale');
+
+    /************************************
+     * 3) State Variables
+     ************************************/
+    let currentPhaseIndex = 0;
+    let currentPhaseTime = 0;
+    let phaseIntervalId = null;
+    let currentScale = 1.0;
+    
+    /************************************
+     * 4) Technique Panel Logic
+     ************************************/
+    techniqueButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      techniquePanel.style.display = (techniquePanel.style.display === 'block') ? 'none' : 'block';
+    });
+    document.addEventListener('click', (e) => {
+      if (!techniquePanel.contains(e.target) && e.target !== techniqueButton) {
+        techniquePanel.style.display = 'none';
+      }
+    });
+    Array.from(techniquePanel.querySelectorAll('button')).forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selected = btn.getAttribute('data-technique');
+        currentPattern = patterns[selected];
+        techniqueButton.textContent = btn.textContent;
+        resetBreathing();
+        techniquePanel.style.display = 'none';
+      });
+    });
+
+    /************************************
+     * 5) Focus Mode
+     ************************************/
+    let isFocusMode = false;
+    focusButton.addEventListener('click', () => {
+      isFocusMode = !isFocusMode;
+      document.body.classList.toggle('focus-mode', isFocusMode);
+      focusButton.textContent = isFocusMode ? 'Exit Focus' : 'Focus';
+    });
+
+    /************************************
+     * 6) Continuous Breathing Logic
+     ************************************/
+    function startBreathing() {
+      // Start at phase 0 and continuously loop
+      currentPhaseIndex = 0;
+      startPhase(currentPhaseIndex);
+    }
+    function resetBreathing() {
+      // Clear any existing interval and restart cycle with new technique
+      clearInterval(phaseIntervalId);
+      phaseIntervalId = null;
+      currentScale = 1.0;
+      startPhase(0);
+    }
+    function startPhase(phaseIndex) {
+      const phase = currentPattern[phaseIndex];
+      currentPhaseTime = phase.duration;
+      playAudioCue(phase.label);
+      applyPhaseAnimation(phase.label, phase.duration);
+      clearInterval(phaseIntervalId);
+      phaseIntervalId = setInterval(() => {
+        currentPhaseTime--;
+        if (currentPhaseTime <= 0) {
+          clearInterval(phaseIntervalId);
+          const nextIndex = (phaseIndex + 1) % currentPattern.length;
+          startPhase(nextIndex);
+        }
+      }, 1000);
+    }
+    function applyPhaseAnimation(label, duration) {
+      let nextScale = currentScale;
+      switch (label.toLowerCase()) {
+        case 'inhale':
+          nextScale = 1.5;
+          break;
+        case 'exhale':
+          nextScale = 0.6;
+          break;
+        case 'hold':
+          nextScale = currentScale;
+          break;
+        default:
+          nextScale = 1.0;
+      }
+      breathingCircle.style.transition = `transform s ease-in-out`;
+      breathingCircle.style.transform = `scale()`;
+      currentScale = nextScale;
+    }
+    function playAudioCue(label) {
+      if (label.toLowerCase() === 'inhale') {
+        audioInhale.currentTime = 0;
+        audioInhale.play();
+      } else if (label.toLowerCase() === 'exhale') {
+        audioExhale.currentTime = 0;
+        audioExhale.play();
+      } else if (label.toLowerCase() === 'hold') {
+        audioHold.currentTime = 0;
+        audioHold.play();
+      }
+    }
+    
+    // Start the continuous breathing animation when the page loads
+    window.addEventListener('load', startBreathing);
+  </script>
+</body>
+</html>
