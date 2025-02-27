@@ -257,8 +257,8 @@
         default:
           nextScale = 1.0;
       }
-      breathingCircle.style.transition = `transform s ease-in-out`;
-      breathingCircle.style.transform = `scale()`;
+      breathingCircle.style.transition = `transform ${duration}s ease-in-out`;
+      breathingCircle.style.transform = `scale(${nextScale})`;
       currentScale = nextScale;
     }
     function playAudioCue(label) {
@@ -279,3 +279,4 @@
   </script>
 </body>
 </html>
+
