@@ -73,18 +73,6 @@
       margin-bottom: 20px;
     }
     
-    .breathing-loader {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: var(--white-transparent-light);
-      animation: breathe 4s infinite ease-in-out;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      will-change: transform; /* Optimize animation performance */
-    }
-    
     .loading-progress {
       width: 200px;
       height: 4px;
@@ -99,11 +87,6 @@
       width: 0%;
       background: white;
       transition: width 0.3s ease;
-    }
-    
-    @keyframes breathe {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.5); }
     }
     
     .loader-text {
@@ -185,12 +168,17 @@
     /* Header */
     .header {
       position: fixed;
-      top: calc(var(--safe-top) * 3);
+      top: 10%;
       left: 0;
       right: 0;
       text-align: center;
       z-index: 10;
       transition: opacity 0.3s ease;
+    }
+    
+    .focus-mode .header {
+      opacity: 0;
+      pointer-events: none;
     }
     
     .logo {
@@ -311,6 +299,7 @@
       right: 0;
       display: none;
       z-index: 30;
+      margin-bottom: var(--button-spacing);
     }
     
     .timer-option-buttons {
@@ -359,7 +348,6 @@
       left: 0;
       right: 0;
       display: flex;
-      flex-wrap: wrap;
       z-index: 10;
       padding: 0;
       gap: var(--button-spacing); /* Consistent 4px spacing */
@@ -369,7 +357,7 @@
     .bottom-button {
       background: var(--white-transparent-light);
       border: none;
-      flex: 1 0 calc(50% - var(--button-spacing) / 2); /* Will take up half width minus gap */
+      flex: 1;
       font-size: calc(var(--element-height) * var(--font-size-button));
       font-weight: bold;
       color: #fff;
@@ -403,17 +391,22 @@
       right: 0;
       display: none;
       z-index: 50;
+      margin-bottom: var(--button-spacing);
     }
     
     .technique-buttons {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      grid-gap: var(--button-spacing);
       width: 100%;
-      position: relative;
-      margin: 0;
-      padding: 0;
-      gap: var(--button-spacing);
     }
+    
+    .technique-panel button:nth-child(1) { grid-column: 1; grid-row: 1; }
+    .technique-panel button:nth-child(2) { grid-column: 2; grid-row: 1; }
+    .technique-panel button:nth-child(3) { grid-column: 3; grid-row: 1; }
+    .technique-panel button:nth-child(4) { grid-column: 1; grid-row: 2; }
+    .technique-panel button:nth-child(5) { grid-column: 2; grid-row: 2; grid-column-end: 4; }
     
     .technique-panel button, 
     .technique-panel .learn-more {
@@ -424,9 +417,6 @@
       font-size: calc(var(--element-height) * var(--font-size-button));
       font-weight: bold;
       text-align: center;
-      flex: 1 0 0;
-      min-width: 0;
-      max-width: none;
       cursor: pointer;
       transition: background var(--transition-speed);
       margin: 0;
@@ -613,61 +603,6 @@
       .logo { max-width: 240px; }
     }
     
-    /* Responsive button sizing based on available width */
-    @media (min-width: 1200px) {
-      .technique-buttons,
-      .timer-option-buttons,
-      .knowledge-nav {
-        /* Up to 8 buttons per row */
-        --buttons-per-row: 8;
-      }
-    }
-    
-    @media (min-width: 992px) and (max-width: 1199px) {
-      .technique-buttons,
-      .timer-option-buttons,
-      .knowledge-nav {
-        /* Up to 6 buttons per row */
-        --buttons-per-row: 6;
-      }
-    }
-    
-    @media (min-width: 768px) and (max-width: 991px) {
-      .technique-buttons,
-      .timer-option-buttons,
-      .knowledge-nav {
-        /* Up to 5 buttons per row */
-        --buttons-per-row: 5;
-      }
-    }
-    
-    @media (min-width: 576px) and (max-width: 767px) {
-      .technique-buttons,
-      .timer-option-buttons,
-      .knowledge-nav {
-        /* Up to 4 buttons per row */
-        --buttons-per-row: 4;
-      }
-    }
-    
-    @media (min-width: 400px) and (max-width: 575px) {
-      .technique-buttons,
-      .timer-option-buttons,
-      .knowledge-nav {
-        /* Up to 3 buttons per row */
-        --buttons-per-row: 3;
-      }
-    }
-    
-    @media (max-width: 399px) {
-      .technique-buttons,
-      .timer-option-buttons,
-      .knowledge-nav {
-        /* 2 buttons per row for very small screens */
-        --buttons-per-row: 2;
-      }
-    }
-    
     @media (max-width: 480px) {
       :root {
         --element-height: 50px;
@@ -677,20 +612,6 @@
       .breathing-circle { 
         width: 250px; 
         height: 250px; 
-      }
-    }
-      
-      /* Handle wrapping of bottom buttons if needed */
-      .button-container {
-        height: auto;
-      }
-      
-      .bottom-button {
-        flex: 1 0 100%;
-      }
-      
-      .bottom-button:first-child {
-        margin-bottom: var(--button-spacing);
       }
     }
     
@@ -717,8 +638,7 @@
   <!-- Loading Animation -->
   <div id="loadingContainer" class="loading-container">
     <div>
-      <img src="logo.png" alt="Hagius" class="logo loading-logo">
-      <div class="breathing-loader"></div>
+      <img src="monogram.png" alt="Hagius" class="logo loading-logo">
       <div class="loader-text">Loading Breathing App...</div>
       <div class="loading-progress">
         <div id="loadingBar" class="loading-bar"></div>
@@ -898,8 +818,6 @@
           { label: 'Exhale', duration: 2 }
         ]
       };
-      
-      // Phase instructions removed as requested
       
       // APP STATE
       const state = {
@@ -1462,8 +1380,6 @@
         state.animationFrameId = requestAnimationFrame(updatePhase);
       }
       
-      // Function removed as phase instructions are no longer displayed
-      
       function applyPhaseAnimation(label, duration) {
         let nextScale = state.currentScale;
         switch (label.toLowerCase()) {
@@ -1682,12 +1598,6 @@
         init();
       }
     })();
-  </script>
-  
-  <!-- Minimal Service Worker for Offline Support -->
-  <script>
-    // This script registers a service worker for offline support
-    // The actual service-worker.js file should be created separately
   </script>
 </body>
 </html>
