@@ -26,7 +26,7 @@
       --safe-top: calc(20px + env(safe-area-inset-top));
       --button-spacing: 4px; /* Consistent spacing throughout the app */
       --element-height: 60px;
-      --font-size-button: 0.35em; /* Will be calculated relative to button height */
+      --font-size-button: 0.4; /* Standardized font size for all UI elements */
       --font-size-header: 2.4rem;
       --element-padding: 15px;
       --min-button-width: 120px; /* Minimum width for buttons before wrapping */
@@ -91,8 +91,10 @@
     
     .loader-text {
       text-align: center;
-      font-size: 1.2rem;
+      font-size: calc(var(--element-height) * var(--font-size-button));
+      font-weight: bold;
       margin-top: 20px;
+      text-transform: uppercase;
     }
     
     /* Hide content until loaded */
@@ -159,6 +161,7 @@
       line-height: var(--element-height);
       cursor: pointer;
       transition: background 0.2s ease;
+      text-transform: uppercase;
     }
     
     .modal-content button:hover {
@@ -294,12 +297,12 @@
     /* Timer Options */
     .timer-options {
       position: fixed;
-      bottom: calc(var(--element-height) + var(--button-spacing) * 2);
+      bottom: calc(var(--element-height) + var(--button-spacing));
       left: 0;
       right: 0;
       display: none;
       z-index: 30;
-      margin-bottom: var(--button-spacing);
+      margin-bottom: var(--button-spacing); /* Ensures exactly 4px to progress bar */
     }
     
     .timer-option-buttons {
@@ -317,7 +320,7 @@
       border: none;
       color: white;
       padding: 0 var(--element-padding);
-      flex: 1 0 0;
+      flex: 1 1 calc(25% - var(--button-spacing) * 3/4); /* Equal distribution for 4 buttons */
       min-width: 0;
       max-width: none;
       font-size: calc(var(--element-height) * var(--font-size-button));
@@ -331,6 +334,19 @@
       overflow: hidden;
       text-overflow: ellipsis;
       -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Media query for narrower screens */
+    @media (max-width: 600px) {
+      .timer-options button {
+        flex: 1 1 calc(50% - var(--button-spacing) * 1/2); /* 2 per row */
+      }
+    }
+    
+    @media (max-width: 320px) {
+      .timer-options button {
+        flex: 1 1 100%; /* 1 per row for very small screens */
+      }
     }
     
     .timer-options button:hover {
@@ -386,27 +402,43 @@
     /* Technique Panel */
     .technique-panel {
       position: fixed;
-      bottom: calc(var(--element-height) + var(--button-spacing) * 2);
+      bottom: calc(var(--element-height) + var(--button-spacing));
       left: 0;
       right: 0;
       display: none;
       z-index: 50;
-      margin-bottom: var(--button-spacing);
+      margin-bottom: var(--button-spacing); /* Ensures exactly 4px to progress bar */
     }
     
     .technique-buttons {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: auto auto;
-      grid-gap: var(--button-spacing);
+      display: flex;
+      flex-wrap: wrap;
       width: 100%;
+      gap: var(--button-spacing);
     }
     
-    .technique-panel button:nth-child(1) { grid-column: 1; grid-row: 1; }
-    .technique-panel button:nth-child(2) { grid-column: 2; grid-row: 1; }
-    .technique-panel button:nth-child(3) { grid-column: 3; grid-row: 1; }
-    .technique-panel button:nth-child(4) { grid-column: 1; grid-row: 2; }
-    .technique-panel button:nth-child(5) { grid-column: 2; grid-row: 2; grid-column-end: 4; }
+    /* First row - 3 buttons */
+    .technique-panel button:nth-child(1),
+    .technique-panel button:nth-child(2),
+    .technique-panel button:nth-child(3) {
+      flex: 1 1 calc(33.333% - var(--button-spacing) * 2/3);
+    }
+    
+    /* Second row - 2 buttons */
+    .technique-panel button:nth-child(4) {
+      flex: 1 1 calc(50% - var(--button-spacing) * 1/2);
+    }
+    
+    .technique-panel button:nth-child(5) {
+      flex: 1 1 calc(50% - var(--button-spacing) * 1/2);
+    }
+    
+    /* Media query for narrow screens */
+    @media (max-width: 480px) {
+      .technique-panel button {
+        flex: 1 1 100% !important;
+      }
+    }
     
     .technique-panel button, 
     .technique-panel .learn-more {
@@ -467,7 +499,7 @@
       display: flex;
       flex-wrap: wrap;
       width: 100%;
-      margin-bottom: 4px; /* Exactly 4px spacing to content below */
+      margin-bottom: var(--button-spacing); /* Exactly 4px spacing to content below */
       padding: 0;
       gap: var(--button-spacing);
     }
@@ -481,7 +513,7 @@
       color: #fff;
       cursor: pointer;
       transition: background var(--transition-speed);
-      flex: 1 0 0;
+      flex: 1 1 calc(20% - var(--button-spacing) * 4/5); /* Equal width for 5 buttons */
       min-width: 0;
       max-width: none;
       margin: 0;
@@ -491,6 +523,25 @@
       overflow: hidden;
       text-overflow: ellipsis;
       -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Media queries for responsive layout */
+    @media (max-width: 768px) {
+      .knowledge-nav button {
+        flex: 1 1 calc(33.333% - var(--button-spacing) * 2/3); /* 3 per row */
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .knowledge-nav button {
+        flex: 1 1 calc(50% - var(--button-spacing) * 1/2); /* 2 per row */
+      }
+    }
+    
+    @media (max-width: 320px) {
+      .knowledge-nav button {
+        flex: 1 1 100%; /* Stack buttons on very small screens */
+      }
     }
     
     .knowledge-nav button:hover, 
@@ -552,6 +603,7 @@
       height: var(--element-height);
       line-height: var(--element-height);
       -webkit-tap-highlight-color: transparent;
+      text-transform: uppercase;
     }
     
     .back-button:hover {
@@ -594,7 +646,7 @@
     @media (min-width: 768px) {
       :root {
         --element-height: 70px;
-        --font-size-button: 0.35;
+        --font-size-button: 0.4; /* Standardized font size */
         --font-size-header: 3rem;
         --element-padding: 18px;
         --min-button-width: 140px;
@@ -606,7 +658,7 @@
     @media (max-width: 480px) {
       :root {
         --element-height: 50px;
-        --font-size-button: 0.35;
+        --font-size-button: 0.4; /* Standardized font size */
         --element-padding: 12px;
       }
       .breathing-circle { 
