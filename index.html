@@ -141,13 +141,11 @@
     }
     
     .modal-content {
-      background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
-      border-radius: 10px;
+      background: var(--white-transparent-light);
       padding: 30px;
       max-width: 90%;
       width: 350px;
       text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       transform: translateY(20px);
       transition: transform 0.3s ease;
     }
@@ -169,11 +167,13 @@
     .modal-content button {
       background: var(--white-transparent-medium);
       border: none;
-      padding: 12px 30px;
+      padding: 0 var(--element-padding);
       color: white;
       font-weight: bold;
-      font-size: 1rem;
-      border-radius: 30px;
+      font-size: calc(var(--element-height) * var(--font-size-button));
+      width: 100%;
+      height: var(--element-height);
+      line-height: var(--element-height);
       cursor: pointer;
       transition: background 0.2s ease;
     }
@@ -185,7 +185,7 @@
     /* Header */
     .header {
       position: fixed;
-      top: var(--safe-top);
+      top: calc(var(--safe-top) * 3);
       left: 0;
       right: 0;
       text-align: center;
@@ -243,22 +243,7 @@
       opacity: 0;
     }
     
-    /* Phase Instruction */
-    .phase-instruction {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: calc(50% + 140px);
-      text-align: center;
-      font-size: 1.2rem;
-      opacity: 0.8;
-      transition: opacity 0.3s ease;
-    }
-    
-    .focus-mode .phase-instruction {
-      opacity: 0;
-    }
-    
+
     /* Session Progress Bar */
     .session-progress-container {
       position: fixed;
@@ -335,6 +320,7 @@
       position: relative;
       margin: 0;
       padding: 0;
+      gap: var(--button-spacing);
     }
     
     .timer-options button {
@@ -342,14 +328,14 @@
       border: none;
       color: white;
       padding: 0 var(--element-padding);
-      flex: 1 0 auto;
-      min-width: var(--min-button-width);
-      max-width: calc(100% / 4 - var(--button-spacing));
+      flex: 1 0 0;
+      min-width: 0;
+      max-width: none;
       font-size: calc(var(--element-height) * var(--font-size-button));
       font-weight: bold;
       cursor: pointer;
       transition: background var(--transition-speed);
-      margin: calc(var(--button-spacing) / 2);
+      margin: 0;
       height: var(--element-height);
       line-height: var(--element-height);
       white-space: nowrap;
@@ -426,6 +412,7 @@
       position: relative;
       margin: 0;
       padding: 0;
+      gap: var(--button-spacing);
     }
     
     .technique-panel button, 
@@ -437,12 +424,12 @@
       font-size: calc(var(--element-height) * var(--font-size-button));
       font-weight: bold;
       text-align: center;
-      flex: 1 0 auto;
-      min-width: var(--min-button-width);
-      max-width: calc(100% / 5 - var(--button-spacing));
+      flex: 1 0 0;
+      min-width: 0;
+      max-width: none;
       cursor: pointer;
       transition: background var(--transition-speed);
-      margin: calc(var(--button-spacing) / 2);
+      margin: 0;
       text-transform: capitalize;
       height: var(--element-height);
       line-height: var(--element-height);
@@ -504,9 +491,9 @@
       color: #fff;
       cursor: pointer;
       transition: background var(--transition-speed);
-      flex: 1 0 auto;
-      min-width: var(--min-button-width);
-      max-width: calc(100% / 5 - var(--button-spacing));
+      flex: 1 0 0;
+      min-width: 0;
+      max-width: none;
       margin: 0;
       height: var(--element-height);
       line-height: var(--element-height);
@@ -626,12 +613,58 @@
       .logo { max-width: 240px; }
     }
     
-    @media (max-width: 767px) {
-      .technique-panel button, 
-      .technique-panel .learn-more,
-      .knowledge-nav button {
-        min-width: var(--min-button-width);
-        max-width: calc(100% / 3 - var(--button-spacing));
+    /* Responsive button sizing based on available width */
+    @media (min-width: 1200px) {
+      .technique-buttons,
+      .timer-option-buttons,
+      .knowledge-nav {
+        /* Up to 8 buttons per row */
+        --buttons-per-row: 8;
+      }
+    }
+    
+    @media (min-width: 992px) and (max-width: 1199px) {
+      .technique-buttons,
+      .timer-option-buttons,
+      .knowledge-nav {
+        /* Up to 6 buttons per row */
+        --buttons-per-row: 6;
+      }
+    }
+    
+    @media (min-width: 768px) and (max-width: 991px) {
+      .technique-buttons,
+      .timer-option-buttons,
+      .knowledge-nav {
+        /* Up to 5 buttons per row */
+        --buttons-per-row: 5;
+      }
+    }
+    
+    @media (min-width: 576px) and (max-width: 767px) {
+      .technique-buttons,
+      .timer-option-buttons,
+      .knowledge-nav {
+        /* Up to 4 buttons per row */
+        --buttons-per-row: 4;
+      }
+    }
+    
+    @media (min-width: 400px) and (max-width: 575px) {
+      .technique-buttons,
+      .timer-option-buttons,
+      .knowledge-nav {
+        /* Up to 3 buttons per row */
+        --buttons-per-row: 3;
+      }
+    }
+    
+    @media (max-width: 399px) {
+      .technique-buttons,
+      .timer-option-buttons,
+      .knowledge-nav {
+        /* 2 buttons per row for very small screens */
+        --buttons-per-row: 2;
       }
     }
     
@@ -640,25 +673,12 @@
         --element-height: 50px;
         --font-size-button: 0.35;
         --element-padding: 12px;
-        --min-button-width: 100px;
       }
       .breathing-circle { 
         width: 250px; 
         height: 250px; 
       }
-      
-      /* For narrower screens, allow buttons to wrap more efficiently */
-      .technique-panel button, 
-      .technique-panel .learn-more,
-      .knowledge-nav button {
-        min-width: calc(50% - var(--button-spacing));
-        max-width: calc(100% / 2 - var(--button-spacing));
-      }
-      
-      .timer-options button {
-        min-width: calc(50% - var(--button-spacing));
-        max-width: calc(100% / 2 - var(--button-spacing));
-      }
+    }
       
       /* Handle wrapping of bottom buttons if needed */
       .button-container {
@@ -718,8 +738,7 @@
     
     <!-- Main Container centered -->
     <div class="main-container">
-      <div id="phaseInstruction" class="phase-instruction" aria-live="polite"></div>
-      
+
       <!-- Breathing Circle (always animating) -->
       <div id="breathingCircle" class="breathing-circle" aria-label="Breathing animation">
         <div id="timer" class="timer" aria-live="polite">
@@ -880,12 +899,7 @@
         ]
       };
       
-      const PHASE_INSTRUCTIONS = {
-        'Inhale': 'Breathe in deeply through your nose',
-        'Inhale2': 'Take a second breath in',
-        'Hold': 'Hold your breath',
-        'Exhale': 'Breathe out slowly through your mouth' 
-      };
+      // Phase instructions removed as requested
       
       // APP STATE
       const state = {
@@ -1188,7 +1202,6 @@
           backButton: document.getElementById('backButton'),
           techniqueBtns: document.querySelectorAll('.technique-btn'),
           timerDisplay: document.getElementById('timer'),
-          phaseInstruction: document.getElementById('phaseInstruction'),
           progressBar: document.getElementById('progressBar'),
           progressIndicator: document.getElementById('progressIndicator'),
           timerOptions: document.getElementById('timerOptions'),
@@ -1402,9 +1415,6 @@
         playAudioCue(phase.label);
         applyPhaseAnimation(phase.label, phase.duration);
         
-        // Update instruction text
-        updatePhaseInstruction(phase.label);
-        
         // Add simple fade transition for text
         state.elements.timerDisplay.classList.add('fade');
         
@@ -1452,12 +1462,7 @@
         state.animationFrameId = requestAnimationFrame(updatePhase);
       }
       
-      function updatePhaseInstruction(phaseLabel) {
-        if (!state.elements.phaseInstruction) return;
-        
-        const instruction = PHASE_INSTRUCTIONS[phaseLabel] || '';
-        state.elements.phaseInstruction.textContent = instruction;
-      }
+      // Function removed as phase instructions are no longer displayed
       
       function applyPhaseAnimation(label, duration) {
         let nextScale = state.currentScale;
@@ -1622,7 +1627,7 @@
           <div class="modal-content">
             <h2>Session Complete!</h2>
             <p>Great job completing your breathing session.</p>
-            <button id="closeModal">Continue</button>
+            <button id="closeModal">CONTINUE</button>
           </div>
         `;
         
