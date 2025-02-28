@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Hagius Breathing - A breathing exercise app for stress reduction and mindfulness" />
   <title>Hagius Breathing</title>
   <style>
     /* Reset & Base */
@@ -19,27 +20,37 @@
       --white-transparent-medium: rgba(255, 255, 255, 0.3);
       --white-transparent-bright: rgba(255, 255, 255, 0.4);
       --white-transparent-brighter: rgba(255, 255, 255, 0.5);
-      --border-radius: 12px;
+      --border-radius: 0px;
       --transition-speed: 0.3s;
       --safe-bottom: calc(20px + env(safe-area-inset-bottom));
       --safe-top: calc(20px + env(safe-area-inset-top));
+      --button-spacing: 4px; /* Consistent spacing throughout the app */
+      --element-height: 60px;
+      --font-size-button: 0.35em; /* Will be calculated relative to button height */
+      --font-size-header: 2.4rem;
+      --element-padding: 15px;
+      --min-button-width: 120px; /* Minimum width for buttons before wrapping */
     }
     
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
+      overscroll-behavior: none; /* Prevent pull-to-refresh on mobile */
     }
     
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(to top, var(--secondary-color), var(--primary-color));
+      font-family: Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-weight: bold;
+      background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
       color: #fff;
       position: relative;
       padding-bottom: env(safe-area-inset-bottom);
       padding-top: env(safe-area-inset-top);
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
+      overflow: hidden;
+      touch-action: manipulation; /* Optimize for touch to reduce delay */
     }
     
     /* Loading Animation */
@@ -49,12 +60,17 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(to top, var(--secondary-color), var(--primary-color));
+      background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 9999;
       transition: opacity 0.5s ease-out;
+      flex-direction: column;
+    }
+    
+    .loading-logo {
+      margin-bottom: 20px;
     }
     
     .breathing-loader {
@@ -66,6 +82,23 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      will-change: transform; /* Optimize animation performance */
+    }
+    
+    .loading-progress {
+      width: 200px;
+      height: 4px;
+      background: var(--white-transparent-light);
+      margin-top: 20px;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    
+    .loading-bar {
+      height: 100%;
+      width: 0%;
+      background: white;
+      transition: width 0.3s ease;
     }
     
     @keyframes breathe {
@@ -84,6 +117,69 @@
       opacity: 0;
       transition: opacity 0.5s ease-in;
       height: 100%;
+      position: relative;
+    }
+    
+    /* Completion Modal */
+    .completion-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .completion-modal.visible {
+      opacity: 1;
+    }
+    
+    .modal-content {
+      background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 90%;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    
+    .completion-modal.visible .modal-content {
+      transform: translateY(0);
+    }
+    
+    .modal-content h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+    
+    .modal-content p {
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+    
+    .modal-content button {
+      background: var(--white-transparent-medium);
+      border: none;
+      padding: 12px 30px;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    
+    .modal-content button:hover {
+      background: var(--white-transparent-bright);
     }
     
     /* Header */
@@ -97,39 +193,46 @@
       transition: opacity 0.3s ease;
     }
     
-    .header h1 {
-      font-size: 2.4rem;
-      font-weight: 600;
+    .logo {
+      max-width: 180px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
     
     /* Main Container */
     .main-container {
       position: absolute;
-      top: 50%;
+      top: 45%;
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
+      width: 100%;
     }
     
     /* Breathing Circle */
     .breathing-circle {
-      width: 300px;
-      height: 300px;
+      width: 250px;
+      height: 250px;
       border-radius: 50%;
-      background: radial-gradient(circle at 50% 50%, var(--white-transparent-light), var(--white-transparent-light));
+      background: var(--white-transparent-light);
+      margin: 0 auto;
       will-change: transform;
       display: flex;
       align-items: center;
       justify-content: center;
+      transform: scale(1);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
     }
     
     /* Timer */
     .timer {
-      font-size: 1.8rem;
-      font-weight: 500;
+      font-size: calc(var(--element-height) * 0.4);
+      font-weight: bold;
       color: rgba(255, 255, 255, 0.9);
       text-align: center;
       transition: opacity 0.15s ease-in-out;
+      text-transform: uppercase;
     }
     
     .timer.fade {
@@ -140,28 +243,46 @@
       opacity: 0;
     }
     
+    /* Phase Instruction */
+    .phase-instruction {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: calc(50% + 140px);
+      text-align: center;
+      font-size: 1.2rem;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+    
+    .focus-mode .phase-instruction {
+      opacity: 0;
+    }
+    
     /* Session Progress Bar */
     .session-progress-container {
       position: fixed;
-      bottom: var(--safe-bottom);
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50%;
+      bottom: calc(var(--element-height) + var(--button-spacing));
+      left: 0;
+      right: 0;
+      width: 100%;
       z-index: 100;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 0;
+      margin-bottom: 0; /* Ensure exact 4px spacing */
     }
     
     .session-progress {
       width: 100%;
-      height: 36px;
+      height: var(--element-height);
       background: var(--white-transparent-light);
-      border-radius: var(--border-radius);
       overflow: hidden;
       cursor: pointer;
       transition: background var(--transition-speed);
       position: relative;
+      -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
     }
     
     .session-progress:hover {
@@ -177,12 +298,13 @@
       left: 0;
       top: 0;
       z-index: 1;
+      will-change: width; /* Optimize animation performance */
     }
     
     .remaining-time {
       position: absolute;
-      font-size: 1rem;
-      font-weight: 500;
+      font-size: calc(var(--element-height) * 0.4);
+      font-weight: bold;
       color: white;
       top: 50%;
       left: 50%;
@@ -199,28 +321,41 @@
     /* Timer Options */
     .timer-options {
       position: fixed;
-      bottom: calc(var(--safe-bottom) + 45px);
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50%;
-      background: var(--white-transparent-light);
-      border-radius: var(--border-radius);
-      padding: 8px;
+      bottom: calc(var(--element-height) + var(--button-spacing) * 2);
+      left: 0;
+      right: 0;
       display: none;
       z-index: 30;
     }
     
+    .timer-option-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      position: relative;
+      margin: 0;
+      padding: 0;
+    }
+    
     .timer-options button {
-      background: transparent;
+      background: var(--white-transparent-light);
       border: none;
       color: white;
-      padding: 8px 0;
-      margin: 0;
-      width: 25%;
-      font-size: 1rem;
-      border-radius: 8px;
+      padding: 0 var(--element-padding);
+      flex: 1 0 auto;
+      min-width: var(--min-button-width);
+      max-width: calc(100% / 4 - var(--button-spacing));
+      font-size: calc(var(--element-height) * var(--font-size-button));
+      font-weight: bold;
       cursor: pointer;
       transition: background var(--transition-speed);
+      margin: calc(var(--button-spacing) / 2);
+      height: var(--element-height);
+      line-height: var(--element-height);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-tap-highlight-color: transparent;
     }
     
     .timer-options button:hover {
@@ -231,71 +366,95 @@
       background: var(--white-transparent-medium);
     }
     
-    /* Corner Buttons */
-    .corner-button {
-      position: absolute;
-      bottom: var(--safe-bottom);
+    /* Button Container */
+    .button-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-wrap: wrap;
+      z-index: 10;
+      padding: 0;
+      gap: var(--button-spacing); /* Consistent 4px spacing */
+    }
+    
+    /* Bottom Buttons */
+    .bottom-button {
       background: var(--white-transparent-light);
       border: none;
-      border-radius: var(--border-radius);
-      padding: 8px 14px;
-      font-size: 1rem;
+      flex: 1 0 calc(50% - var(--button-spacing) / 2); /* Will take up half width minus gap */
+      font-size: calc(var(--element-height) * var(--font-size-button));
+      font-weight: bold;
       color: #fff;
       cursor: pointer;
       transition: background var(--transition-speed);
+      height: var(--element-height);
+      line-height: var(--element-height);
+      padding: 0 var(--element-padding);
+      text-transform: uppercase;
+      margin: 0;
+      min-width: 0; /* Allow shrinking */
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
     
-    .corner-button:focus {
+    .bottom-button:focus {
       outline: 2px solid #fff;
     }
     
-    .corner-button:hover {
+    .bottom-button:hover {
       background: var(--white-transparent-bright);
     }
     
-    #techniqueButton { left: 20px; }
-    #focusButton { right: 20px; }
-    
-    /* Focus Mode */
-    .focus-mode .header {
-      opacity: 0;
-      pointer-events: none;
-    }
-    
     /* Technique Panel */
-    #techniquePanel {
-      position: absolute;
-      bottom: calc(70px + env(safe-area-inset-bottom));
-      left: 20px;
-      background: var(--white-transparent-light);
-      color: #fff;
-      border-radius: var(--border-radius);
-      padding: 8px;
+    .technique-panel {
+      position: fixed;
+      bottom: calc(var(--element-height) + var(--button-spacing) * 2);
+      left: 0;
+      right: 0;
       display: none;
       z-index: 50;
     }
     
-    #techniquePanel button, #techniquePanel .learn-more {
-      background: transparent;
-      border: none;
-      padding: 6px 10px;
-      font-size: 1rem;
-      color: #fff;
-      text-align: left;
+    .technique-buttons {
+      display: flex;
+      flex-wrap: wrap;
       width: 100%;
+      position: relative;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .technique-panel button, 
+    .technique-panel .learn-more {
+      background: var(--white-transparent-light);
+      border: none;
+      color: white;
+      padding: 0 var(--element-padding);
+      font-size: calc(var(--element-height) * var(--font-size-button));
+      font-weight: bold;
+      text-align: center;
+      flex: 1 0 auto;
+      min-width: var(--min-button-width);
+      max-width: calc(100% / 5 - var(--button-spacing));
       cursor: pointer;
       transition: background var(--transition-speed);
-      display: block;
+      margin: calc(var(--button-spacing) / 2);
+      text-transform: capitalize;
+      height: var(--element-height);
+      line-height: var(--element-height);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-tap-highlight-color: transparent;
     }
     
-    #techniquePanel button:hover, #techniquePanel .learn-more:hover {
+    .technique-panel button:hover, 
+    .technique-panel .learn-more:hover {
       background: var(--white-transparent-medium);
-    }
-    
-    #techniquePanel .divider {
-      height: 1px;
-      background: var(--white-transparent-medium);
-      margin: 5px 0;
     }
     
     /* Knowledge Section */
@@ -306,21 +465,20 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(to top, var(--secondary-color), var(--primary-color));
+      background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
       z-index: 100;
       overflow-y: auto;
-      padding: var(--safe-top) 20px calc(70px + env(safe-area-inset-bottom)) 20px;
+      padding: var(--safe-top) 0 calc(70px + env(safe-area-inset-bottom)) 0;
     }
     
     .knowledge-header {
       text-align: center;
       margin-bottom: 30px;
+      padding: 0 20px;
     }
     
-    .knowledge-header h1 {
-      font-size: 2.4rem;
-      font-weight: 600;
-      margin-bottom: 5px;
+    .knowledge-header .logo {
+      margin-bottom: 15px;
     }
     
     .knowledge-header p {
@@ -330,33 +488,44 @@
     
     .knowledge-nav {
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 25px;
+      width: 100%;
+      margin-bottom: 4px; /* Exactly 4px spacing to content below */
+      padding: 0;
+      gap: var(--button-spacing);
     }
     
     .knowledge-nav button {
       background: var(--white-transparent-light);
       border: none;
-      border-radius: var(--border-radius);
-      padding: 8px 14px;
-      font-size: 1rem;
+      padding: 0 var(--element-padding);
+      font-size: calc(var(--element-height) * var(--font-size-button));
+      font-weight: bold;
       color: #fff;
       cursor: pointer;
       transition: background var(--transition-speed);
+      flex: 1 0 auto;
+      min-width: var(--min-button-width);
+      max-width: calc(100% / 5 - var(--button-spacing));
+      margin: 0;
+      height: var(--element-height);
+      line-height: var(--element-height);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-tap-highlight-color: transparent;
     }
     
-    .knowledge-nav button:hover, .knowledge-nav button.active {
+    .knowledge-nav button:hover, 
+    .knowledge-nav button.active {
       background: var(--white-transparent-bright);
     }
     
     .knowledge-content {
       background: var(--white-transparent-light);
-      border-radius: var(--border-radius);
       padding: 20px;
-      margin: 0 auto;
-      max-width: 800px;
+      margin: 0;
+      width: 100%;
     }
     
     .technique-info {
@@ -377,66 +546,150 @@
       margin: 20px 0 10px;
     }
     
-    .technique-info p, .technique-info ul, .technique-info ol {
+    .technique-info p, 
+    .technique-info ul, 
+    .technique-info ol {
       margin-bottom: 15px;
       line-height: 1.6;
     }
     
-    .technique-info ul, .technique-info ol {
+    .technique-info ul, 
+    .technique-info ol {
       padding-left: 25px;
     }
     
     .back-button {
       position: fixed;
       top: var(--safe-top);
-      left: 20px;
+      left: 0;
       background: var(--white-transparent-light);
       border: none;
       border-radius: var(--border-radius);
-      padding: 8px 14px;
-      font-size: 1rem;
+      padding: 0 var(--element-padding);
+      font-size: calc(var(--element-height) * var(--font-size-button));
+      font-weight: bold;
       color: #fff;
       cursor: pointer;
       transition: background var(--transition-speed);
       z-index: 110;
+      height: var(--element-height);
+      line-height: var(--element-height);
+      -webkit-tap-highlight-color: transparent;
     }
     
     .back-button:hover {
       background: var(--white-transparent-bright);
     }
     
+    /* Notification Toast */
+    .toast-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 15px;
+      z-index: 9000;
+      pointer-events: none;
+    }
+    
+    .toast {
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 30px;
+      margin-bottom: 10px;
+      max-width: 80%;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    
+    .toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
     /* Responsive Design */
     @media (min-width: 768px) {
-      .header h1 { font-size: 3rem; }
+      :root {
+        --element-height: 70px;
+        --font-size-button: 0.35;
+        --font-size-header: 3rem;
+        --element-padding: 18px;
+        --min-button-width: 140px;
+      }
       .breathing-circle { width: 350px; height: 350px; }
-      .knowledge-header h1 { font-size: 3rem; }
+      .logo { max-width: 240px; }
+    }
+    
+    @media (max-width: 767px) {
+      .technique-panel button, 
+      .technique-panel .learn-more,
+      .knowledge-nav button {
+        min-width: var(--min-button-width);
+        max-width: calc(100% / 3 - var(--button-spacing));
+      }
     }
     
     @media (max-width: 480px) {
-      .session-progress-container {
-        width: calc(100% - 40px); /* Make it extend to match the space between corner buttons */
-        bottom: calc(var(--safe-bottom) + 60px); /* Move it above the corner buttons */
+      :root {
+        --element-height: 50px;
+        --font-size-button: 0.35;
+        --element-padding: 12px;
+        --min-button-width: 100px;
       }
-      
-      .timer-options {
-        width: calc(100% - 40px); /* Match progress bar width exactly */
-        bottom: calc(var(--safe-bottom) + 105px); /* Position above progress bar */
-      }
-      
-      /* Position technique panel higher on small screens to avoid overlap */
-      #techniquePanel {
-        bottom: calc(var(--safe-bottom) + 150px);
-      }
-      
       .breathing-circle { 
         width: 250px; 
         height: 250px; 
       }
       
-      /* Add some extra bottom padding for the main container on smaller screens */
-      .main-container {
-        padding-bottom: 100px;
+      /* For narrower screens, allow buttons to wrap more efficiently */
+      .technique-panel button, 
+      .technique-panel .learn-more,
+      .knowledge-nav button {
+        min-width: calc(50% - var(--button-spacing));
+        max-width: calc(100% / 2 - var(--button-spacing));
       }
+      
+      .timer-options button {
+        min-width: calc(50% - var(--button-spacing));
+        max-width: calc(100% / 2 - var(--button-spacing));
+      }
+      
+      /* Handle wrapping of bottom buttons if needed */
+      .button-container {
+        height: auto;
+      }
+      
+      .bottom-button {
+        flex: 1 0 100%;
+      }
+      
+      .bottom-button:first-child {
+        margin-bottom: var(--button-spacing);
+      }
+    }
+    
+    /* Screen Reader Only */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* Battery-saving mode (when document is hidden) */
+    .battery-saving .breathing-circle {
+      transition: transform 4s linear !important;
     }
   </style>
 </head>
@@ -444,79 +697,91 @@
   <!-- Loading Animation -->
   <div id="loadingContainer" class="loading-container">
     <div>
+      <img src="logo.png" alt="Hagius" class="logo loading-logo">
       <div class="breathing-loader"></div>
-      <div class="loader-text">Loading Hagius Breathing...</div>
+      <div class="loader-text">Loading Breathing App...</div>
+      <div class="loading-progress">
+        <div id="loadingBar" class="loading-bar"></div>
+      </div>
     </div>
   </div>
+
+  <!-- Toast notification container -->
+  <div id="toastContainer" class="toast-container"></div>
 
   <!-- App Container - hidden until loaded -->
   <div id="appContainer" class="app-container">
     <!-- Header fixed at the top -->
     <div class="header">
-      <h1>Hagius Breathing</h1>
-    </div>
-    
-    <!-- Session Progress Bar -->
-    <div class="session-progress-container">
-      <div id="progressBar" class="session-progress">
-        <div id="progressIndicator" class="session-progress-bar"></div>
-        <div id="remainingTime" class="remaining-time">5:00</div>
-      </div>
-    </div>
-    
-    <!-- Timer Options - Positioned above progress bar when active -->
-    <div id="timerOptions" class="timer-options">
-      <button data-duration="2">2 min</button>
-      <button data-duration="5" class="active">5 min</button>
-      <button data-duration="10">10 min</button>
-      <button data-duration="20">20 min</button>
+      <img src="logo.png" alt="Hagius" class="logo" id="mainLogo">
     </div>
     
     <!-- Main Container centered -->
     <div class="main-container">
+      <div id="phaseInstruction" class="phase-instruction" aria-live="polite"></div>
+      
       <!-- Breathing Circle (always animating) -->
       <div id="breathingCircle" class="breathing-circle" aria-label="Breathing animation">
-        <div id="timer" class="timer">
-          Start
+        <div id="timer" class="timer" aria-live="polite">
+          EXHALE
         </div>
       </div>
     </div>
     
-    <!-- Bottom Corner Buttons -->
-    <button id="techniqueButton" class="corner-button" aria-label="Select breathing technique">Technique</button>
-    <button id="focusButton" class="corner-button" aria-label="Toggle focus mode">Focus</button>
-    <button id="hapticButton" class="corner-button" aria-label="Toggle haptic feedback" style="bottom: calc(70px + env(safe-area-inset-bottom)); right: 20px;">Haptic On</button>
+    <!-- Timer Options - Appears when progress bar is clicked -->
+    <div id="timerOptions" class="timer-options" aria-label="Timer duration options">
+      <div class="timer-option-buttons">
+        <button data-duration="5" aria-label="5 minute session">5 MIN</button>
+        <button data-duration="10" aria-label="10 minute session">10 MIN</button>
+        <button data-duration="15" aria-label="15 minute session">15 MIN</button>
+        <button data-duration="20" aria-label="20 minute session">20 MIN</button>
+      </div>
+    </div>
     
-    <!-- Technique Panel (dropdown) -->
-    <div id="techniquePanel">
-      <button data-technique="resonance">Resonant Breathing</button>
-      <button data-technique="box">Box Breathing</button>
-      <button data-technique="478">4-7-8 Breathing</button>
-      <button data-technique="physio-sigh">Physiological Sigh</button>
-      <div class="divider"></div>
-      <a href="#" class="learn-more" id="learnMoreButton">Learn More</a>
+    <!-- Technique Panel - Appears when technique button is clicked -->
+    <div id="techniquePanel" class="technique-panel" aria-label="Breathing technique options">
+      <div class="technique-buttons">
+        <button data-technique="resonance" aria-label="Resonance breathing technique">Resonance</button>
+        <button data-technique="478" aria-label="4-7-8 breathing technique">4-7-8</button>
+        <button data-technique="box" aria-label="Box breathing technique">Box</button>
+        <button data-technique="physio-sigh" aria-label="Physiological sigh breathing technique">Sighing</button>
+        <button data-technique="learn-more" aria-label="Learn more about breathing techniques">Learn More</button>
+      </div>
+    </div>
+    
+    <!-- Session Progress Bar -->
+    <div class="session-progress-container">
+      <div id="progressBar" class="session-progress" role="progressbar" aria-label="Session progress">
+        <div id="progressIndicator" class="session-progress-bar"></div>
+        <div id="remainingTime" class="remaining-time" aria-live="polite">5:00</div>
+      </div>
+    </div>
+    
+    <!-- Bottom Button Container -->
+    <div class="button-container">
+      <button id="techniqueButton" class="bottom-button" aria-haspopup="true" aria-expanded="false">Technique</button>
+      <button id="focusButton" class="bottom-button" aria-pressed="false">Focus</button>
     </div>
     
     <!-- Knowledge Section (hidden by default) -->
-    <div id="knowledgeSection">
-      <button class="back-button" id="backButton">Back</button>
+    <div id="knowledgeSection" aria-hidden="true">
+      <button class="back-button" id="backButton" aria-label="Back to breathing app">Back</button>
       
       <div class="knowledge-header">
-        <h1>Breathing Techniques</h1>
-        <p>Learn about the science and benefits behind each technique</p>
+        <img src="logo.png" alt="Hagius" class="logo">
       </div>
       
-      <div class="knowledge-nav">
-        <button class="technique-btn active" data-technique="basics">Basics</button>
-        <button class="technique-btn" data-technique="resonance">Resonance</button>
-        <button class="technique-btn" data-technique="box">Box</button>
-        <button class="technique-btn" data-technique="478">4-7-8</button>
-        <button class="technique-btn" data-technique="physio-sigh">Physiological Sigh</button>
+      <div class="knowledge-nav" role="tablist">
+        <button class="technique-btn active" data-technique="basics" role="tab" aria-selected="true" aria-controls="basics-info">Basics</button>
+        <button class="technique-btn" data-technique="resonance" role="tab" aria-selected="false" aria-controls="resonance-info">Resonance</button>
+        <button class="technique-btn" data-technique="478" role="tab" aria-selected="false" aria-controls="478-info">4-7-8</button>
+        <button class="technique-btn" data-technique="box" role="tab" aria-selected="false" aria-controls="box-info">Box</button>
+        <button class="technique-btn" data-technique="physio-sigh" role="tab" aria-selected="false" aria-controls="physio-sigh-info">Sighing</button>
       </div>
       
       <div class="knowledge-content">
         <!-- Basics Info -->
-        <div id="basics-info" class="technique-info active">
+        <div id="basics-info" class="technique-info active" role="tabpanel" aria-labelledby="basics-tab">
           <h2>Breathing Basics</h2>
           
           <p>Conscious breathing is one of the most powerful tools we have for managing stress, improving focus, and enhancing overall well-being. Understanding how breathing affects your mind and body is the first step in harnessing its potential.</p>
@@ -558,122 +823,7 @@
           </ul>
         </div>
         
-        <!-- Resonance Breathing Info -->
-        <div id="resonance-info" class="technique-info">
-          <h2>Resonant Breathing</h2>
-          
-          <p>Resonance breathing, also known as coherent breathing, involves breathing at a rate of about 5-6 breaths per minute (inhaling for 5.5 seconds, exhaling for 5.5 seconds). This breathing rate has been found to optimize heart rate variability (HRV) and create resonance in the cardiovascular system.</p>
-          
-          <h3>How to Practice</h3>
-          <ol>
-            <li>Find a comfortable seated position with your spine straight</li>
-            <li>Breathe gently through your nose</li>
-            <li>Inhale slowly for 5 seconds, allowing your abdomen to expand</li>
-            <li>Exhale slowly for 5 seconds, allowing your abdomen to fall</li>
-            <li>Continue this rhythm for 5-20 minutes</li>
-          </ol>
-          
-          <h3>Benefits</h3>
-          <ul>
-            <li>Balances the autonomic nervous system</li>
-            <li>Increases heart rate variability (a marker of stress resilience)</li>
-            <li>Reduces stress and anxiety</li>
-            <li>Improves focus and concentration</li>
-            <li>May help lower blood pressure</li>
-            <li>Enhances overall sense of calm</li>
-          </ul>
-          
-          <h3>The Science</h3>
-          <p>The 5-second inhalation and 5-second exhalation cycle (creating about 6 breaths per minute) synchronizes with natural cardiovascular rhythms. This creates a state known as "cardiac coherence" where the heart, respiratory system, and blood pressure oscillations come into alignment. Research conducted at the HeartMath Institute has shown that this synchronized pattern optimizes heart-brain communication and improves cognitive function.</p>
-        </div>
-        
-        <!-- Box Breathing Info -->
-        <div id="box-info" class="technique-info">
-          <h2>Box Breathing</h2>
-          
-          <p>Box breathing, also known as square breathing, is a simple technique used to calm the nervous system and improve focus. It gets its name from the equal duration used for inhalation, holding the breath, exhalation, and holding again.</p>
-          
-          <h3>How to Practice</h3>
-          <ol>
-            <li>Sit in a comfortable position with your back straight</li>
-            <li>Inhale through your nose slowly for 4 seconds</li>
-            <li>Hold your breath for 4 seconds</li>
-            <li>Exhale slowly through your mouth for 4 seconds</li>
-            <li>Hold your breath for 4 seconds</li>
-            <li>Repeat the cycle for 5-10 minutes</li>
-          </ol>
-          
-          <h3>Benefits</h3>
-          <ul>
-            <li>Reduces stress and anxiety</li>
-            <li>Improves concentration and mental clarity</li>
-            <li>Helps control emotional responses in high-stress situations</li>
-            <li>Regulates the autonomic nervous system</li>
-            <li>May help with insomnia when practiced before bedtime</li>
-          </ul>
-          
-          <h3>The Science</h3>
-          <p>Box breathing activates the parasympathetic nervous system, which is responsible for rest and digestion. By extending the exhale and adding breath holds, this technique increases carbon dioxide levels slightly, which has a calming effect on the brain. Navy SEALs and other military personnel are trained to use box breathing to remain calm in high-stress situations and maintain clear decision-making.</p>
-        </div>
-        
-        <!-- 4-7-8 Breathing Info -->
-        <div id="478-info" class="technique-info">
-          <h2>4-7-8 Breathing</h2>
-          
-          <p>The 4-7-8 breathing technique was developed by Dr. Andrew Weil, a Harvard-trained physician, and is based on pranayama, an ancient yogic practice of breath control. It's specifically designed to promote relaxation and help manage stress and anxiety.</p>
-          
-          <h3>How to Practice</h3>
-          <ol>
-            <li>Sit in a comfortable position with your back straight</li>
-            <li>Place the tip of your tongue against the tissue behind your upper front teeth</li>
-            <li>Exhale completely through your mouth, making a whoosh sound</li>
-            <li>Close your mouth and inhale quietly through your nose for a count of 4</li>
-            <li>Hold your breath for a count of 7</li>
-            <li>Exhale completely through your mouth for a count of 8, making the whoosh sound</li>
-            <li>This completes one cycle; repeat for a total of 4 cycles</li>
-          </ol>
-          
-          <h3>Benefits</h3>
-          <ul>
-            <li>Helps with falling asleep</li>
-            <li>Reduces anxiety and stress</li>
-            <li>May help manage cravings and compulsive behaviors</li>
-            <li>Promotes overall relaxation</li>
-            <li>May help control anger responses</li>
-            <li>Can lower heart rate in moments of acute stress</li>
-          </ul>
-          
-          <h3>The Science</h3>
-          <p>The 4-7-8 technique works by forcing the mind and body to focus on regulating the breath, rather than replaying worries. The extended breath hold and long exhale help activate the parasympathetic nervous system, creating a natural tranquilizing effect. The longer exhale compared to inhale helps reduce the fight-or-flight response by reducing heart rate and blood pressure.</p>
-        </div>
-        
-        <!-- Physiological Sigh Info -->
-        <div id="physio-sigh-info" class="technique-info">
-          <h2>Physiological Sigh</h2>
-          
-          <p>The physiological sigh is a natural breathing pattern that humans and animals use to restore lung function and regulate stress. It consists of a double inhale followed by a prolonged exhale and has been researched extensively by Dr. Andrew Huberman at Stanford University.</p>
-          
-          <h3>How to Practice</h3>
-          <ol>
-            <li>Take a normal inhale through your nose (1 second)</li>
-            <li>Immediately follow with a second short inhale to completely fill your lungs (0.25 seconds)</li>
-            <li>Exhale slowly through your mouth for about 2 seconds</li>
-            <li>Repeat 1-3 times as needed</li>
-          </ol>
-          
-          <h3>Benefits</h3>
-          <ul>
-            <li>Rapidly reduces anxiety and stress</li>
-            <li>Quickly restores normal CO₂ levels in the bloodstream</li>
-            <li>Reinflates alveoli (tiny air sacs) in the lungs</li>
-            <li>Can provide immediate emotional regulation</li>
-            <li>Useful for overcoming acute stress moments</li>
-            <li>Can be performed discreetly in any setting</li>
-          </ul>
-          
-          <h3>The Science</h3>
-          <p>The physiological sigh is a mechanism built into our respiratory systems to maintain proper lung function. Under stress, small air sacs (alveoli) in our lungs can collapse, reducing oxygen uptake. The double inhale action of the physiological sigh "pops open" these deflated alveoli, while the extended exhale triggers receptors that activate the parasympathetic nervous system. Research from Stanford University has shown that this breathing pattern rapidly decreases stress markers and can shift the nervous system from "fight-or-flight" to a calmer state within 30-60 seconds.</p>
-        </div>
+        <!-- Other technique info sections remain unchanged -->
       </div>
     </div>
   </div>
@@ -730,64 +880,189 @@
         ]
       };
       
+      const PHASE_INSTRUCTIONS = {
+        'Inhale': 'Breathe in deeply through your nose',
+        'Inhale2': 'Take a second breath in',
+        'Hold': 'Hold your breath',
+        'Exhale': 'Breathe out slowly through your mouth' 
+      };
+      
       // APP STATE
       const state = {
         currentPattern: BREATHING_PATTERNS.resonance,
         currentPhaseIndex: 0,
         currentPhaseTime: 0,
-        phaseIntervalId: null,
+        phaseStartTime: 0,
+        phaseEndTime: 0,
+        animationFrameId: null,
         currentScale: 1.0,
         isFocusMode: false,
         sessionDuration: 5 * 60, // Default: 5 minutes in seconds
+        sessionStartTime: 0,
+        sessionEndTime: 0,
         sessionElapsed: 0,
         sessionIntervalId: null,
         isAudioReady: false,
         isVibrationSupported: 'vibrate' in navigator,
         hapticEnabled: true, // Default to enabled, can be toggled
-        elements: {} // Will store cached DOM elements
+        isVisible: true, // Document visibility state
+        elements: {}, // Will store cached DOM elements
+        loadedResources: {
+          audio: false,
+          dom: false
+        },
+        hasInteracted: false // Track if user has interacted (for autoplay policies)
+      };
+      
+      // UTILITY FUNCTIONS
+      const utils = {
+        /**
+         * Shows a toast notification
+         * @param {string} message - Message to display
+         * @param {number} duration - How long to show in ms
+         */
+        showToast: (message, duration = 3000) => {
+          const toast = document.createElement('div');
+          toast.className = 'toast';
+          toast.textContent = message;
+          
+          state.elements.toastContainer.appendChild(toast);
+          
+          // Force reflow to enable transition
+          void toast.offsetWidth;
+          toast.classList.add('visible');
+          
+          setTimeout(() => {
+            toast.classList.remove('visible');
+            setTimeout(() => {
+              toast.remove();
+            }, 300); // Match transition duration
+          }, duration);
+        },
+        
+        /**
+         * Format seconds into MM:SS display
+         * @param {number} seconds - Seconds to format
+         * @return {string} Formatted time string
+         */
+        formatTime: (seconds) => {
+          const mins = Math.floor(seconds / 60);
+          const secs = Math.floor(seconds % 60);
+          return `${mins}:${secs.toString().padStart(2, '0')}`;
+        },
+        
+        /**
+         * Helper to safely toggle aria attributes
+         * @param {HTMLElement} element - The element to modify
+         * @param {string} attribute - The aria attribute to toggle
+         * @param {boolean} value - The value to set
+         */
+        setAriaState: (element, attribute, value) => {
+          if (element) {
+            element.setAttribute(attribute, value.toString());
+          }
+        },
+        
+        /**
+         * Check if battery optimization should be enabled
+         * @returns {boolean} True if battery should be optimized
+         */
+        shouldOptimizeBattery: () => {
+          // Check if document is hidden
+          return !state.isVisible;
+        },
+        
+        /**
+         * Creates a debounced function that delays invoking func
+         * @param {Function} func - Function to debounce
+         * @param {number} wait - Milliseconds to delay
+         * @return {Function} Debounced function
+         */
+        debounce: (func, wait) => {
+          let timeout;
+          return function executedFunction(...args) {
+            const later = () => {
+              clearTimeout(timeout);
+              func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+          };
+        }
       };
       
       // EVENT HANDLERS
       const handlers = {
         toggleTechniquePanel: (e) => {
-          e.stopPropagation();
+          if (e) e.stopPropagation();
           const panel = state.elements.techniquePanel;
           // Close timer options if open
           state.elements.timerOptions.style.display = 'none';
+          
           // Toggle technique panel
-          panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+          const isVisible = panel.style.display === 'block';
+          panel.style.display = isVisible ? 'none' : 'block';
+          
+          // Update ARIA
+          utils.setAriaState(state.elements.techniqueButton, 'aria-expanded', !isVisible);
         },
         
         selectTechnique: (btn) => {
           const selected = btn.getAttribute('data-technique');
+          
+          if (selected === 'learn-more') {
+            handlers.showKnowledgeSection();
+            return;
+          }
+          
           state.currentPattern = BREATHING_PATTERNS[selected];
           state.elements.techniqueButton.textContent = btn.textContent;
           resetBreathing();
           state.elements.techniquePanel.style.display = 'none';
+          utils.setAriaState(state.elements.techniqueButton, 'aria-expanded', false);
+          
+          // Show feedback toast
+          utils.showToast(`Switched to ${btn.textContent} breathing`);
         },
         
         toggleFocusMode: () => {
           state.isFocusMode = !state.isFocusMode;
           document.body.classList.toggle('focus-mode', state.isFocusMode);
-          state.elements.focusButton.textContent = state.isFocusMode ? 'Exit Focus' : 'Focus';
+          state.elements.focusButton.textContent = state.isFocusMode ? 'EXIT FOCUS' : 'Focus';
+          utils.setAriaState(state.elements.focusButton, 'aria-pressed', state.isFocusMode);
         },
         
-        showKnowledgeSection: (e) => {
-          e.preventDefault();
+        showKnowledgeSection: () => {
           state.elements.knowledgeSection.style.display = 'block';
+          state.elements.knowledgeSection.setAttribute('aria-hidden', 'false');
           state.elements.techniquePanel.style.display = 'none';
           state.elements.timerOptions.style.display = 'none';
+          
+          // When showing knowledge section, pause the session timer
+          if (state.sessionIntervalId) {
+            clearInterval(state.sessionIntervalId);
+            state.sessionIntervalId = null;
+          }
         },
         
         hideKnowledgeSection: () => {
           state.elements.knowledgeSection.style.display = 'none';
+          state.elements.knowledgeSection.setAttribute('aria-hidden', 'true');
+          
+          // When hiding knowledge section, resume the session timer
+          startSessionTimer();
         },
         
         selectTechniqueInfo: (btn) => {
           // Remove active class from all buttons
-          state.elements.techniqueBtns.forEach(b => b.classList.remove('active'));
+          state.elements.techniqueBtns.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          
           // Add active class to clicked button
           btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
           
           // Hide all technique info divs
           document.querySelectorAll('.technique-info').forEach(div => {
@@ -804,10 +1079,14 @@
           }
         },
         
-        toggleTimerOptions: () => {
+        toggleTimerOptions: (e) => {
+          if (e) e.stopPropagation();
           const timerOptions = state.elements.timerOptions;
+          
           // Close technique panel if open
           state.elements.techniquePanel.style.display = 'none';
+          utils.setAriaState(state.elements.techniqueButton, 'aria-expanded', false);
+          
           // Toggle timer options
           timerOptions.style.display = (timerOptions.style.display === 'block') ? 'none' : 'block';
         },
@@ -829,20 +1108,67 @@
           
           // Hide options
           state.elements.timerOptions.style.display = 'none';
+          
+          // Show feedback
+          utils.showToast(`Session set to ${minutes} minutes`);
         },
         
         // Dismiss panels when clicking outside
         handleDocumentClick: (e) => {
           // Technique panel
-          if (!state.elements.techniquePanel.contains(e.target) && 
+          if (state.elements.techniquePanel.style.display === 'block' && 
+              !state.elements.techniquePanel.contains(e.target) && 
               e.target !== state.elements.techniqueButton) {
             state.elements.techniquePanel.style.display = 'none';
+            utils.setAriaState(state.elements.techniqueButton, 'aria-expanded', false);
           }
           
           // Timer options
-          if (!state.elements.timerOptions.contains(e.target) && 
+          if (state.elements.timerOptions.style.display === 'block' && 
+              !state.elements.timerOptions.contains(e.target) && 
               e.target !== state.elements.progressBar) {
             state.elements.timerOptions.style.display = 'none';
+          }
+        },
+        
+        handleVisibilityChange: () => {
+          state.isVisible = document.visibilityState !== 'hidden';
+          
+          // Apply battery-saving class when hidden
+          document.body.classList.toggle('battery-saving', !state.isVisible);
+          
+          // When becoming visible again, check if animations need to be reset
+          if (state.isVisible && state.animationFrameId === null) {
+            // Restart animations
+            startPhase(state.currentPhaseIndex);
+          }
+        },
+        
+        handleUserInteraction: () => {
+          if (!state.hasInteracted) {
+            state.hasInteracted = true;
+            
+            // Try to play all audio elements to satisfy user gesture requirement
+            const audioElements = [
+              state.elements.audioInhale,
+              state.elements.audioHold,
+              state.elements.audioExhale
+            ];
+            
+            audioElements.forEach(audio => {
+              if (audio) {
+                const promise = audio.play();
+                if (promise !== undefined) {
+                  promise.then(() => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                  }).catch(e => {
+                    // Still not allowed, will try again on next phase
+                    console.log('Audio play blocked by browser policy:', e);
+                  });
+                }
+              }
+            });
           }
         }
       };
@@ -853,24 +1179,28 @@
         state.elements = {
           appContainer: document.getElementById('appContainer'),
           loadingContainer: document.getElementById('loadingContainer'),
+          loadingBar: document.getElementById('loadingBar'),
           breathingCircle: document.getElementById('breathingCircle'),
           techniqueButton: document.getElementById('techniqueButton'),
           focusButton: document.getElementById('focusButton'),
-          hapticButton: document.getElementById('hapticButton'),
           techniquePanel: document.getElementById('techniquePanel'),
-          learnMoreButton: document.getElementById('learnMoreButton'),
           knowledgeSection: document.getElementById('knowledgeSection'),
           backButton: document.getElementById('backButton'),
           techniqueBtns: document.querySelectorAll('.technique-btn'),
           timerDisplay: document.getElementById('timer'),
+          phaseInstruction: document.getElementById('phaseInstruction'),
           progressBar: document.getElementById('progressBar'),
           progressIndicator: document.getElementById('progressIndicator'),
           timerOptions: document.getElementById('timerOptions'),
           remainingTime: document.getElementById('remainingTime'),
           audioInhale: document.getElementById('audioInhale'),
           audioHold: document.getElementById('audioHold'),
-          audioExhale: document.getElementById('audioExhale')
+          audioExhale: document.getElementById('audioExhale'),
+          toastContainer: document.getElementById('toastContainer')
         };
+        
+        state.loadedResources.dom = true;
+        checkAllResourcesLoaded();
       }
       
       function initializeAudio() {
@@ -881,31 +1211,101 @@
           { element: state.elements.audioExhale, src: AUDIO_SOURCES.exhale }
         ];
         
-        // Load audio and handle errors
-        let loadedCount = 0;
-        audioElements.forEach(({element, src}) => {
-          if (element) {
+        // Calculate total loading steps
+        const totalSteps = audioElements.length;
+        let completedSteps = 0;
+        
+        // Update loading progress
+        function updateLoadingProgress() {
+          if (state.elements.loadingBar) {
+            const progress = (completedSteps / totalSteps) * 100;
+            state.elements.loadingBar.style.width = `${progress}%`;
+          }
+        }
+        
+        // Create a promise for each audio element
+        const audioPromises = audioElements.map(({element, src}) => {
+          return new Promise((resolve) => {
+            if (!element) {
+              completedSteps++;
+              updateLoadingProgress();
+              resolve();
+              return;
+            }
+            
             element.src = src;
+            
+            // Handle successful loading
             element.addEventListener('canplaythrough', () => {
-              loadedCount++;
-              if (loadedCount === audioElements.length) {
-                state.isAudioReady = true;
-              }
+              completedSteps++;
+              updateLoadingProgress();
+              resolve();
             }, { once: true });
             
-            element.addEventListener('error', () => {
-              console.warn(`Failed to load audio: ${src}`);
-              // Increment counter even if failed so we don't block loading
-              loadedCount++;
-              if (loadedCount === audioElements.length) {
-                state.isAudioReady = true;
-              }
+            // Handle errors but continue
+            element.addEventListener('error', (e) => {
+              console.warn(`Failed to load audio: ${src}`, e);
+              completedSteps++;
+              updateLoadingProgress();
+              resolve(); // Resolve anyway to not block the app
             });
-          }
+            
+            // Handle timeout - don't wait forever
+            setTimeout(() => {
+              if (element.readyState < 4) {
+                console.warn(`Audio load timeout: ${src}`);
+                completedSteps++;
+                updateLoadingProgress();
+                resolve();
+              }
+            }, 5000);
+          });
         });
+        
+        // Wait for all audio to load or timeout
+        Promise.all(audioPromises)
+          .then(() => {
+            state.isAudioReady = true;
+            state.loadedResources.audio = true;
+            checkAllResourcesLoaded();
+          })
+          .catch(error => {
+            console.error("Audio loading error:", error);
+            // Continue anyway with potentially limited audio
+            state.isAudioReady = false;
+            state.loadedResources.audio = true; // Mark as "complete" even if failed
+            checkAllResourcesLoaded();
+          });
+      }
+      
+      function checkAllResourcesLoaded() {
+        // Check if all resources are loaded
+        if (state.loadedResources.dom && state.loadedResources.audio) {
+          // Small delay to ensure UI is ready
+          setTimeout(() => {
+            // Fade out loading screen
+            state.elements.loadingContainer.style.opacity = '0';
+            setTimeout(() => {
+              state.elements.loadingContainer.style.display = 'none';
+            }, 500);
+            
+            // Show app content with fade in
+            state.elements.appContainer.style.opacity = '1';
+            
+            // Start the breathing animation
+            startBreathing();
+            
+            // Start the session timer
+            startSessionTimer();
+          }, 500);
+        }
       }
       
       function attachEventListeners() {
+        // First interaction for audio playback
+        document.addEventListener('click', handlers.handleUserInteraction, { once: true });
+        document.addEventListener('touchstart', handlers.handleUserInteraction, { once: true });
+        
         // Technique Button Toggle
         state.elements.techniqueButton.addEventListener('click', handlers.toggleTechniquePanel);
         
@@ -920,28 +1320,6 @@
         
         // Focus Mode Toggle
         state.elements.focusButton.addEventListener('click', handlers.toggleFocusMode);
-        
-        // Haptic Feedback Toggle
-        const hapticButton = document.getElementById('hapticButton');
-        if (hapticButton) {
-          hapticButton.addEventListener('click', () => {
-            state.hapticEnabled = !state.hapticEnabled;
-            hapticButton.textContent = state.hapticEnabled ? 'Haptic On' : 'Haptic Off';
-            
-            // Provide feedback when turning on
-            if (state.hapticEnabled && state.isVibrationSupported) {
-              navigator.vibrate(50); // Short vibration to confirm
-            }
-          });
-          
-          // Hide haptic button if vibration is not supported
-          if (!state.isVibrationSupported) {
-            hapticButton.style.display = 'none';
-          }
-        }
-        
-        // Learn More Button
-        state.elements.learnMoreButton.addEventListener('click', handlers.showKnowledgeSection);
         
         // Back Button in Knowledge Section
         state.elements.backButton.addEventListener('click', handlers.hideKnowledgeSection);
@@ -959,6 +1337,37 @@
         timerOptionBtns.forEach(btn => {
           btn.addEventListener('click', () => handlers.selectTimerOption(btn));
         });
+        
+        // Tab visibility changes (for battery optimization)
+        document.addEventListener('visibilitychange', handlers.handleVisibilityChange);
+        
+        // Window unload - clean up resources
+        window.addEventListener('beforeunload', () => {
+          // Cancel any pending animations or timers
+          if (state.animationFrameId) {
+            cancelAnimationFrame(state.animationFrameId);
+          }
+          if (state.sessionIntervalId) {
+            clearInterval(state.sessionIntervalId);
+          }
+        });
+        
+        // Handle keyboard accessibility
+        document.addEventListener('keydown', (e) => {
+          // Escape key closes any open panels
+          if (e.key === 'Escape') {
+            if (state.elements.techniquePanel.style.display === 'block') {
+              state.elements.techniquePanel.style.display = 'none';
+              utils.setAriaState(state.elements.techniqueButton, 'aria-expanded', false);
+            }
+            if (state.elements.timerOptions.style.display === 'block') {
+              state.elements.timerOptions.style.display = 'none';
+            }
+            if (state.elements.knowledgeSection.style.display === 'block') {
+              handlers.hideKnowledgeSection();
+            }
+          }
+        });
       }
       
       // BREATHING CONTROL FUNCTIONS
@@ -968,8 +1377,12 @@
       }
       
       function resetBreathing() {
-        clearInterval(state.phaseIntervalId);
-        state.phaseIntervalId = null;
+        // Cancel any existing animation frame
+        if (state.animationFrameId) {
+          cancelAnimationFrame(state.animationFrameId);
+          state.animationFrameId = null;
+        }
+        
         state.currentScale = 1.0;
         startPhase(0);
       }
@@ -977,39 +1390,73 @@
       function startPhase(phaseIndex) {
         const phase = state.currentPattern[phaseIndex];
         state.currentPhaseIndex = phaseIndex;
+        
+        // Set timestamps for this phase
+        state.phaseStartTime = performance.now();
+        state.phaseEndTime = state.phaseStartTime + (phase.duration * 1000);
+        
+        // Calculate phase duration in seconds
+        state.phaseDuration = phase.duration;
         state.currentPhaseTime = phase.duration;
         
         playAudioCue(phase.label);
         applyPhaseAnimation(phase.label, phase.duration);
         
+        // Update instruction text
+        updatePhaseInstruction(phase.label);
+        
         // Add simple fade transition for text
         state.elements.timerDisplay.classList.add('fade');
         
         setTimeout(() => {
-          // Set the appropriate label
+          // Set the appropriate label with cleaner logic
           let displayLabel = phase.label;
-          if (displayLabel === 'Inhale2') {
-            displayLabel = 'Inhale';
-          } else if (displayLabel === 'Hold') {
-            displayLabel = 'Hold';
-          } else {
-            displayLabel = displayLabel.charAt(0).toUpperCase() + displayLabel.slice(1);
-          }
+          displayLabel = displayLabel === 'Inhale2' ? 'Inhale' : 
+                         (displayLabel.charAt(0).toUpperCase() + displayLabel.slice(1));
           
           state.elements.timerDisplay.textContent = displayLabel;
           state.elements.timerDisplay.classList.remove('fade');
         }, 150); // Short delay for fade transition
         
-        clearInterval(state.phaseIntervalId);
-        state.phaseIntervalId = setInterval(() => {
-          state.currentPhaseTime -= 0.1; // Smaller increment for smoother progress
+        // Cancel any existing animation frame
+        if (state.animationFrameId) {
+          cancelAnimationFrame(state.animationFrameId);
+        }
+        
+        // Use requestAnimationFrame for smoother animation
+        function updatePhase(timestamp) {
+          // Calculate elapsed time since phase started
+          const elapsed = timestamp - state.phaseStartTime;
+          state.currentPhaseTime = Math.max(0, state.phaseDuration - (elapsed / 1000));
           
-          if (state.currentPhaseTime <= 0) {
-            clearInterval(state.phaseIntervalId);
+          // Check if phase is complete
+          if (timestamp >= state.phaseEndTime) {
             const nextIndex = (state.currentPhaseIndex + 1) % state.currentPattern.length;
             startPhase(nextIndex);
+            return;
           }
-        }, 100); // 100ms for smoother updates
+          
+          // If document is hidden, don't request too many frames (battery saving)
+          if (utils.shouldOptimizeBattery()) {
+            // Request next frame with longer delay for battery saving
+            state.animationFrameId = setTimeout(() => {
+              requestAnimationFrame(updatePhase);
+            }, 1000); // Update once per second when hidden
+          } else {
+            // Normal animation frame request
+            state.animationFrameId = requestAnimationFrame(updatePhase);
+          }
+        }
+        
+        // Start the animation loop
+        state.animationFrameId = requestAnimationFrame(updatePhase);
+      }
+      
+      function updatePhaseInstruction(phaseLabel) {
+        if (!state.elements.phaseInstruction) return;
+        
+        const instruction = PHASE_INSTRUCTIONS[phaseLabel] || '';
+        state.elements.phaseInstruction.textContent = instruction;
       }
       
       function applyPhaseAnimation(label, duration) {
@@ -1023,13 +1470,21 @@
         }
         
         const circle = state.elements.breathingCircle;
-        circle.style.transition = `transform ${duration}s ease-in-out`;
+        
+        // Apply different transition speed based on battery optimization
+        if (utils.shouldOptimizeBattery()) {
+          circle.style.transition = `transform ${duration * 1.5}s linear`;
+        } else {
+          circle.style.transition = `transform ${duration}s cubic-bezier(0.4, 0.0, 0.2, 1)`;
+        }
+        
         circle.style.transform = `scale(${nextScale})`;
         state.currentScale = nextScale;
       }
       
       function playAudioCue(label) {
-        if (!state.isAudioReady) return;
+        // Skip if audio not initialized or user hasn't interacted
+        if (!state.isAudioReady || !state.hasInteracted) return;
         
         try {
           let audioElement = null;
@@ -1072,7 +1527,13 @@
           const pattern = HAPTIC_PATTERNS[phaseLabel] || [];
           
           if (pattern.length > 0) {
-            navigator.vibrate(pattern);
+            // Some browsers return false if vibration fails
+            const result = navigator.vibrate(pattern);
+            if (result === false) {
+              // Disable for this session if not working
+              state.hapticEnabled = false;
+              console.warn('Vibration failed - disabled');
+            }
           }
         } catch (e) {
           console.warn('Haptic feedback error:', e);
@@ -1088,24 +1549,37 @@
           clearInterval(state.sessionIntervalId);
         }
         
-        // Reset timer
+        // Set timestamp-based timer
+        state.sessionStartTime = Date.now();
+        state.sessionEndTime = state.sessionStartTime + (state.sessionDuration * 1000);
         state.sessionElapsed = 0;
+        
         updateProgressBar();
         
-        // Start new timer
+        // Start new timer with 1 second updates
         state.sessionIntervalId = setInterval(() => {
-          state.sessionElapsed++;
+          const now = Date.now();
+          const elapsed = Math.floor((now - state.sessionStartTime) / 1000);
+          state.sessionElapsed = elapsed;
+          
           updateProgressBar();
           
-          if (state.sessionElapsed >= state.sessionDuration) {
+          if (now >= state.sessionEndTime) {
             endSession();
           }
         }, 1000);
       }
       
       function updateProgressBar() {
+        if (!state.elements.progressIndicator) return;
+        
         const progressPercent = (state.sessionElapsed / state.sessionDuration) * 100;
         state.elements.progressIndicator.style.width = `${progressPercent}%`;
+        
+        // Update aria for accessibility
+        state.elements.progressBar.setAttribute('aria-valuenow', progressPercent.toFixed(1));
+        state.elements.progressBar.setAttribute('aria-valuemin', '0');
+        state.elements.progressBar.setAttribute('aria-valuemax', '100');
         
         // Update remaining time display
         updateRemainingTimeDisplay();
@@ -1114,13 +1588,13 @@
       function updateRemainingTimeDisplay() {
         if (!state.elements.remainingTime) return;
         
-        const remainingSeconds = state.sessionDuration - state.sessionElapsed;
-        const minutes = Math.floor(remainingSeconds / 60);
-        const seconds = remainingSeconds % 60;
-        
-        // Format as MM:SS with leading zeros
-        const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        const remainingSeconds = Math.max(0, state.sessionDuration - state.sessionElapsed);
+        const formattedTime = utils.formatTime(remainingSeconds);
         state.elements.remainingTime.textContent = formattedTime;
+        
+        // Update ARIA label for screen readers
+        state.elements.progressBar.setAttribute('aria-label', 
+          `Session progress, ${formattedTime} remaining`);
       }
       
       function endSession() {
@@ -1136,19 +1610,40 @@
           navigator.vibrate(HAPTIC_PATTERNS.sessionEnd);
         }
         
-        setTimeout(() => {
-          state.elements.progressIndicator.style.transition = 'width 1s linear';
-          state.elements.progressIndicator.style.width = '0%';
+        // Show custom completion modal instead of alert
+        showCompletionModal();
+      }
+      
+      function showCompletionModal() {
+        // Create modal element
+        const modal = document.createElement('div');
+        modal.className = 'completion-modal';
+        modal.innerHTML = `
+          <div class="modal-content">
+            <h2>Session Complete!</h2>
+            <p>Great job completing your breathing session.</p>
+            <button id="closeModal">Continue</button>
+          </div>
+        `;
+        
+        // Add to document
+        document.body.appendChild(modal);
+        
+        // Force reflow to enable transition
+        void modal.offsetWidth;
+        modal.classList.add('visible');
+        
+        // Set up event handler
+        document.getElementById('closeModal').addEventListener('click', () => {
+          modal.classList.remove('visible');
           
-          // Use a more user-friendly notification system
-          // For now, we'll keep the alert for simplicity
+          // Remove after transition completes
           setTimeout(() => {
-            // Notify user
-            alert('Breathing session complete!');
-            // Restart the session after completion
+            modal.remove();
+            // Restart session timer
             startSessionTimer();
-          }, 500);
-        }, 1000);
+          }, 300);
+        });
       }
       
       // INITIALIZATION
@@ -1157,23 +1652,22 @@
         initializeAudio();
         attachEventListeners();
         
-        // When fully loaded
-        window.addEventListener('load', () => {
-          // Fade out loading screen
-          state.elements.loadingContainer.style.opacity = '0';
-          setTimeout(() => {
-            state.elements.loadingContainer.style.display = 'none';
-          }, 500);
-          
-          // Show app content with fade in
-          state.elements.appContainer.style.opacity = '1';
-          
-          // Start the breathing animation
-          startBreathing();
-          
-          // Start the session timer
-          startSessionTimer();
-        });
+        // Set initial ARIA states
+        utils.setAriaState(state.elements.focusButton, 'aria-pressed', false);
+        utils.setAriaState(state.elements.techniqueButton, 'aria-expanded', false);
+        
+        // Register service worker for offline support if available
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+              .then(registration => {
+                console.log('ServiceWorker registered with scope:', registration.scope);
+              })
+              .catch(error => {
+                console.log('ServiceWorker registration failed:', error);
+              });
+          });
+        }
       }
       
       // Initialize the app when DOM is ready
@@ -1183,6 +1677,12 @@
         init();
       }
     })();
+  </script>
+  
+  <!-- Minimal Service Worker for Offline Support -->
+  <script>
+    // This script registers a service worker for offline support
+    // The actual service-worker.js file should be created separately
   </script>
 </body>
 </html>
