@@ -302,7 +302,6 @@
       right: 0;
       display: none;
       z-index: 30;
-      margin-bottom: var(--button-spacing);
     }
     
     .timer-option-buttons {
@@ -407,7 +406,6 @@
       right: 0;
       display: none;
       z-index: 50;
-      margin-bottom: var(--button-spacing);
     }
     
     .technique-buttons {
@@ -417,26 +415,34 @@
       gap: var(--button-spacing);
     }
     
-    /* First row - 3 buttons */
-    .technique-panel button:nth-child(1),
-    .technique-panel button:nth-child(2),
-    .technique-panel button:nth-child(3) {
-      flex: 1 1 calc(33.333% - var(--button-spacing) * 2/3);
+    /* Default layout - 3 buttons in top row, 2 in bottom */
+    .technique-panel button {
+      flex: 1 1 calc(33.33% - var(--button-spacing) * 2/3);
+      min-width: 80px; /* Ensures buttons don't get too small */
     }
     
-    /* Second row - 2 buttons */
-    .technique-panel button:nth-child(4) {
-      flex: 1 1 calc(50% - var(--button-spacing) * 1/2);
-    }
-    
+    .technique-panel button:nth-child(4),
     .technique-panel button:nth-child(5) {
       flex: 1 1 calc(50% - var(--button-spacing) * 1/2);
     }
     
-    /* Media query for narrow screens */
-    @media (max-width: 480px) {
+    /* Medium screens - 2 buttons per row where possible */
+    @media (max-width: 600px) {
       .technique-panel button {
-        flex: 1 1 100% !important;
+        flex: 1 1 calc(50% - var(--button-spacing) * 1/2);
+      }
+      
+      /* If needed, the rightmost button will wrap */
+      .technique-buttons {
+        justify-content: flex-start;
+      }
+    }
+    
+    /* Even on narrow screens, maintain equal widths per row */
+    @media (max-width: 320px) {
+      .technique-panel button {
+        flex: 1 1 auto; /* Allow natural sizing */
+        min-width: calc(50% - var(--button-spacing)); /* Two per row minimum */
       }
     }
     
