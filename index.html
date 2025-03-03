@@ -891,24 +891,21 @@
       transition: background 1.5s ease;
     }
 
-    /* Forest Theme */
-    .theme-forest {
-      background: linear-gradient(to bottom, #2c5e1a, #1a4314) !important;
+    /* Hover glow effect */
+    .breathing-circle.hover-glow {
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3) !important;
+      transition: box-shadow 0.3s ease;
     }
 
-    /* Ocean Theme */
-    .theme-ocean {
-      background: linear-gradient(to bottom, #1a3a8f, #065a82) !important;
+    /* Pulse effect */
+    .breathing-circle.pulse-effect {
+      animation: circle-pulse 0.6s ease-in-out !important;
     }
 
-    /* Night Sky Theme */
-    .theme-night-sky {
-      background: linear-gradient(to bottom, #0f1746, #292256) !important;
-    }
-
-    /* Sunset Theme */
-    .theme-sunset {
-      background: linear-gradient(to bottom, #ff7e5f, #feb47b) !important;
+    @keyframes circle-pulse {
+      0% { transform: scale(1) !important; }
+      50% { transform: scale(1.05) !important; }
+      100% { transform: scale(1) !important; }
     }
 
     /* Particle Animations */
@@ -972,77 +969,49 @@
       pointer-events: none;
     }
 
-    @keyframes ripple-expand {
-      0% {
-        width: 10px;
-        height: 10px;
-        opacity: 0.7;
-      }
-      100% {
-        width: 300px; /* Larger than circle */
-        height: 300px;
-        opacity: 0;
-      }
+    /* Theme Base Styles */
+    body {
+      transition: background 1.5s ease;
     }
 
-    /* Hover glow effect */
-    .breathing-circle.hover-glow {
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-      transition: box-shadow 0.3s ease;
+    /* Forest Theme */
+    .theme-forest {
+      background: linear-gradient(to bottom, #2c5e1a, #1a4314) !important;
     }
 
-    /* Pulse effect */
-    .breathing-circle.pulse-effect {
-      animation: circle-pulse 0.6s ease-in-out;
+    /* Ocean Theme */
+    .theme-ocean {
+      background: linear-gradient(to bottom, #1a3a8f, #065a82) !important;
     }
 
-    @keyframes circle-pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    /* Night Sky Theme */
+    .theme-night-sky {
+      background: linear-gradient(to bottom, #0f1746, #292256) !important;
     }
 
-    /* Sparkle effect */
-    .sparkle-container {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
+    /* Sunset Theme */
+    .theme-sunset {
+      background: linear-gradient(to bottom, #ff7e5f, #feb47b) !important;
     }
 
-    .sparkle {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 2px;
-      height: 15px;
-      background: white;
-      border-radius: 2px;
-      transform-origin: center bottom;
-      animation: sparkle-out 0.8s ease-out forwards;
+    /* Forest Theme */
+    .theme-forest {
+      background: linear-gradient(to bottom, #2c5e1a, #1a4314) !important;
     }
 
-    @keyframes sparkle-out {
-      0% {
-        height: 0;
-        opacity: 0.9;
-      }
-      70% {
-        height: 25px;
-        opacity: 0.9;
-      }
-      100% {
-        height: 15px;
-        opacity: 0;
-      }
+    /* Ocean Theme */
+    .theme-ocean {
+      background: linear-gradient(to bottom, #1a3a8f, #065a82) !important;
     }
 
-    /* Fade out animation */
-    .fade-out {
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    /* Night Sky Theme */
+    .theme-night-sky {
+      background: linear-gradient(to bottom, #0f1746, #292256) !important;
+    }
+
+    /* Sunset Theme */
+    .theme-sunset {
+      background: linear-gradient(to bottom, #ff7e5f, #feb47b) !important;
     }
     
     /* Circle ripple effect */
@@ -1055,6 +1024,19 @@
       transform: translate(-50%, -50%);
       animation: ripple-expand 0.7s ease-out forwards;
       pointer-events: none;
+    }
+
+    @keyframes ripple-expand {
+      0% {
+        width: 10px;
+        height: 10px;
+        opacity: 0.7;
+      }
+      100% {
+        width: 300px; /* Larger than circle */
+        height: 300px;
+        opacity: 0;
+      }
     }
 
     /* Secret Konami Code Styles */
@@ -1509,29 +1491,25 @@
   <script>
     /**
      * Hagius Breathing App
-     * Restored core functionality with working loading bar and interactive effects
+     * Restored core functionality with directly implemented joy features
      */
     
-    // For debugging: Add direct click listener to the breathing circle
+    // For debugging: Add all event listeners directly after window load
     window.addEventListener('load', function() {
       console.log("Window loaded - setting up direct event listeners");
+      
+      // FEATURE 1: INTERACTIVE BREATHING CIRCLE
       const breathingCircle = document.getElementById('breathingCircle');
       if (breathingCircle) {
-        console.log("Found breathing circle - adding direct click handler");
+        console.log("Found breathing circle - adding direct handlers");
+        
+        // 1. Ripple effect on click/tap
         breathingCircle.onclick = function(e) {
           console.log("Breathing circle clicked directly");
           // Create a simple ripple effect
           try {
             const ripple = document.createElement('div');
             ripple.className = 'circle-ripple';
-            ripple.style.position = 'absolute';
-            ripple.style.width = '10px';
-            ripple.style.height = '10px';
-            ripple.style.background = 'rgba(255, 255, 255, 0.4)';
-            ripple.style.borderRadius = '50%';
-            ripple.style.transform = 'translate(-50%, -50%)';
-            ripple.style.animation = 'ripple-expand 0.7s ease-out forwards';
-            ripple.style.pointerEvents = 'none';
             
             const rect = breathingCircle.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -1554,10 +1532,143 @@
             console.error("Error creating direct ripple:", err);
           }
         };
+        
+        // 2. Hover glow effect
+        breathingCircle.onmouseenter = function() {
+          console.log("Mouse enter on breathing circle");
+          breathingCircle.classList.add('hover-glow');
+        };
+        
+        breathingCircle.onmouseleave = function() {
+          console.log("Mouse leave from breathing circle");
+          breathingCircle.classList.remove('hover-glow');
+        };
+        
+        // 3. Long press pulse effect
+        let pressTimer;
+        breathingCircle.addEventListener('touchstart', function() {
+          console.log("Touch start on breathing circle");
+          pressTimer = setTimeout(function() {
+            console.log("Long press detected");
+            breathingCircle.classList.add('pulse-effect');
+            setTimeout(function() {
+              breathingCircle.classList.remove('pulse-effect');
+            }, 600);
+          }, 800);
+        });
+        
+        breathingCircle.addEventListener('touchend', function() {
+          console.log("Touch end on breathing circle");
+          clearTimeout(pressTimer);
+        });
       } else {
         console.error("Could not find breathing circle on window load");
       }
+      
+      // FEATURE 2: THEME CYCLING
+      const mainLogo = document.getElementById('mainLogo');
+      if (mainLogo) {
+        console.log("Found main logo - adding triple tap handler");
+        
+        // Setup triple-tap for theme cycling
+        let tapCount = 0;
+        let tapTimer = null;
+        
+        mainLogo.addEventListener('click', function() {
+          console.log("Logo tapped, current count:", tapCount);
+          tapCount++;
+          clearTimeout(tapTimer);
+          
+          if (tapCount === 3) {
+            console.log("Triple tap detected - cycling theme");
+            cycleTheme();
+            tapCount = 0;
+          } else {
+            tapTimer = setTimeout(function() {
+              console.log("Tap timer reset");
+              tapCount = 0;
+            }, 1000);
+          }
+        });
+      } else {
+        console.error("Could not find main logo for theme cycling");
+      }
     });
+    
+    // Available themes
+    const themes = ['default', 'forest', 'ocean', 'night-sky', 'sunset'];
+    let currentTheme = 'default';
+    
+    // Theme cycling function
+    function cycleTheme() {
+      try {
+        const currentIndex = themes.indexOf(currentTheme);
+        const nextIndex = (currentIndex + 1) % themes.length;
+        const newTheme = themes[nextIndex];
+        
+        console.log(`Cycling from ${currentTheme} to ${newTheme}`);
+        
+        // Remove old theme class
+        document.body.className = document.body.className.replace(/theme-\w+(-\w+)?/, '');
+        
+        // Apply new theme class if not default
+        if (newTheme !== 'default') {
+          document.body.classList.add(`theme-${newTheme}`);
+          
+          // Show theme name in toast
+          showToast(`${formatThemeName(newTheme)} theme activated`);
+        } else {
+          showToast('Classic theme activated');
+        }
+        
+        // Update current theme
+        currentTheme = newTheme;
+        
+        // Save preference
+        localStorage.setItem('preferred-theme', newTheme);
+      } catch (error) {
+        console.error("Error cycling theme:", error);
+      }
+    }
+    
+    // Helper to format theme name
+    function formatThemeName(theme) {
+      return theme === 'default' ? 'Classic' : 
+             theme.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
+    
+    // Simple toast function
+    function showToast(message, duration = 3000) {
+      try {
+        console.log("Showing toast:", message);
+        const toastContainer = document.getElementById('toastContainer');
+        if (!toastContainer) {
+          console.error("Toast container not found");
+          return;
+        }
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        
+        toastContainer.appendChild(toast);
+        
+        // Force reflow
+        void toast.offsetWidth;
+        toast.classList.add('visible');
+        
+        setTimeout(function() {
+          toast.classList.remove('visible');
+          setTimeout(function() {
+            if (toast.parentNode) {
+              toast.parentNode.removeChild(toast);
+            }
+          }, 300);
+        }, duration);
+      } catch (error) {
+        console.error("Error showing toast:", error);
+      }
+    }
     
     // Immediately start animating the loading bar
     (function() {
@@ -1591,6 +1702,17 @@
                   if (appContainer) {
                     appContainer.style.opacity = '1';
                     console.log("App container shown");
+                    
+                    // Check for saved theme
+                    const savedTheme = localStorage.getItem('preferred-theme');
+                    if (savedTheme && themes.includes(savedTheme)) {
+                      console.log("Applying saved theme:", savedTheme);
+                      currentTheme = savedTheme;
+                      
+                      if (savedTheme !== 'default') {
+                        document.body.classList.add(`theme-${savedTheme}`);
+                      }
+                    }
                   }
                 }, 500);
               }
