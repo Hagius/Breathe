@@ -884,282 +884,317 @@
       }
     }
 
-    /* ============ JOY FEATURES STYLES ============ */
-    
-    /* Theme Base Styles */
-    .app-container {
-      transition: background 1.5s ease;
-    }
-
-    /* Hover glow effect */
-    .breathing-circle.hover-glow {
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3) !important;
-      transition: box-shadow 0.3s ease;
-    }
-
-    /* Pulse effect */
-    .breathing-circle.pulse-effect {
-      animation: circle-pulse 0.6s ease-in-out !important;
-    }
-
-    @keyframes circle-pulse {
-      0% { transform: scale(1) !important; }
-      50% { transform: scale(1.05) !important; }
-      100% { transform: scale(1) !important; }
-    }
-
-    /* Particle Animations */
-    .theme-particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .particle {
+    /* Enhanced features styles */
+    /* Theme Button */
+    .theme-button {
       position: absolute;
-      opacity: 0.7;
-      pointer-events: none;
-    }
-
-    /* Forest particles */
-    .particle.leaf-1, .particle.leaf-2, .particle.leaf-3 {
-      width: 20px;
-      height: 20px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      animation: floating-leaf 20s linear infinite;
-    }
-
-    .particle.leaf-1 { background-image: url('images/leaf1.svg'); }
-    .particle.leaf-2 { background-image: url('images/leaf2.svg'); }
-    .particle.leaf-3 { background-image: url('images/leaf3.svg'); }
-
-    @keyframes floating-leaf {
-      0% {
-        transform: translateY(-10%) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 0.7;
-      }
-      90% {
-        opacity: 0.7;
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* Interactive Breathing Circle Styles */
-    /* Ripple effect */
-    .circle-ripple {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.4);
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      transform: translate(-50%, -50%);
-      animation: ripple-expand 0.7s ease-out forwards;
-      pointer-events: none;
-    }
-
-    /* Theme Base Styles */
-    body {
-      transition: background 1.5s ease;
-    }
-
-    /* Forest Theme */
-    .theme-forest {
-      background: linear-gradient(to bottom, #2c5e1a, #1a4314) !important;
-    }
-
-    /* Ocean Theme */
-    .theme-ocean {
-      background: linear-gradient(to bottom, #1a3a8f, #065a82) !important;
-    }
-
-    /* Night Sky Theme */
-    .theme-night-sky {
-      background: linear-gradient(to bottom, #0f1746, #292256) !important;
-    }
-
-    /* Sunset Theme */
-    .theme-sunset {
-      background: linear-gradient(to bottom, #ff7e5f, #feb47b) !important;
-    }
-
-    /* Forest Theme */
-    .theme-forest {
-      background: linear-gradient(to bottom, #2c5e1a, #1a4314) !important;
-    }
-
-    /* Ocean Theme */
-    .theme-ocean {
-      background: linear-gradient(to bottom, #1a3a8f, #065a82) !important;
-    }
-
-    /* Night Sky Theme */
-    .theme-night-sky {
-      background: linear-gradient(to bottom, #0f1746, #292256) !important;
-    }
-
-    /* Sunset Theme */
-    .theme-sunset {
-      background: linear-gradient(to bottom, #ff7e5f, #feb47b) !important;
-    }
-    
-    /* Circle ripple effect */
-    .circle-ripple {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      animation: ripple-expand 0.7s ease-out forwards;
-      pointer-events: none;
-    }
-
-    @keyframes ripple-expand {
-      0% {
-        width: 10px;
-        height: 10px;
-        opacity: 0.7;
-      }
-      100% {
-        width: 300px; /* Larger than circle */
-        height: 300px;
-        opacity: 0;
-      }
-    }
-
-    /* Secret Konami Code Styles */
-    /* Code feedback indicator */
-    .code-feedback {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 30px;
-      height: 30px;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: feedback-pulse 0.5s ease-out;
-      pointer-events: none;
-      z-index: 9000;
+    }
+    
+    .theme-selector {
+      position: absolute;
+      top: 60px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 10px;
+      padding: 10px;
+      display: none;
+    }
+    
+    .theme-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin: 5px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    
+    .theme-option.active {
+      border-color: white;
     }
 
-    .code-feedback.fibonacci {
-      background: rgba(255, 215, 0, 0.3);
-    }
-
-    @keyframes feedback-pulse {
-      0% { transform: scale(0); opacity: 0; }
-      50% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(1); opacity: 0; }
-    }
-
-    /* Rainbow Mode */
-    .rainbow-mode {
-      background: linear-gradient(
-        124deg,
-        #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840,
-        #1ddde8, #2b1de8, #dd00f3, #dd00f3
-      ) !important;
-      background-size: 1800% 1800% !important;
-      animation: rainbow-bg 30s ease infinite !important;
-    }
-
-    .rainbow-breathing {
-      background: rgba(255, 255, 255, 0.3) !important;
-      animation: rainbow-border 8s linear infinite !important;
-      box-shadow: 0 0 40px rgba(255, 255, 255, 0.4) !important;
-    }
-
-    .rainbow-button {
-      background: rgba(255, 255, 255, 0.3) !important;
-      animation: rainbow-text 8s linear infinite;
-    }
-
-    .rainbow-particles {
+    /* Mood Modal */
+    .mood-modal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      z-index: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    
+    .mood-content {
+      background: rgba(255,255,255,0.2);
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    
+    .mood-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .mood-button {
+      background: rgba(255,255,255,0.25);
+      border: none;
+      padding: 15px;
+      font-size: 16px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .mood-button:hover {
+      background: rgba(255,255,255,0.35);
     }
 
-    .rainbow-particle {
+    /* Analytics Dashboard */
+    .analytics-dashboard {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(to bottom, rgba(33, 75, 122, 0.95), rgba(242, 142, 71, 0.95));
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 20px;
+      z-index: 9999;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .close-dashboard {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .dashboard-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+    
+    .stat-card {
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      flex: 1;
+      margin: 0 5px;
+    }
+    
+    .stat-number {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .technique-stat {
+      margin-bottom: 12px;
+    }
+    
+    .technique-name {
+      margin-bottom: 5px;
+      text-transform: capitalize;
+    }
+    
+    .technique-bar-container {
+      height: 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      position: relative;
+    }
+    
+    .technique-bar {
+      height: 100%;
+      background: rgba(255,255,255,0.5);
+      border-radius: 10px;
+    }
+    
+    .technique-count {
       position: absolute;
-      width: 10px;
-      height: 10px;
+      right: 10px;
+      top: 0;
+      line-height: 20px;
+    }
+    
+    .dashboard-insights {
+      margin-top: 25px;
+    }
+    
+    .insights-list {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 15px;
+      list-style-type: none;
+    }
+    
+    .insight-item {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 20px;
+    }
+    
+    .insight-item:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* Voice Settings Modal */
+    .voice-settings-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    
+    .voice-settings-content {
+      background: rgba(255,255,255,0.15);
+      padding: 25px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+    }
+    
+    .setting-group {
+      margin-bottom: 20px;
+    }
+    
+    .setting-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .voice-settings-content select, 
+    .voice-settings-content input[type="range"] {
+      width: 100%;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      height: 40px;
+      color: white;
+      padding: 0 10px;
+      border-radius: 5px;
+    }
+    
+    .voice-settings-content option {
+      background: #214B7A;
+    }
+    
+    .settings-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+    
+    .settings-buttons button {
+      flex: 1;
+      margin: 0 5px;
+      padding: 12px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .test-voice-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    /* Toggle Switch */
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255,255,255,0.2);
+      transition: .4s;
+      border-radius: 24px;
+    }
+    
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
       border-radius: 50%;
-      animation: float-around 20s linear infinite;
     }
-
-    @keyframes rainbow-bg {
-      0% { background-position: 0% 82% }
-      50% { background-position: 100% 19% }
-      100% { background-position: 0% 82% }
+    
+    input:checked + .toggle-slider {
+      background-color: rgba(255,255,255,0.6);
     }
-
-    @keyframes rainbow-border {
-      0% { border-color: rgba(255, 0, 0, 0.5); }
-      16.6% { border-color: rgba(255, 255, 0, 0.5); }
-      33.3% { border-color: rgba(0, 255, 0, 0.5); }
-      50% { border-color: rgba(0, 255, 255, 0.5); }
-      66.6% { border-color: rgba(0, 0, 255, 0.5); }
-      83.3% { border-color: rgba(255, 0, 255, 0.5); }
-      100% { border-color: rgba(255, 0, 0, 0.5); }
-    }
-
-    @keyframes float-around {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 0.7;
-      }
-      90% {
-        opacity: 0.7;
-      }
-      100% {
-        transform: translate(
-          calc(100px - 200px * var(--random, 0.5)),
-          calc(100px - 200px * var(--random, 0.5))
-        ) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* Zen Mode */
-    .zen-mode {
-      background: radial-gradient(circle, #1a1a2e, #121212) !important;
-    }
-
-    .zen-hidden {
-      opacity: 0 !important;
-      pointer-events: none !important;
-      transition: opacity 1s ease !important;
-    }
-
-    .zen-circle {
-      background: rgba(255, 255, 255, 0.1) !important;
-      box-shadow: 0 0 50px rgba(255, 255, 255, 0.1) !important;
-      transform: scale(1.2) !important;
-      transition: all 1s ease !important;
+    
+    input:checked + .toggle-slider:before {
+      transform: translateX(26px);
     }
   </style>
 </head>
@@ -1491,244 +1526,12 @@
   <script>
     /**
      * Hagius Breathing App
-     * Restored core functionality with directly implemented joy features
+     * Optimized JavaScript with improved performance, error handling, and organization
      */
     
-    // For debugging: Add all event listeners directly after window load
-    window.addEventListener('load', function() {
-      console.log("Window loaded - setting up direct event listeners");
-      
-      // FEATURE 1: INTERACTIVE BREATHING CIRCLE
-      const breathingCircle = document.getElementById('breathingCircle');
-      if (breathingCircle) {
-        console.log("Found breathing circle - adding direct handlers");
-        
-        // 1. Ripple effect on click/tap
-        breathingCircle.onclick = function(e) {
-          console.log("Breathing circle clicked directly");
-          // Create a simple ripple effect
-          try {
-            const ripple = document.createElement('div');
-            ripple.className = 'circle-ripple';
-            
-            const rect = breathingCircle.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            
-            breathingCircle.appendChild(ripple);
-            
-            setTimeout(function() {
-              ripple.style.opacity = '0';
-              setTimeout(function() {
-                if (ripple.parentNode) {
-                  ripple.parentNode.removeChild(ripple);
-                }
-              }, 300);
-            }, 700);
-          } catch (err) {
-            console.error("Error creating direct ripple:", err);
-          }
-        };
-        
-        // 2. Hover glow effect
-        breathingCircle.onmouseenter = function() {
-          console.log("Mouse enter on breathing circle");
-          breathingCircle.classList.add('hover-glow');
-        };
-        
-        breathingCircle.onmouseleave = function() {
-          console.log("Mouse leave from breathing circle");
-          breathingCircle.classList.remove('hover-glow');
-        };
-        
-        // 3. Long press pulse effect
-        let pressTimer;
-        breathingCircle.addEventListener('touchstart', function() {
-          console.log("Touch start on breathing circle");
-          pressTimer = setTimeout(function() {
-            console.log("Long press detected");
-            breathingCircle.classList.add('pulse-effect');
-            setTimeout(function() {
-              breathingCircle.classList.remove('pulse-effect');
-            }, 600);
-          }, 800);
-        });
-        
-        breathingCircle.addEventListener('touchend', function() {
-          console.log("Touch end on breathing circle");
-          clearTimeout(pressTimer);
-        });
-      } else {
-        console.error("Could not find breathing circle on window load");
-      }
-      
-      // FEATURE 2: THEME CYCLING
-      const mainLogo = document.getElementById('mainLogo');
-      if (mainLogo) {
-        console.log("Found main logo - adding triple tap handler");
-        
-        // Setup triple-tap for theme cycling
-        let tapCount = 0;
-        let tapTimer = null;
-        
-        mainLogo.addEventListener('click', function() {
-          console.log("Logo tapped, current count:", tapCount);
-          tapCount++;
-          clearTimeout(tapTimer);
-          
-          if (tapCount === 3) {
-            console.log("Triple tap detected - cycling theme");
-            cycleTheme();
-            tapCount = 0;
-          } else {
-            tapTimer = setTimeout(function() {
-              console.log("Tap timer reset");
-              tapCount = 0;
-            }, 1000);
-          }
-        });
-      } else {
-        console.error("Could not find main logo for theme cycling");
-      }
-    });
-    
-    // Available themes
-    const themes = ['default', 'forest', 'ocean', 'night-sky', 'sunset'];
-    let currentTheme = 'default';
-    
-    // Theme cycling function
-    function cycleTheme() {
-      try {
-        const currentIndex = themes.indexOf(currentTheme);
-        const nextIndex = (currentIndex + 1) % themes.length;
-        const newTheme = themes[nextIndex];
-        
-        console.log(`Cycling from ${currentTheme} to ${newTheme}`);
-        
-        // Remove old theme class
-        document.body.className = document.body.className.replace(/theme-\w+(-\w+)?/, '');
-        
-        // Apply new theme class if not default
-        if (newTheme !== 'default') {
-          document.body.classList.add(`theme-${newTheme}`);
-          
-          // Show theme name in toast
-          showToast(`${formatThemeName(newTheme)} theme activated`);
-        } else {
-          showToast('Classic theme activated');
-        }
-        
-        // Update current theme
-        currentTheme = newTheme;
-        
-        // Save preference
-        localStorage.setItem('preferred-theme', newTheme);
-      } catch (error) {
-        console.error("Error cycling theme:", error);
-      }
-    }
-    
-    // Helper to format theme name
-    function formatThemeName(theme) {
-      return theme === 'default' ? 'Classic' : 
-             theme.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-    }
-    
-    // Simple toast function
-    function showToast(message, duration = 3000) {
-      try {
-        console.log("Showing toast:", message);
-        const toastContainer = document.getElementById('toastContainer');
-        if (!toastContainer) {
-          console.error("Toast container not found");
-          return;
-        }
-        
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.textContent = message;
-        
-        toastContainer.appendChild(toast);
-        
-        // Force reflow
-        void toast.offsetWidth;
-        toast.classList.add('visible');
-        
-        setTimeout(function() {
-          toast.classList.remove('visible');
-          setTimeout(function() {
-            if (toast.parentNode) {
-              toast.parentNode.removeChild(toast);
-            }
-          }, 300);
-        }, duration);
-      } catch (error) {
-        console.error("Error showing toast:", error);
-      }
-    }
-    
-    // Immediately start animating the loading bar
+    // Immediately-invoked function expression (IIFE) to encapsulate our code
     (function() {
-      console.log("Starting loading animation");
-      const loadingBar = document.getElementById('loadingBar');
-      
-      if (loadingBar) {
-        // Set initial width
-        loadingBar.style.width = '10%';
-        
-        // Animate the loading bar
-        let progress = 10;
-        const loadingInterval = setInterval(function() {
-          progress += 5;
-          loadingBar.style.width = progress + '%';
-          
-          if (progress >= 100) {
-            clearInterval(loadingInterval);
-            console.log("Loading animation complete");
-            
-            // Fade out loading screen after a delay
-            setTimeout(function() {
-              const loadingContainer = document.getElementById('loadingContainer');
-              if (loadingContainer) {
-                loadingContainer.style.opacity = '0';
-                setTimeout(function() {
-                  loadingContainer.style.display = 'none';
-                  
-                  // Show app container
-                  const appContainer = document.getElementById('appContainer');
-                  if (appContainer) {
-                    appContainer.style.opacity = '1';
-                    console.log("App container shown");
-                    
-                    // Check for saved theme
-                    const savedTheme = localStorage.getItem('preferred-theme');
-                    if (savedTheme && themes.includes(savedTheme)) {
-                      console.log("Applying saved theme:", savedTheme);
-                      currentTheme = savedTheme;
-                      
-                      if (savedTheme !== 'default') {
-                        document.body.classList.add(`theme-${savedTheme}`);
-                      }
-                    }
-                  }
-                }, 500);
-              }
-            }, 1000);
-          }
-        }, 200);
-      } else {
-        console.error("Loading bar not found!");
-      }
-    })();
-    
-    // Main app code - with core functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log("DOM loaded, initializing app");
-      
-      // === CONSTANTS ===
+      // CONSTANTS
       const AUDIO_SOURCES = {
         inhale: 'sounds/chime-inhale.mp3',
         hold: 'sounds/chime-hold.mp3',
@@ -1767,1243 +1570,9 @@
         ]
       };
       
-      // === APP STATE ===
-      const state = {
-        // DOM elements (to be cached)
-        elements: {},
-        
-        // Breathing state
-        currentPattern: BREATHING_PATTERNS.resonance,
-        currentPhaseIndex: 0,
-        phaseStartTime: 0,
-        phaseEndTime: 0,
-        currentScale: 1.0,
-        animationFrameId: null,
-        
-        // Session state
-        sessionDuration: 5 * 60, // 5 minutes in seconds
-        sessionStartTime: 0,
-        sessionEndTime: 0,
-        sessionElapsed: 0,
-        sessionIntervalId: null,
-        
-        // App state
-        isFocusMode: false,
-        isAudioReady: false,
-        isVibrationSupported: 'vibrate' in navigator,
-        hapticEnabled: true,
-        hasInteracted: false,
-        isVisible: true
-      };
-      
-      // === UTILITY FUNCTIONS ===
-      const utils = {
-        // Show toast notification
-        showToast: (message, duration = 3000) => {
-          const toastContainer = document.getElementById('toastContainer');
-          if (!toastContainer) return;
-          
-          const toast = document.createElement('div');
-          toast.className = 'toast';
-          toast.textContent = message;
-          
-          toastContainer.appendChild(toast);
-          
-          // Force reflow to enable transition
-          void toast.offsetWidth;
-          toast.classList.add('visible');
-          
-          setTimeout(() => {
-            toast.classList.remove('visible');
-            setTimeout(() => {
-              toast.remove();
-            }, 300); // Match transition duration
-          }, duration);
-        },
-        
-        // Format seconds into MM:SS display
-        formatTime: (seconds) => {
-          const mins = Math.floor(seconds / 60);
-          const secs = Math.floor(seconds % 60);
-          return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-      };
-      
-      // === EVENT HANDLERS ===
-      const handlers = {
-        toggleTechniquePanel: (e) => {
-          if (e) e.stopPropagation();
-          
-          const panel = document.getElementById('techniquePanel');
-          const timerOptions = document.getElementById('timerOptions');
-          
-          if (timerOptions) timerOptions.style.display = 'none';
-          
-          if (panel) {
-            const isVisible = panel.style.display === 'block';
-            panel.style.display = isVisible ? 'none' : 'block';
-            
-            const techniqueButton = document.getElementById('techniqueButton');
-            if (techniqueButton) {
-              techniqueButton.setAttribute('aria-expanded', (!isVisible).toString());
-            }
-          }
-        },
-        
-        selectTechnique: (btn) => {
-          if (!btn) return;
-          
-          const selected = btn.getAttribute('data-technique');
-          
-          if (selected === 'learn-more') {
-            handlers.showKnowledgeSection();
-            return;
-          }
-          
-          state.currentPattern = BREATHING_PATTERNS[selected];
-          
-          const techniqueButton = document.getElementById('techniqueButton');
-          if (techniqueButton) {
-            techniqueButton.textContent = btn.textContent;
-          }
-          
-          resetBreathing();
-          
-          const techniquePanel = document.getElementById('techniquePanel');
-          if (techniquePanel) {
-            techniquePanel.style.display = 'none';
-          }
-          
-          // Show feedback toast
-          utils.showToast(`Switched to ${btn.textContent} breathing`);
-        },
-        
-        toggleFocusMode: () => {
-          state.isFocusMode = !state.isFocusMode;
-          document.body.classList.toggle('focus-mode', state.isFocusMode);
-          
-          const focusButton = document.getElementById('focusButton');
-          if (focusButton) {
-            focusButton.textContent = state.isFocusMode ? 'EXIT FOCUS' : 'Focus';
-            focusButton.setAttribute('aria-pressed', state.isFocusMode.toString());
-          }
-        },
-        
-        showKnowledgeSection: () => {
-          const knowledgeSection = document.getElementById('knowledgeSection');
-          const techniquePanel = document.getElementById('techniquePanel');
-          const timerOptions = document.getElementById('timerOptions');
-          
-          if (knowledgeSection) {
-            knowledgeSection.style.display = 'block';
-            knowledgeSection.setAttribute('aria-hidden', 'false');
-          }
-          
-          if (techniquePanel) techniquePanel.style.display = 'none';
-          if (timerOptions) timerOptions.style.display = 'none';
-          
-          // When showing knowledge section, pause the session timer
-          if (state.sessionIntervalId) {
-            clearInterval(state.sessionIntervalId);
-            state.sessionIntervalId = null;
-          }
-        },
-        
-        hideKnowledgeSection: () => {
-          const knowledgeSection = document.getElementById('knowledgeSection');
-          if (knowledgeSection) {
-            knowledgeSection.style.display = 'none';
-            knowledgeSection.setAttribute('aria-hidden', 'true');
-          }
-          
-          // When hiding knowledge section, resume the session timer
-          startSessionTimer();
-        },
-        
-        selectTechniqueInfo: (btn) => {
-          // Remove active class from all buttons
-          const techniqueBtns = document.querySelectorAll('.technique-btn');
-          techniqueBtns.forEach(b => {
-            b.classList.remove('active');
-            b.setAttribute('aria-selected', 'false');
-          });
-          
-          // Add active class to clicked button
-          btn.classList.add('active');
-          btn.setAttribute('aria-selected', 'true');
-          
-          // Hide all technique info divs
-          document.querySelectorAll('.technique-info').forEach(div => {
-            div.classList.remove('active');
-          });
-          
-          // Show the selected technique info
-          const techniqueId = btn.getAttribute('data-technique');
-          const targetInfo = document.getElementById(`${techniqueId}-info`);
-          if (targetInfo) {
-            targetInfo.classList.add('active');
-          }
-        },
-        
-        toggleTimerOptions: (e) => {
-          if (e) e.stopPropagation();
-          
-          const timerOptions = document.getElementById('timerOptions');
-          const techniquePanel = document.getElementById('techniquePanel');
-          
-          if (techniquePanel) techniquePanel.style.display = 'none';
-          
-          if (timerOptions) {
-            timerOptions.style.display = (timerOptions.style.display === 'block') ? 'none' : 'block';
-          }
-        },
-        
-        selectTimerOption: (btn) => {
-          // Update active button
-          document.querySelectorAll('.timer-options button').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          
-          // Set new duration
-          const minutes = parseInt(btn.getAttribute('data-duration'));
-          state.sessionDuration = minutes * 60;
-          
-          // Update the display immediately
-          updateRemainingTimeDisplay();
-          
-          // Restart timer
-          startSessionTimer();
-          
-          // Hide options
-          const timerOptions = document.getElementById('timerOptions');
-          if (timerOptions) {
-            timerOptions.style.display = 'none';
-          }
-          
-          // Show feedback
-          utils.showToast(`Session set to ${minutes} minutes`);
-        },
-        
-        // Dismiss panels when clicking outside
-        handleDocumentClick: (e) => {
-          const techniquePanel = document.getElementById('techniquePanel');
-          const techniqueButton = document.getElementById('techniqueButton');
-          const timerOptions = document.getElementById('timerOptions');
-          const progressBar = document.getElementById('progressBar');
-          
-          // Technique panel
-          if (techniquePanel && techniquePanel.style.display === 'block' && 
-              !techniquePanel.contains(e.target) && 
-              e.target !== techniqueButton) {
-            techniquePanel.style.display = 'none';
-            if (techniqueButton) {
-              techniqueButton.setAttribute('aria-expanded', 'false');
-            }
-          }
-          
-          // Timer options
-          if (timerOptions && timerOptions.style.display === 'block' && 
-              !timerOptions.contains(e.target) && 
-              e.target !== progressBar) {
-            timerOptions.style.display = 'none';
-          }
-        },
-        
-        handleVisibilityChange: () => {
-          state.isVisible = document.visibilityState !== 'hidden';
-          
-          // Apply battery-saving class when hidden
-          document.body.classList.toggle('battery-saving', !state.isVisible);
-          
-          // When becoming visible again, check if animations need to be reset
-          if (state.isVisible && state.animationFrameId === null) {
-            // Restart animations
-            startPhase(state.currentPhaseIndex);
-          }
-        },
-        
-        handleUserInteraction: () => {
-          if (!state.hasInteracted) {
-            state.hasInteracted = true;
-            
-            const audioElements = [
-              document.getElementById('audioInhale'),
-              document.getElementById('audioHold'),
-              document.getElementById('audioExhale')
-            ];
-            
-            audioElements.forEach(audio => {
-              if (audio) {
-                const promise = audio.play();
-                if (promise !== undefined) {
-                  promise.then(() => {
-                    audio.pause();
-                    audio.currentTime = 0;
-                  }).catch(e => {
-                    console.log('Audio play blocked by browser policy:', e);
-                  });
-                }
-              }
-            });
-          }
-        }
-      };
-      
-      // === ADD JOY FEATURE #2: THEMES ===
-      
-      // Initialize theme state
-      const themeState = {
-        current: 'default',
-        available: ['default', 'forest', 'ocean', 'night-sky', 'sunset'],
-        particles: [],
-        audio: null
-      };
-      
-      function addThemeSupport() {
-        console.log("Adding theme support");
-        
-        try {
-          // Add triple-tap gesture on the logo to cycle themes
-          let tapCount = 0;
-          let tapTimer = null;
-          
-          const mainLogo = document.getElementById('mainLogo');
-          if (!mainLogo) {
-            console.warn("Main logo not found for theme cycling");
-            return;
-          }
-          
-          mainLogo.addEventListener('click', () => {
-            try {
-              tapCount++;
-              clearTimeout(tapTimer);
-              
-              if (tapCount === 3) {
-                cycleTheme();
-                tapCount = 0;
-              } else {
-                tapTimer = setTimeout(() => tapCount = 0, 1000);
-              }
-            } catch (error) {
-              console.error("Error in theme cycle event handler:", error);
-              tapCount = 0;
-            }
-          });
-          
-          // Check for saved theme preference
-          const savedTheme = localStorage.getItem('preferred-theme');
-          if (savedTheme && themeState.available.includes(savedTheme)) {
-            // Apply theme after a delay to ensure app is stable
-            setTimeout(() => {
-              applyTheme(savedTheme);
-            }, 1000);
-          }
-          
-          console.log("Theme support added successfully");
-        } catch (error) {
-          console.error("Error setting up theme support:", error);
-        }
-      }
-      
-      function cycleTheme() {
-        try {
-          console.log("Cycling theme");
-          
-          const themes = themeState.available;
-          const currentIndex = themes.indexOf(themeState.current);
-          const nextIndex = (currentIndex + 1) % themes.length;
-          const newTheme = themes[nextIndex];
-          
-          // Apply theme change with transition
-          applyTheme(newTheme);
-          
-          // Show feedback toast
-          utils.showToast(`${formatThemeName(newTheme)} theme activated`);
-        } catch (error) {
-          console.error("Error cycling theme:", error);
-        }
-      }
-      
-      function formatThemeName(theme) {
-        return theme === 'default' ? 'Classic' : 
-              theme.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-      }
-      
-      function applyTheme(themeName) {
-        try {
-          console.log(`Applying theme: ${themeName}`);
-          
-          // Validate theme
-          if (!themeName || !themeState.available.includes(themeName)) {
-            console.warn(`Invalid theme: ${themeName}`);
-            return;
-          }
-          
-          // Store the current theme
-          themeState.current = themeName;
-          
-          // Clear existing particles
-          clearThemeParticles();
-          
-          // Apply theme CSS class - only for non-default themes
-          document.body.className = document.body.className.replace(/theme-\w+(-\w+)?/, '');
-          
-          if (themeName !== 'default') {
-            document.body.classList.add(`theme-${themeName}`);
-            
-            // Create theme-specific particles - using reduced count for better performance
-            setTimeout(() => {
-              createThemeParticles(themeName);
-            }, 500);
-          }
-          
-          // Save user preference
-          localStorage.setItem('preferred-theme', themeName);
-        } catch (error) {
-          console.error(`Error applying theme ${themeName}:`, error);
-          
-          // Revert to default theme if there's an error
-          if (themeName !== 'default') {
-            try {
-              document.body.className = document.body.className.replace(/theme-\w+(-\w+)?/, '');
-              clearThemeParticles();
-            } catch (revertError) {
-              console.error("Error reverting to default theme:", revertError);
-            }
-          }
-        }
-      }
-      
-      function createThemeParticles(theme) {
-        try {
-          if (theme === 'default') return; // No particles for default theme
-          
-          const container = document.createElement('div');
-          container.className = 'theme-particles';
-          document.body.appendChild(container);
-          
-          // Use much fewer particles for better performance
-          let particleCount = 0;
-          let particleTypes = [];
-          
-          // Configure particles based on theme - with reduced counts
-          switch(theme) {
-            case 'forest':
-              particleCount = 8; // Reduced from 20
-              particleTypes = ['leaf-1', 'leaf-2', 'leaf-3'];
-              break;
-            case 'ocean':
-              particleCount = 12; // Reduced from 30
-              particleTypes = ['bubble', 'tiny-bubble', 'fish'];
-              break;
-            case 'night-sky':
-              particleCount = 15; // Reduced from 50
-              particleTypes = ['star', 'shooting-star', 'twinkle'];
-              break;
-            case 'sunset':
-              particleCount = 10; // Reduced from 25
-              particleTypes = ['cloud', 'bird', 'glow'];
-              break;
-            default:
-              return; // No particles for other themes
-          }
-          
-          // Only create particles if they're actually visible
-          for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
-            
-            particle.className = `particle ${type}`;
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.top = `${Math.random() * 100}%`;
-            particle.style.animationDelay = `${Math.random() * 5}s`;
-            particle.style.animationDuration = `${10 + Math.random() * 20}s`;
-            
-            container.appendChild(particle);
-            themeState.particles.push(particle);
-          }
-        } catch (error) {
-          console.error("Error creating theme particles:", error);
-          clearThemeParticles(); // Clean up any partial creation
-        }
-      }
-      
-      function clearThemeParticles() {
-        try {
-          // Remove all existing particles
-          const container = document.querySelector('.theme-particles');
-          if (container) {
-            container.remove();
-          }
-          themeState.particles = [];
-        } catch (error) {
-          console.error("Error clearing theme particles:", error);
-        }
-      }
-      
-      // === ADD JOY FEATURE #3: SECRET CODES ===
-      function addSecretCodes() {
-        console.log("Adding secret codes");
-        
-        try {
-          // Add Konami Code support (keyboard only for simplicity)
-          setupKonamiCode();
-          
-          // Add Fibonacci sequence code
-          setupFibonacciCode();
-          
-          console.log("Secret codes added successfully");
-        } catch (error) {
-          console.error("Error setting up secret codes:", error);
-        }
-      }
-      
-      function setupKonamiCode() {
-        try {
-          // Konami Code: ↑↑↓↓←→←→BA
-          const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
-                            'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 
-                            'b', 'a'];
-          let konamiIndex = 0;
-          
-          // Keydown event for keyboard users
-          document.addEventListener('keydown', (e) => {
-            try {
-              // Check for escape key to exit special modes
-              if (e.key === 'Escape' && document.body.classList.contains('special-mode')) {
-                deactivateSpecialModes();
-                return;
-              }
-              
-              // Check for Konami code sequence
-              const key = e.key.toLowerCase();
-              if (key === konamiCode[konamiIndex].toLowerCase()) {
-                konamiIndex++;
-                
-                // Show subtle feedback for each correct input
-                if (konamiIndex > 1) {
-                  const feedbackEl = document.createElement('div');
-                  feedbackEl.className = 'code-feedback';
-                  feedbackEl.textContent = konamiIndex;
-                  document.body.appendChild(feedbackEl);
-                  
-                  setTimeout(() => {
-                    if (feedbackEl.parentNode) {
-                      feedbackEl.remove();
-                    }
-                  }, 500);
-                }
-                
-                if (konamiIndex === konamiCode.length) {
-                  activateRainbowMode();
-                  konamiIndex = 0;
-                }
-              } else {
-                konamiIndex = (key === konamiCode[0].toLowerCase()) ? 1 : 0;
-              }
-            } catch (error) {
-              console.error("Error in Konami code handler:", error);
-              konamiIndex = 0;
-            }
-          });
-        } catch (error) {
-          console.error("Error setting up Konami code:", error);
-        }
-      }
-      
-      function setupFibonacciCode() {
-        try {
-          // Detect taps in Fibonacci sequence: 1, 1, 2, 3, 5, 8
-          const fibPattern = [1000, 1000, 2000, 3000, 5000, 8000];
-          let lastTapTime = 0;
-          let fibIndex = 0;
-          
-          const mainLogo = document.getElementById('mainLogo');
-          if (!mainLogo) {
-            console.warn("Main logo element not found for Fibonacci code");
-            return;
-          }
-          
-          // Add a special event listener for Fibonacci tapping
-          const fibHandler = (e) => {
-            try {
-              // Check if it's a theme cycle tap (triple tap)
-              // This avoids conflicts with the theme cycling feature
-              if (e.fibIgnore) return;
-              
-              const now = new Date().getTime();
-              const elapsed = now - lastTapTime;
-              
-              // Reset if waited too long
-              if (elapsed > 10000) {
-                fibIndex = 0;
-              } else if (fibIndex > 0) {
-                // Check if tap matches the timing pattern (with 30% tolerance)
-                const targetTime = fibPattern[fibIndex - 1];
-                const tolerance = targetTime * 0.3;
-                
-                if (Math.abs(elapsed - targetTime) <= tolerance) {
-                  fibIndex++;
-                  
-                  // Show subtle feedback for each correct input
-                  if (fibIndex > 1) {
-                    const feedbackEl = document.createElement('div');
-                    feedbackEl.className = 'code-feedback fibonacci';
-                    feedbackEl.textContent = fibIndex;
-                    document.body.appendChild(feedbackEl);
-                    
-                    setTimeout(() => {
-                      if (feedbackEl.parentNode) {
-                        feedbackEl.remove();
-                      }
-                    }, 500);
-                  }
-                  
-                  if (fibIndex === fibPattern.length) {
-                    activateZenMode();
-                    fibIndex = 0;
-                  }
-                } else {
-                  fibIndex = 1; // Start over with this tap
-                }
-              } else {
-                fibIndex = 1; // First tap
-              }
-              
-              lastTapTime = now;
-            } catch (error) {
-              console.error("Error in Fibonacci code handler:", error);
-              fibIndex = 0;
-              lastTapTime = 0;
-            }
-          };
-          
-          mainLogo.addEventListener('click', fibHandler);
-        } catch (error) {
-          console.error("Error setting up Fibonacci code:", error);
-        }
-      }
-      
-      // Rainbow breathing mode
-      function activateRainbowMode() {
-        try {
-          console.log("Activating Rainbow Mode");
-          
-          // First, deactivate any active special modes
-          deactivateSpecialModes();
-          
-          // Apply rainbow classes
-          document.body.classList.add('special-mode', 'rainbow-mode');
-          
-          const breathingCircle = document.getElementById('breathingCircle');
-          if (breathingCircle) {
-            breathingCircle.classList.add('rainbow-breathing');
-          }
-          
-          // Create floating particles
-          createRainbowParticles();
-          
-          // Change the app text
-          const timerDisplay = document.getElementById('timer');
-          if (timerDisplay) {
-            timerDisplay.innerHTML = '🌈';
-          }
-          
-          utils.showToast("🌈 Rainbow Breath Mode Activated! (ESC to exit)");
-          
-          // Remember that we've unlocked this achievement
-          localStorage.setItem('rainbow-unlocked', 'true');
-          
-          // Add motion effects to various elements
-          document.querySelectorAll('.bottom-button').forEach((button, i) => {
-            button.classList.add('rainbow-button');
-            button.style.animationDelay = `${i * 0.2}s`;
-          });
-        } catch (error) {
-          console.error("Error activating Rainbow Mode:", error);
-          deactivateSpecialModes(); // Clean up if there's an error
-        }
-      }
-      
-      function createRainbowParticles() {
-        try {
-          const container = document.createElement('div');
-          container.className = 'rainbow-particles';
-          document.body.appendChild(container);
-          
-          // Create rainbow particles - reduced count for better performance
-          const particleCount = 15; // Reduced from 30
-          
-          for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'rainbow-particle';
-            
-            // Random positions and delays
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.top = `${Math.random() * 100}%`;
-            particle.style.animationDelay = `${Math.random() * 5}s`;
-            particle.style.animationDuration = `${10 + Math.random() * 20}s`;
-            
-            // Varying sizes
-            const size = 5 + Math.random() * 10; // Reduced maximum size
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            
-            // Set initial color
-            const hue = Math.floor(Math.random() * 360);
-            particle.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
-            
-            container.appendChild(particle);
-          }
-        } catch (error) {
-          console.error("Error creating rainbow particles:", error);
-        }
-      }
-      
-      // Zen mode (minimal UI for deep focus)
-      function activateZenMode() {
-        try {
-          console.log("Activating Zen Mode");
-          
-          // First, deactivate any active special modes
-          deactivateSpecialModes();
-          
-          document.body.classList.add('special-mode', 'zen-mode');
-          utils.showToast("✨ Zen Mode Activated (ESC to exit)");
-          
-          // Hide non-essential UI elements
-          document.querySelectorAll('.header, .session-progress-container, .button-container')
-            .forEach(el => {
-              el.classList.add('zen-hidden');
-            });
-          
-          // Enhance the breathing circle
-          const breathingCircle = document.getElementById('breathingCircle');
-          if (breathingCircle) {
-            breathingCircle.classList.add('zen-circle');
-          }
-          
-          // Remember that we've unlocked this achievement
-          localStorage.setItem('zen-unlocked', 'true');
-        } catch (error) {
-          console.error("Error activating Zen Mode:", error);
-          deactivateSpecialModes(); // Clean up if there's an error
-        }
-      }
-      
-      // Common function to deactivate special modes
-      function deactivateSpecialModes() {
-        try {
-          document.body.classList.remove('special-mode', 'rainbow-mode', 'zen-mode');
-          
-          const breathingCircle = document.getElementById('breathingCircle');
-          if (breathingCircle) {
-            breathingCircle.classList.remove('rainbow-breathing', 'zen-circle');
-          }
-          
-          // Remove any special particles
-          const particles = document.querySelector('.rainbow-particles');
-          if (particles) particles.remove();
-          
-          // Restore UI elements
-          document.querySelectorAll('.zen-hidden').forEach(el => {
-            el.classList.remove('zen-hidden');
-          });
-          
-          // Restore default text
-          const timerDisplay = document.getElementById('timer');
-          const currentPhase = state.currentPattern[state.currentPhaseIndex];
-          if (timerDisplay && currentPhase) {
-            let displayLabel = currentPhase.label;
-            displayLabel = displayLabel === 'Inhale2' ? 'Inhale' : 
-                          (displayLabel.charAt(0).toUpperCase() + displayLabel.slice(1));
-            timerDisplay.textContent = displayLabel;
-          }
-          
-          // Remove rainbow buttons
-          document.querySelectorAll('.rainbow-button').forEach(button => {
-            button.classList.remove('rainbow-button');
-          });
-        } catch (error) {
-          console.error("Error deactivating special modes:", error);
-        }
-      }
-      
-      // === INITIALIZATION ===
-      function initApp() {
-        console.log("Initializing core app functionality");
-        
-        // Initialize audio elements
-        initializeAudio();
-        
-        // Add event listeners
-        attachEventListeners();
-        
-        // Start breathing animation
-        startBreathing();
-        
-        // Start session timer
-        startSessionTimer();
-        
-        // Add joy features with staggered timing to ensure stability
-        setTimeout(() => {
-          // Feature 1: Interactive circle effects
-          addInteractiveCircleEffects();
-          
-          setTimeout(() => {
-            // Feature 2: Theme support
-            addThemeSupport();
-            
-            setTimeout(() => {
-              // Feature 3: Secret codes - add last since they're the most complex
-              addSecretCodes();
-            }, 1000);
-          }, 1000);
-        }, 2000);
-      }
-      
-      function initializeAudio() {
-        const audioInhale = document.getElementById('audioInhale');
-        const audioHold = document.getElementById('audioHold');
-        const audioExhale = document.getElementById('audioExhale');
-        
-        if (audioInhale) audioInhale.src = AUDIO_SOURCES.inhale;
-        if (audioHold) audioHold.src = AUDIO_SOURCES.hold;
-        if (audioExhale) audioExhale.src = AUDIO_SOURCES.exhale;
-        
-        state.isAudioReady = true;
-      }
-      
-      function attachEventListeners() {
-        // First interaction for audio playback
-        document.addEventListener('click', handlers.handleUserInteraction, { once: true });
-        document.addEventListener('touchstart', handlers.handleUserInteraction, { once: true });
-        
-        // Technique Button Toggle
-        const techniqueButton = document.getElementById('techniqueButton');
-        if (techniqueButton) {
-          techniqueButton.addEventListener('click', handlers.toggleTechniquePanel);
-        }
-        
-        // Hide panels when clicking elsewhere
-        document.addEventListener('click', handlers.handleDocumentClick);
-        
-        // Technique Selection
-        const techniquePanel = document.getElementById('techniquePanel');
-        if (techniquePanel) {
-          const techniqueBtns = techniquePanel.querySelectorAll('button');
-          techniqueBtns.forEach(btn => {
-            btn.addEventListener('click', () => handlers.selectTechnique(btn));
-          });
-        }
-        
-        // Focus Mode Toggle
-        const focusButton = document.getElementById('focusButton');
-        if (focusButton) {
-          focusButton.addEventListener('click', handlers.toggleFocusMode);
-        }
-        
-        // Back Button in Knowledge Section
-        const backButton = document.getElementById('backButton');
-        if (backButton) {
-          backButton.addEventListener('click', handlers.hideKnowledgeSection);
-        }
-        
-        // Knowledge Section Technique Navigation
-        const techniqueBtns = document.querySelectorAll('.technique-btn');
-        techniqueBtns.forEach(btn => {
-          btn.addEventListener('click', () => handlers.selectTechniqueInfo(btn));
-        });
-        
-        // Progress Bar Click
-        const progressBar = document.getElementById('progressBar');
-        if (progressBar) {
-          progressBar.addEventListener('click', handlers.toggleTimerOptions);
-        }
-        
-        // Timer Options
-        const timerOptionBtns = document.querySelectorAll('.timer-options button');
-        timerOptionBtns.forEach(btn => {
-          btn.addEventListener('click', () => handlers.selectTimerOption(btn));
-        });
-        
-        // Tab visibility changes (for battery optimization)
-        document.addEventListener('visibilitychange', handlers.handleVisibilityChange);
-        
-        // Handle keyboard accessibility
-        document.addEventListener('keydown', (e) => {
-          // Escape key closes any open panels
-          if (e.key === 'Escape') {
-            const techniquePanel = document.getElementById('techniquePanel');
-            const techniqueButton = document.getElementById('techniqueButton');
-            const timerOptions = document.getElementById('timerOptions');
-            const knowledgeSection = document.getElementById('knowledgeSection');
-            
-            if (techniquePanel && techniquePanel.style.display === 'block') {
-              techniquePanel.style.display = 'none';
-              if (techniqueButton) {
-                techniqueButton.setAttribute('aria-expanded', 'false');
-              }
-            }
-            
-            if (timerOptions && timerOptions.style.display === 'block') {
-              timerOptions.style.display = 'none';
-            }
-            
-            if (knowledgeSection && knowledgeSection.style.display === 'block') {
-              handlers.hideKnowledgeSection();
-            }
-          }
-        });
-      }
-      
-      // === BREATHING CONTROL ===
-      function startBreathing() {
-        state.currentPhaseIndex = 0;
-        startPhase(state.currentPhaseIndex);
-      }
-      
-      function resetBreathing() {
-        // Cancel any existing animation frame
-        if (state.animationFrameId) {
-          cancelAnimationFrame(state.animationFrameId);
-          state.animationFrameId = null;
-        }
-        
-        state.currentScale = 1.0;
-        startPhase(0);
-      }
-      
-      function startPhase(phaseIndex) {
-        const phase = state.currentPattern[phaseIndex];
-        state.currentPhaseIndex = phaseIndex;
-        
-        // Set timestamps for this phase
-        state.phaseStartTime = performance.now();
-        state.phaseEndTime = state.phaseStartTime + (phase.duration * 1000);
-        
-        // Play audio cue
-        playAudioCue(phase.label);
-        
-        // Apply animation
-        applyPhaseAnimation(phase.label, phase.duration);
-        
-        // Manage hold progress indicator
-        const holdProgress = document.getElementById('holdProgress');
-        const isHoldPhase = phase.label.toLowerCase() === 'hold';
-        
-        if (isHoldPhase && holdProgress) {
-          // Reset and show the hold progress indicator
-          const circle = document.getElementById('holdProgressCircle');
-          if (circle) {
-            const circumference = parseFloat(circle.getAttribute('stroke-dasharray'));
-            circle.style.strokeDashoffset = '0';
-            holdProgress.style.opacity = '1';
-          }
-        } else if (holdProgress) {
-          // Hide the hold progress for non-hold phases
-          holdProgress.style.opacity = '0';
-        }
-        
-        // Update timer display
-        const timerDisplay = document.getElementById('timer');
-        if (timerDisplay) {
-          // Add fade transition for text
-          timerDisplay.classList.add('fade');
-          
-          setTimeout(() => {
-            // Set the appropriate label
-            let displayLabel = phase.label;
-            displayLabel = displayLabel === 'Inhale2' ? 'Inhale' : 
-                           (displayLabel.charAt(0).toUpperCase() + displayLabel.slice(1));
-            
-            timerDisplay.textContent = displayLabel;
-            timerDisplay.classList.remove('fade');
-          }, 150);
-        }
-        
-        // Cancel any existing animation frame
-        if (state.animationFrameId) {
-          cancelAnimationFrame(state.animationFrameId);
-        }
-        
-        function updatePhase(timestamp) {
-          // Calculate elapsed time since phase started
-          const elapsed = timestamp - state.phaseStartTime;
-          
-          // Update hold progress indicator if in hold phase
-          if (isHoldPhase) {
-            const circle = document.getElementById('holdProgressCircle');
-            if (circle) {
-              const circumference = parseFloat(circle.getAttribute('stroke-dasharray'));
-              
-              // Make sure progressRatio never exceeds 0.99 to prevent overflow
-              const progressRatio = Math.min(0.99, elapsed / (phase.duration * 1000));
-              
-              // Apply the progress to the stroke-dashoffset
-              const dashOffset = circumference * progressRatio;
-              circle.style.strokeDashoffset = dashOffset.toString();
-              
-              // Hide the progress indicator when we're almost done
-              if (progressRatio > 0.95) {
-                const holdProgress = document.getElementById('holdProgress');
-                if (holdProgress) {
-                  holdProgress.style.opacity = '0';
-                }
-              }
-            }
-          }
-          
-          // Check if phase is complete
-          if (timestamp >= state.phaseEndTime) {
-            const nextIndex = (state.currentPhaseIndex + 1) % state.currentPattern.length;
-            startPhase(nextIndex);
-            return;
-          }
-          
-          // Continue animation
-          state.animationFrameId = requestAnimationFrame(updatePhase);
-        }
-        
-        // Start the animation loop
-        state.animationFrameId = requestAnimationFrame(updatePhase);
-      }
-      
-      function applyPhaseAnimation(label, duration) {
-        let nextScale = state.currentScale;
-        switch (label.toLowerCase()) {
-          case 'inhale': nextScale = 1.5; break;
-          case 'inhale2': nextScale = 1.8; break; // Bigger scale for second inhale
-          case 'exhale': nextScale = 0.6; break;
-          case 'hold':   nextScale = state.currentScale; break;
-          default:       nextScale = 1.0;
-        }
-        
-        const circle = document.getElementById('breathingCircle');
-        if (circle) {
-          // Apply smooth transition
-          circle.style.transition = `transform ${duration}s cubic-bezier(0.4, 0.0, 0.2, 1)`;
-          circle.style.transform = `scale(${nextScale})`;
-          state.currentScale = nextScale;
-        }
-      }
-      
-      function playAudioCue(label) {
-        // Skip if user hasn't interacted
-        if (!state.hasInteracted || !state.isAudioReady) return;
-        
-        try {
-          let audioElement = null;
-          
-          if (label.toLowerCase() === 'inhale' || label.toLowerCase() === 'inhale2') {
-            audioElement = document.getElementById('audioInhale');
-          } else if (label.toLowerCase() === 'exhale') {
-            audioElement = document.getElementById('audioExhale');
-          } else if (label.toLowerCase() === 'hold') {
-            audioElement = document.getElementById('audioHold');
-          }
-          
-          if (audioElement) {
-            audioElement.currentTime = 0;
-            
-            // Create a promise to handle play completion more robustly
-            const playPromise = audioElement.play();
-            
-            if (playPromise !== undefined) {
-              playPromise.catch(error => {
-                // Auto-play was prevented - common on mobile
-                console.log('Audio playback prevented:', error);
-              });
-            }
-          }
-          
-          // Trigger haptic feedback
-          triggerHapticFeedback(label.toLowerCase());
-        } catch (e) {
-          console.error('Audio play error:', e);
-        }
-      }
-      
-      function triggerHapticFeedback(phaseLabel) {
-        // Skip if vibration is not supported or disabled
-        if (!state.isVibrationSupported || !state.hapticEnabled) return;
-        
-        try {
-          // Get the appropriate vibration pattern
-          const pattern = HAPTIC_PATTERNS[phaseLabel] || [];
-          
-          if (pattern.length > 0) {
-            // Some browsers return false if vibration fails
-            const result = navigator.vibrate(pattern);
-            if (result === false) {
-              // Disable for this session if not working
-              state.hapticEnabled = false;
-            }
-          }
-        } catch (e) {
-          console.warn('Haptic feedback error:', e);
-          // Disable haptics if there's an error
-          state.hapticEnabled = false;
-        }
-      }
-      
-      // === SESSION TIMING ===
-      function startSessionTimer() {
-        // Clear any existing interval
-        if (state.sessionIntervalId) {
-          clearInterval(state.sessionIntervalId);
-        }
-        
-        // Set timestamp-based timer
-        state.sessionStartTime = Date.now();
-        state.sessionEndTime = state.sessionStartTime + (state.sessionDuration * 1000);
-        state.sessionElapsed = 0;
-        
-        updateProgressBar();
-        
-        // Start new timer with 1 second updates
-        state.sessionIntervalId = setInterval(() => {
-          const now = Date.now();
-          const elapsed = Math.floor((now - state.sessionStartTime) / 1000);
-          state.sessionElapsed = elapsed;
-          
-          updateProgressBar();
-          
-          if (now >= state.sessionEndTime) {
-            endSession();
-          }
-        }, 1000);
-      }
-      
-      function updateProgressBar() {
-        const progressIndicator = document.getElementById('progressIndicator');
-        if (!progressIndicator) return;
-        
-        const progressPercent = (state.sessionElapsed / state.sessionDuration) * 100;
-        progressIndicator.style.width = `${progressPercent}%`;
-        
-        // Update aria for accessibility
-        const progressBar = document.getElementById('progressBar');
-        if (progressBar) {
-          progressBar.setAttribute('aria-valuenow', progressPercent.toFixed(1));
-          progressBar.setAttribute('aria-valuemin', '0');
-          progressBar.setAttribute('aria-valuemax', '100');
-        }
-        
-        // Update remaining time display
-        updateRemainingTimeDisplay();
-      }
-      
-      function updateRemainingTimeDisplay() {
-        const remainingTime = document.getElementById('remainingTime');
-        if (!remainingTime) return;
-        
-        const remainingSeconds = Math.max(0, state.sessionDuration - state.sessionElapsed);
-        const formattedTime = utils.formatTime(remainingSeconds);
-        remainingTime.textContent = formattedTime;
-        
-        // Update ARIA label for screen readers
-        const progressBar = document.getElementById('progressBar');
-        if (progressBar) {
-          progressBar.setAttribute('aria-label', 
-            `Session progress, ${formattedTime} remaining`);
-        }
-      }
-      
-      function endSession() {
-        clearInterval(state.sessionIntervalId);
-        state.sessionIntervalId = null;
-        
-        // Reset progress bar with animation
-        const progressIndicator = document.getElementById('progressIndicator');
-        if (progressIndicator) {
-          progressIndicator.style.transition = 'width 0.5s ease-out';
-          progressIndicator.style.width = '100%';
-        }
-        
-        // Trigger haptic session completion pattern
-        if (state.isVibrationSupported && state.hapticEnabled) {
-          navigator.vibrate(HAPTIC_PATTERNS.sessionEnd);
-        }
-        
-        // Show completion modal
-        showCompletionModal();
-      }
-      
-      function showCompletionModal() {
-        // Create modal element
-        const modal = document.createElement('div');
-        modal.className = 'completion-modal';
-        modal.innerHTML = `
-          <div class="modal-content">
-            <h2>Session Complete!</h2>
-            <p>Great job completing your breathing session.</p>
-            <button id="closeModal">CONTINUE</button>
-          </div>
-        `;
-        
-        // Add to document
-        document.body.appendChild(modal);
-        
-        // Force reflow to enable transition
-        void modal.offsetWidth;
-        modal.classList.add('visible');
-        
-        // Set up event handler
-        const closeButton = document.getElementById('closeModal');
-        if (closeButton) {
-          closeButton.addEventListener('click', () => {
-            modal.classList.remove('visible');
-            
-            // Remove after transition completes
-            setTimeout(() => {
-              modal.remove();
-              // Restart session timer
-              startSessionTimer();
-            }, 300);
-          });
-        }
-      }
-      
-      // Start the app
-      initApp();
-    });
-  </script>
-      
-      // HAPTIC PATTERNS (milliseconds)
-      const HAPTIC_PATTERNS = {
-        inhale: [100, 50, 100],     // Short pulse, pause, short pulse
-        hold: [50],                  // Very short single vibration
-        exhale: [200],               // Longer single vibration
-        inhale2: [50, 30, 100],      // Special pattern for second inhale in physio-sigh
-        sessionEnd: [100, 100, 100, 100, 300] // Pattern for session completion
-      };
-      
-      const BREATHING_PATTERNS = {
-        resonance: [
-          { label: 'Inhale', duration: 5.5 },
-          { label: 'Exhale', duration: 5.5 }
-        ],
-        box: [
-          { label: 'Inhale', duration: 4 },
-          { label: 'Hold',   duration: 4 },
-          { label: 'Exhale', duration: 4 },
-          { label: 'Hold',   duration: 4 }
-        ],
-        '478': [
-          { label: 'Inhale', duration: 4 },
-          { label: 'Hold',   duration: 7 },
-          { label: 'Exhale', duration: 8 }
-        ],
-        'physio-sigh': [
-          { label: 'Inhale', duration: 1 },
-          { label: 'Inhale2', duration: 0.25 },
-          { label: 'Exhale', duration: 2 }
-        ]
-      };
-      
       // APP STATE
       const state = {
-        currentPattern: null, // Will be set to a breathing pattern
+        currentPattern: BREATHING_PATTERNS.resonance,
         currentPhaseIndex: 0,
         currentPhaseTime: 0,
         phaseStartTime: 0,
@@ -3025,17 +1594,7 @@
           audio: false,
           dom: false
         },
-        hasInteracted: false, // Track if user has interacted (for autoplay policies)
-        loadingTimeoutSet: false, // Used to prevent multiple loading timeouts
-        
-        // Theme State
-        themes: {
-          current: 'default',
-          available: ['default', 'forest', 'ocean', 'night-sky', 'sunset'],
-          particles: [],
-          audio: null
-        },
-        lastTapTime: 0
+        hasInteracted: false // Track if user has interacted (for autoplay policies)
       };
       
       // UTILITY FUNCTIONS
@@ -3299,53 +1858,35 @@
       
       // CORE FUNCTIONS
       function cacheElements() {
-        try {
-          // Cache DOM elements for performance
-          state.elements = {
-            appContainer: document.getElementById('appContainer'),
-            loadingContainer: document.getElementById('loadingContainer'),
-            loadingBar: document.getElementById('loadingBar'),
-            breathingCircle: document.getElementById('breathingCircle'),
-            techniqueButton: document.getElementById('techniqueButton'),
-            focusButton: document.getElementById('focusButton'),
-            techniquePanel: document.getElementById('techniquePanel'),
-            knowledgeSection: document.getElementById('knowledgeSection'),
-            backButton: document.getElementById('backButton'),
-            techniqueBtns: document.querySelectorAll('.technique-btn'),
-            timerDisplay: document.getElementById('timer'),
-            progressBar: document.getElementById('progressBar'),
-            progressIndicator: document.getElementById('progressIndicator'),
-            timerOptions: document.getElementById('timerOptions'),
-            remainingTime: document.getElementById('remainingTime'),
-            audioInhale: document.getElementById('audioInhale'),
-            audioHold: document.getElementById('audioHold'),
-            audioExhale: document.getElementById('audioExhale'),
-            toastContainer: document.getElementById('toastContainer'),
-            buttonContainer: document.getElementById('buttonContainer'),
-            installButton: document.getElementById('installButton'),
-            holdProgress: document.getElementById('holdProgress'),
-            holdProgressCircle: document.getElementById('holdProgressCircle'),
-            mainLogo: document.getElementById('mainLogo')
-          };
-          
-          // Debug loading progress bar
-          if (state.elements.loadingBar) {
-            console.log('Loading bar element found');
-            // Show initial progress right away
-            state.elements.loadingBar.style.width = '25%';
-          } else {
-            console.warn('Loading bar element not found!');
-          }
-          
-          state.loadedResources.dom = true;
-          console.log('DOM elements cached successfully');
-          checkAllResourcesLoaded();
-        } catch (error) {
-          console.error('Error during element caching:', error);
-          // Still mark DOM as loaded to prevent app from getting stuck
-          state.loadedResources.dom = true;
-          checkAllResourcesLoaded();
-        }
+        // Cache DOM elements for performance
+        state.elements = {
+          appContainer: document.getElementById('appContainer'),
+          loadingContainer: document.getElementById('loadingContainer'),
+          loadingBar: document.getElementById('loadingBar'),
+          breathingCircle: document.getElementById('breathingCircle'),
+          techniqueButton: document.getElementById('techniqueButton'),
+          focusButton: document.getElementById('focusButton'),
+          techniquePanel: document.getElementById('techniquePanel'),
+          knowledgeSection: document.getElementById('knowledgeSection'),
+          backButton: document.getElementById('backButton'),
+          techniqueBtns: document.querySelectorAll('.technique-btn'),
+          timerDisplay: document.getElementById('timer'),
+          progressBar: document.getElementById('progressBar'),
+          progressIndicator: document.getElementById('progressIndicator'),
+          timerOptions: document.getElementById('timerOptions'),
+          remainingTime: document.getElementById('remainingTime'),
+          audioInhale: document.getElementById('audioInhale'),
+          audioHold: document.getElementById('audioHold'),
+          audioExhale: document.getElementById('audioExhale'),
+          toastContainer: document.getElementById('toastContainer'),
+          buttonContainer: document.getElementById('buttonContainer'),
+          installButton: document.getElementById('installButton'),
+          holdProgress: document.getElementById('holdProgress'),
+          holdProgressCircle: document.getElementById('holdProgressCircle')
+        };
+        
+        state.loadedResources.dom = true;
+        checkAllResourcesLoaded();
       }
       
       function initializeAudio() {
@@ -3356,27 +1897,17 @@
           { element: state.elements.audioExhale, src: AUDIO_SOURCES.exhale }
         ];
         
-        // Calculate total loading steps (3 audio files + initialization)
-        const totalSteps = audioElements.length + 1;
-        let completedSteps = 1; // Start with 1 to show initial progress
+        // Calculate total loading steps
+        const totalSteps = audioElements.length;
+        let completedSteps = 0;
         
-        // Update loading progress - ensure the loading bar is showing progress from the start
+        // Update loading progress
         function updateLoadingProgress() {
-          try {
-            if (state.elements.loadingBar) {
-              const progress = Math.min(100, (completedSteps / totalSteps) * 100);
-              state.elements.loadingBar.style.width = `${progress}%`;
-              console.log(`Loading progress: ${progress.toFixed(1)}%`);
-            } else {
-              console.warn('Loading bar element not found');
-            }
-          } catch (err) {
-            console.error('Error updating loading progress:', err);
+          if (state.elements.loadingBar) {
+            const progress = (completedSteps / totalSteps) * 100;
+            state.elements.loadingBar.style.width = `${progress}%`;
           }
         }
-        
-        // Show initial progress immediately
-        updateLoadingProgress();
         
         // Create a promise for each audio element
         const audioPromises = audioElements.map(({element, src}) => {
@@ -3413,30 +1944,15 @@
                 updateLoadingProgress();
                 resolve();
               }
-            }, 3000); // Reduced timeout for better user experience
+            }, 5000);
           });
         });
-        
-        // If we have no promises (no audio elements found), complete the loading process
-        if (audioPromises.length === 0) {
-          console.warn('No audio elements found for loading');
-          state.isAudioReady = false;
-          state.loadedResources.audio = true;
-          checkAllResourcesLoaded();
-          return;
-        }
         
         // Wait for all audio to load or timeout
         Promise.all(audioPromises)
           .then(() => {
-            console.log('All audio loaded successfully');
             state.isAudioReady = true;
             state.loadedResources.audio = true;
-            
-            // Set final progress to 100%
-            completedSteps = totalSteps;
-            updateLoadingProgress();
-            
             checkAllResourcesLoaded();
           })
           .catch(error => {
@@ -3444,11 +1960,6 @@
             // Continue anyway with potentially limited audio
             state.isAudioReady = false;
             state.loadedResources.audio = true; // Mark as "complete" even if failed
-            
-            // Set final progress to 100%
-            completedSteps = totalSteps;
-            updateLoadingProgress();
-            
             checkAllResourcesLoaded();
           });
       }
@@ -3456,30 +1967,16 @@
       function checkAllResourcesLoaded() {
         // Check if all resources are loaded
         if (state.loadedResources.dom && state.loadedResources.audio) {
-          console.log('All resources loaded, initializing app...');
-          
-          // Force loading bar to 100%
-          const loadingBar = document.getElementById('loadingBar');
-          if (loadingBar) {
-            loadingBar.style.width = '100%';
-          }
-          
-          // Small delay to ensure UI is ready and to show the completed loading bar
+          // Small delay to ensure UI is ready
           setTimeout(() => {
             // Fade out loading screen
-            const loadingContainer = document.getElementById('loadingContainer');
-            if (loadingContainer) {
-              loadingContainer.style.opacity = '0';
-              setTimeout(() => {
-                loadingContainer.style.display = 'none';
-              }, 500);
-            }
+            state.elements.loadingContainer.style.opacity = '0';
+            setTimeout(() => {
+              state.elements.loadingContainer.style.display = 'none';
+            }, 500);
             
             // Show app content with fade in
-            const appContainer = document.getElementById('appContainer');
-            if (appContainer) {
-              appContainer.style.opacity = '1';
-            }
+            state.elements.appContainer.style.opacity = '1';
             
             // Start the breathing animation
             startBreathing();
@@ -3489,27 +1986,7 @@
             
             // Show iOS install instructions if appropriate
             showIOSInstallInstructions();
-            
-            // Initialize joy features AFTER the app is fully loaded
-            setTimeout(() => {
-              initializeJoyFeatures();
-            }, 1000);
-          }, 800); // Increased delay to show 100% progress
-        } else {
-          console.log('Still waiting for resources to load...');
-          console.log('DOM loaded:', state.loadedResources.dom);
-          console.log('Audio loaded:', state.loadedResources.audio);
-          
-          // Implement a backup timeout to force completion if loading takes too long
-          if (!state.loadingTimeoutSet) {
-            state.loadingTimeoutSet = true;
-            setTimeout(() => {
-              console.log('Forcing app to start due to timeout');
-              state.loadedResources.dom = true;
-              state.loadedResources.audio = true;
-              checkAllResourcesLoaded();
-            }, 5000);
-          }
+          }, 500);
         }
       }
       
@@ -3617,9 +2094,6 @@
             if (state.elements.knowledgeSection.style.display === 'block') {
               handlers.hideKnowledgeSection();
             }
-            if (document.body.classList.contains('special-mode')) {
-              deactivateSpecialModes();
-            }
           }
         });
         
@@ -3627,27 +2101,6 @@
         if (state.elements.installButton) {
           state.elements.installButton.addEventListener('click', handleInstallClick);
         }
-        
-        // Joy Features Event Listeners
-        setupCircleInteractions();
-        setupSecretCodes();
-        
-        // Add theme selection and management
-        let tapCount = 0;
-        let tapTimer = null;
-        
-        // Add a hidden triple-tap gesture on the logo
-        state.elements.mainLogo.addEventListener('click', () => {
-          tapCount++;
-          clearTimeout(tapTimer);
-          
-          if (tapCount === 3) {
-            cycleTheme();
-            tapCount = 0;
-          } else {
-            tapTimer = setTimeout(() => tapCount = 0, 1000);
-          }
-        });
       }
       
       // BREATHING CONTROL FUNCTIONS
@@ -3914,6 +2367,11 @@
         
         // Show custom completion modal instead of alert
         showCompletionModal();
+        
+        // Call analytics session completion if enhanced features are enabled
+        if (window.hagiusEnhanced && window.analytics) {
+          window.analytics.endSession(true, 95);
+        }
       }
       
       function showCompletionModal() {
@@ -4004,624 +2462,1465 @@
         utils.showToast('App installed successfully!');
       });
       
-      // JOY FEATURES IMPLEMENTATION
+      // ENHANCED FEATURES
       
-      // 1. Ambient Nature Themes
-      function cycleTheme() {
-        const themes = state.themes.available;
-        const currentIndex = themes.indexOf(state.themes.current);
-        const nextIndex = (currentIndex + 1) % themes.length;
-        const newTheme = themes[nextIndex];
+      // DYNAMIC PARTICLE SYSTEM FOR BREATHING VISUALIZATION
+      function initializeParticleSystem() {
+        // Create canvas for particle animation
+        const canvas = document.createElement('canvas');
+        canvas.id = 'particleCanvas';
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '1';
+        document.body.appendChild(canvas);
         
-        // Apply theme change with transition
-        applyTheme(newTheme);
-        utils.showToast(`${formatThemeName(newTheme)} theme activated`);
-      }
-      
-      function formatThemeName(theme) {
-        return theme === 'default' ? 'Classic' : 
-               theme.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-      }
-      
-      // Theme management function - with added safety checks
-      function applyTheme(themeName) {
-        try {
-          console.log(`Applying theme: ${themeName}`);
-          
-          // Guard against invalid theme
-          if (!themeName || !state.themes.available.includes(themeName)) {
-            console.warn(`Invalid theme: ${themeName}`);
-            return;
+        const ctx = canvas.getContext('2d');
+        
+        // Particle class for breathing visualization
+        class Particle {
+          constructor(x, y, size, color, speedMultiplier = 1) {
+            this.x = x;
+            this.y = y;
+            this.size = size;
+            this.color = color;
+            this.baseSize = size;
+            this.angle = Math.random() * Math.PI * 2;
+            this.speedMultiplier = speedMultiplier;
+            this.orbitRadius = 50 + Math.random() * 100;
+            this.opacity = 0.1 + Math.random() * 0.5;
           }
           
-          // Store the current theme
-          state.themes.current = themeName;
-          
-          // Clear existing particles
-          clearThemeParticles();
-          
-          // Apply new theme CSS class
-          document.body.className = document.body.className.replace(/theme-\w+(-\w+)?/, '');
-          
-          // Only add theme class if not default
-          if (themeName !== 'default') {
-            document.body.classList.add(`theme-${themeName}`);
+          update(breatheIn, intensity) {
+            // Move particles based on breathing state
+            const direction = breatheIn ? 1 : -1;
+            const speed = 0.02 * this.speedMultiplier * intensity;
+            
+            // Orbit around center with breathing influence
+            this.angle += speed * direction;
+            
+            // Expand/contract orbit based on breathing
+            const orbitChange = breatheIn ? 0.5 : -0.2;
+            this.orbitRadius += orbitChange * intensity;
+            this.orbitRadius = Math.max(10, Math.min(250, this.orbitRadius));
+            
+            // Particle size influenced by breathing
+            this.size = this.baseSize * (1 + (direction * 0.1 * intensity));
+            
+            // Calculate position
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            this.x = centerX + Math.cos(this.angle) * this.orbitRadius;
+            this.y = centerY + Math.sin(this.angle) * this.orbitRadius;
+            
+            // Adjust opacity based on breathing
+            this.opacity = Math.min(0.8, this.opacity + (direction * 0.002 * intensity));
           }
           
-          // Only create particles if it's not the default theme
-          if (themeName !== 'default') {
-            createThemeParticles(themeName);
-          }
-          
-          // Play ambient sound for this theme (optional)
-          playThemeAmbience(themeName);
-          
-          // Save user preference
-          localStorage.setItem('preferred-theme', themeName);
-        } catch (error) {
-          console.error(`Error applying theme ${themeName}:`, error);
-          // Revert to default theme if there's an error
-          if (themeName !== 'default') {
-            try {
-              document.body.className = document.body.className.replace(/theme-\w+(-\w+)?/, '');
-              clearThemeParticles();
-              if (state.themes.audio) {
-                state.themes.audio.pause();
-                state.themes.audio = null;
-              }
-            } catch (revertError) {
-              console.error("Error reverting to default theme:", revertError);
-            }
+          draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color.replace(')', `, ${this.opacity})`).replace('rgb', 'rgba');
+            ctx.fill();
           }
         }
-      }
-      
-      function createThemeParticles(theme) {
-        try {
-          if (theme === 'default') return; // No particles for default theme
-          
-          const container = document.createElement('div');
-          container.className = 'theme-particles';
-          document.body.appendChild(container);
-          
-          let particleCount = 0;
-          let particleTypes = [];
-          
-          // Configure particles based on theme
-          switch(theme) {
-            case 'forest':
-              particleCount = 15; // Reduced from 20 for performance
-              particleTypes = ['leaf-1', 'leaf-2', 'leaf-3'];
+        
+        // Create particle array
+        const particles = [];
+        const particleColors = [
+          'rgb(255, 255, 255)',
+          'rgb(200, 230, 255)',
+          'rgb(180, 210, 255)'
+        ];
+        
+        // Initialize particles
+        for (let i = 0; i < 150; i++) {
+          const x = canvas.width / 2;
+          const y = canvas.height / 2;
+          const size = 1 + Math.random() * 4;
+          const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+          const speedMultiplier = 0.5 + Math.random() * 1.5;
+          particles.push(new Particle(x, y, size, color, speedMultiplier));
+        }
+        
+        // Animation variables
+        let breatheIn = true;
+        let breathingIntensity = 0;
+        
+        // Connect to breathing state
+        function updateParticleBreathing(phase, progress) {
+          // Map breathing phase to particle behavior
+          switch(phase.toLowerCase()) {
+            case 'inhale':
+            case 'inhale2':
+              breatheIn = true;
+              breathingIntensity = progress;
               break;
-            case 'ocean':
-              particleCount = 20; // Reduced from 30 for performance
-              particleTypes = ['bubble', 'tiny-bubble', 'fish'];
+            case 'exhale':
+              breatheIn = false;
+              breathingIntensity = progress;
               break;
-            case 'night-sky':
-              particleCount = 30; // Reduced from 50 for performance
-              particleTypes = ['star', 'shooting-star', 'twinkle'];
+            case 'hold':
+              breatheIn = false;
+              breathingIntensity = 0.3; // Subtle movement during hold
               break;
-            case 'sunset':
-              particleCount = 15; // Reduced from 25 for performance
-              particleTypes = ['cloud', 'bird', 'glow'];
-              break;
-            default:
-              return; // No particles for other themes
           }
-          
-          // Create particles - with a maximum to prevent performance issues
-          particleCount = Math.min(particleCount, 30); // Cap at 30 particles max
-          
-          for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
-            
-            particle.className = `particle ${type}`;
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.top = `${Math.random() * 100}%`;
-            particle.style.animationDelay = `${Math.random() * 5}s`;
-            particle.style.animationDuration = `${10 + Math.random() * 20}s`;
-            
-            container.appendChild(particle);
-            state.themes.particles.push(particle);
-          }
-        } catch (error) {
-          console.error("Error creating theme particles:", error);
-        }
-      }
-      
-      function clearThemeParticles() {
-        // Remove all existing particles
-        const container = document.querySelector('.theme-particles');
-        if (container) {
-          container.remove();
-        }
-        state.themes.particles = [];
-      }
-      
-      function playThemeAmbience(theme) {
-        // Clean up any existing audio
-        if (state.themes.audio) {
-          state.themes.audio.pause();
-          state.themes.audio = null;
         }
         
-        // Only play if user has interacted and sound should be enabled
-        if (!state.hasInteracted || theme === 'default') return;
-        
-        // Create ambient audio based on theme
-        const audio = new Audio();
-        audio.loop = true;
-        audio.volume = 0.1; // Very quiet background ambience
-        
-        switch(theme) {
-          case 'forest':
-            audio.src = 'sounds/forest-ambience.mp3';
-            break;
-          case 'ocean':
-            audio.src = 'sounds/ocean-waves.mp3';
-            break;
-          case 'night-sky':
-            audio.src = 'sounds/night-crickets.mp3';
-            break;
-          case 'sunset':
-            audio.src = 'sounds/gentle-wind.mp3';
-            break;
-          default:
-            return; // No audio for default theme
-        }
-        
-        // Add fade-in effect
-        audio.volume = 0;
-        const fadeInterval = setInterval(() => {
-          if (audio.volume < 0.1) {
-            audio.volume += 0.01;
-          } else {
-            clearInterval(fadeInterval);
-          }
-        }, 100);
-        
-        audio.play().catch(e => console.log('Audio autoplay prevented by browser'));
-        state.themes.audio = audio;
-      }
-      
-      // 2. Interactive Breathing Circle
-      function setupCircleInteractions() {
-        const circle = state.elements.breathingCircle;
-        
-        // Add touch/click ripple effect
-        circle.addEventListener('click', createRippleEffect);
-        
-        // Add hover glow effect (for desktop)
-        circle.addEventListener('mouseenter', () => {
-          if (!state.isMeditating) { // Only when not actively in session
-            circle.classList.add('hover-glow');
-          }
-        });
-        
-        circle.addEventListener('mouseleave', () => {
-          circle.classList.remove('hover-glow');
-        });
-        
-        // Add gentle pulse on long-press (for mobile)
-        let pressTimer;
-        circle.addEventListener('touchstart', (e) => {
-          pressTimer = setTimeout(() => {
-            createPulseEffect(e);
-          }, 800); // long press threshold
-        });
-        
-        circle.addEventListener('touchend', () => {
-          clearTimeout(pressTimer);
-        });
-        
-        // Add double-tap sparkle effect
-        let lastTap = 0;
-        circle.addEventListener('touchend', (e) => {
-          const currentTime = new Date().getTime();
-          const tapLength = currentTime - lastTap;
-          
-          if (tapLength < 500 && tapLength > 0) {
-            // Double tap detected
-            createSparkleEffect(e);
-            e.preventDefault();
-          }
-          
-          lastTap = currentTime;
-        });
-      }
-      
-      // Ripple effect when clicking/tapping the circle
-      function createRippleEffect(e) {
-        const circle = state.elements.breathingCircle;
-        const ripple = document.createElement('div');
-        ripple.className = 'circle-ripple';
-        
-        // Get position relative to circle
-        const rect = circle.getBoundingClientRect();
-        const x = e.clientX || (e.touches && e.touches[0].clientX) || rect.width / 2;
-        const y = e.clientY || (e.touches && e.touches[0].clientY) || rect.height / 2;
-        
-        // Calculate position relative to circle center
-        const relX = x - rect.left - rect.width / 2;
-        const relY = y - rect.top - rect.height / 2;
-        
-        // Position ripple at click/tap point
-        ripple.style.left = `${relX}px`;
-        ripple.style.top = `${relY}px`;
-        
-        // Add ripple to circle
-        circle.appendChild(ripple);
-        
-        // Remove after animation completes
-        setTimeout(() => {
-          ripple.classList.add('fade-out');
-          setTimeout(() => ripple.remove(), 300);
-        }, 700);
-      }
-      
-      // Create a gentle pulse effect on long-press
-      function createPulseEffect(e) {
-        const circle = state.elements.breathingCircle;
-        
-        // Add pulse class to trigger animation
-        circle.classList.add('pulse-effect');
-        
-        // Trigger haptic feedback if supported
-        if (state.isVibrationSupported && state.hapticEnabled) {
-          navigator.vibrate([15]);
-        }
-        
-        // Remove class after animation completes
-        setTimeout(() => {
-          circle.classList.remove('pulse-effect');
-        }, 600);
-      }
-      
-      // Create sparkle effect on double-tap
-      function createSparkleEffect(e) {
-        const circle = state.elements.breathingCircle;
-        const sparkleContainer = document.createElement('div');
-        sparkleContainer.className = 'sparkle-container';
-        
-        // Create multiple sparkle elements
-        for (let i = 0; i < 12; i++) {
-          const sparkle = document.createElement('div');
-          sparkle.className = 'sparkle';
-          sparkle.style.transform = `rotate(${i * 30}deg)`;
-          sparkle.style.animationDelay = `${i * 50}ms`;
-          sparkleContainer.appendChild(sparkle);
-        }
-        
-        circle.appendChild(sparkleContainer);
-        
-        // Remove after animation completes
-        setTimeout(() => {
-          sparkleContainer.classList.add('fade-out');
-          setTimeout(() => sparkleContainer.remove(), 300);
-        }, 1000);
-      }
-      
-      // 3. Secret Konami Code
-      function setupSecretCodes() {
-        // Konami Code: ↑↑↓↓←→←→BA
-        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
-                          'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 
-                          'b', 'a'];
-        let konamiIndex = 0;
-        
-        // For touch devices - track touch positions for swipe detection
-        let touchStartX = 0;
-        let touchStartY = 0;
-        const touchSequence = [];
-        const touchTimeout = 2000; // ms to clear sequence
-        let touchTimer;
-        
-        // Keydown event for keyboard users
-        document.addEventListener('keydown', (e) => {
-          // Check for escape key to exit special modes
-          if (e.key === 'Escape' && document.body.classList.contains('special-mode')) {
-            deactivateSpecialModes();
-            return;
-          }
-          
-          // Check for Konami code sequence
-          const key = e.key.toLowerCase();
-          if (key === konamiCode[konamiIndex].toLowerCase()) {
-            konamiIndex++;
-            // Show subtle feedback for each correct input
-            if (konamiIndex > 1) {
-              const feedbackEl = document.createElement('div');
-              feedbackEl.className = 'code-feedback';
-              feedbackEl.textContent = konamiIndex;
-              document.body.appendChild(feedbackEl);
-              setTimeout(() => feedbackEl.remove(), 500);
-            }
-            
-            if (konamiIndex === konamiCode.length) {
-              activateRainbowMode();
-              konamiIndex = 0;
-            }
-          } else {
-            konamiIndex = (key === konamiCode[0].toLowerCase()) ? 1 : 0;
-          }
-        });
-        
-        // Touch support for mobile devices
-        document.addEventListener('touchstart', (e) => {
-          touchStartX = e.touches[0].clientX;
-          touchStartY = e.touches[0].clientY;
-          clearTimeout(touchTimer);
-        });
-        
-        document.addEventListener('touchend', (e) => {
-          if (e.target.closest('.breathing-circle')) return; // Don't interfere with circle interactions
-          
-          const touchEndX = e.changedTouches[0].clientX;
-          const touchEndY = e.changedTouches[0].clientY;
-          
-          // Determine swipe direction
-          const deltaX = touchEndX - touchStartX;
-          const deltaY = touchEndY - touchStartY;
-          
-          if (Math.abs(deltaX) > 50 || Math.abs(deltaY) > 50) { // Minimum swipe distance
-            let direction;
-            
-            if (Math.abs(deltaX) > Math.abs(deltaY)) {
-              direction = deltaX > 0 ? 'ArrowRight' : 'ArrowLeft';
-            } else {
-              direction = deltaY > 0 ? 'ArrowDown' : 'ArrowUp';
-            }
-            
-            touchSequence.push(direction);
-            
-            // Double tap for 'a' and 'b'
-            if (touchSequence.length === 8 && 
-                touchSequence.join(',') === konamiCode.slice(0, 8).join(',')) {
-              utils.showToast("Tap twice for B, then twice for A");
-            }
-            
-            // Reset sequence after delay
-            clearTimeout(touchTimer);
-            touchTimer = setTimeout(() => {
-              touchSequence.length = 0;
-            }, touchTimeout);
-            
-            // Check for double tap (B and A equivalents)
-            const doubleTapTime = 300; // ms
-            const now = new Date().getTime();
-            
-            if (touchSequence.length === 9 && 
-                now - state.lastTapTime < doubleTapTime && 
-                touchSequence.join(',') === konamiCode.slice(0, 8).concat('b').join(',')) {
-              utils.showToast("Now tap twice for A");
-            }
-            
-            // Check complete sequence
-            if (touchSequence.length === 10 && 
-                now - state.lastTapTime < doubleTapTime && 
-                touchSequence.join(',') === konamiCode.join(',')) {
-              activateRainbowMode();
-              touchSequence.length = 0;
-            }
-            
-            state.lastTapTime = now;
-          }
-        });
-        
-        // Add Fibonacci sequence code
-        setupFibonacciCode();
-      }
-      
-      // Rainbow breathing mode
-      function activateRainbowMode() {
-        // First, deactivate any active special modes
-        deactivateSpecialModes();
-        
-        // Apply rainbow classes
-        document.body.classList.add('special-mode', 'rainbow-mode');
-        state.elements.breathingCircle.classList.add('rainbow-breathing');
-        
-        // Create floating particles
-        createRainbowParticles();
-        
-        // Change the app text
-        state.elements.timerDisplay.innerHTML = '🌈';
-        utils.showToast("🌈 Rainbow Breath Mode Activated! (ESC to exit)");
-        
-        // Play a special sound
-        playAudioEffect('chime-special.mp3');
-        
-        // Remember that we've unlocked this achievement
-        localStorage.setItem('rainbow-unlocked', 'true');
-        
-        // Add motion effects to various elements
-        document.querySelectorAll('.bottom-button').forEach((button, i) => {
-          button.classList.add('rainbow-button');
-          button.style.animationDelay = `${i * 0.2}s`;
-        });
-      }
-      
-      function createRainbowParticles() {
-        const container = document.createElement('div');
-        container.className = 'rainbow-particles';
-        document.body.appendChild(container);
-        
-        // Create 30 rainbow particles
-        for (let i = 0; i < 30; i++) {
-          const particle = document.createElement('div');
-          particle.className = 'rainbow-particle';
-          
-          // Random positions and delays
-          particle.style.left = `${Math.random() * 100}%`;
-          particle.style.top = `${Math.random() * 100}%`;
-          particle.style.animationDelay = `${Math.random() * 5}s`;
-          particle.style.animationDuration = `${10 + Math.random() * 20}s`;
-          
-          // Varying sizes
-          const size = 5 + Math.random() * 15;
-          particle.style.width = `${size}px`;
-          particle.style.height = `${size}px`;
-          
-          // Store hue for animation
-          particle.dataset.hue = Math.floor(Math.random() * 360);
-          
-          container.appendChild(particle);
-        }
-        
-        // Animate hue rotation
+        // Animation loop
         function animateParticles() {
-          if (!document.body.classList.contains('rainbow-mode')) return;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
           
-          document.querySelectorAll('.rainbow-particle').forEach(p => {
-            const hue = (parseInt(p.dataset.hue) + 1) % 360;
-            p.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
-            p.dataset.hue = hue;
+          // Add radial gradient background
+          const gradient = ctx.createRadialGradient(
+            canvas.width/2, canvas.height/2, 10,
+            canvas.width/2, canvas.height/2, 300
+          );
+          gradient.addColorStop(0, breatheIn ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.03)');
+          gradient.addColorStop(1, 'rgba(255,255,255,0)');
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, canvas.width, canvas.width);
+          
+          // Update and draw particles
+          particles.forEach(particle => {
+            particle.update(breatheIn, breathingIntensity);
+            particle.draw();
           });
           
           requestAnimationFrame(animateParticles);
         }
         
-        requestAnimationFrame(animateParticles);
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
+        
+        // Start animation
+        animateParticles();
+        
+        // Return function to update breathing state
+        return updateParticleBreathing;
       }
       
-      // Fibonacci sequence code
-      function setupFibonacciCode() {
-        // Detect taps in Fibonacci sequence: 1, 1, 2, 3, 5, 8
-        const fibPattern = [1000, 1000, 2000, 3000, 5000, 8000];
-        let lastTapTime = 0;
-        let fibIndex = 0;
+      // ADAPTIVE SOUNDSCAPES WITH BINAURAL BEATS
+      function initializeSoundscapes() {
+        // Create audio context
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
         
-        document.getElementById('mainLogo').addEventListener('click', () => {
-          const now = new Date().getTime();
-          const elapsed = now - lastTapTime;
-          
-          // Reset if waited too long
-          if (elapsed > 10000) {
-            fibIndex = 0;
-          } else if (fibIndex > 0) {
-            // Check if tap matches the timing pattern (with 30% tolerance)
-            const targetTime = fibPattern[fibIndex - 1];
-            const tolerance = targetTime * 0.3;
-            
-            if (Math.abs(elapsed - targetTime) <= tolerance) {
-              fibIndex++;
-              
-              // Show subtle feedback for each correct input
-              if (fibIndex > 1) {
-                const feedbackEl = document.createElement('div');
-                feedbackEl.className = 'code-feedback fibonacci';
-                feedbackEl.textContent = fibIndex;
-                document.body.appendChild(feedbackEl);
-                setTimeout(() => feedbackEl.remove(), 500);
-              }
-              
-              if (fibIndex === fibPattern.length) {
-                activateZenMode();
-                fibIndex = 0;
-              }
-            } else {
-              fibIndex = 1; // Start over with this tap
-            }
-          } else {
-            fibIndex = 1; // First tap
+        // Audio nodes
+        let binauralBeatNode = null;
+        let leftOscillator = null;
+        let rightOscillator = null;
+        let gainNode = null;
+        let ambientSound = null;
+        
+        // Available ambient soundscapes
+        const soundscapes = {
+          ocean: {
+            url: 'sounds/ocean-waves.mp3',
+            baseFreq: 136.1, // 136.1 Hz "OM" frequency
+            binauralBeatDiff: 6 // 6 Hz - Promotes deep relaxation
+          },
+          forest: {
+            url: 'sounds/forest-ambience.mp3',
+            baseFreq: 174, // 174 Hz - Reduces pain and stress
+            binauralBeatDiff: 4.5 // 4.5 Hz - Increases intuition and creativity
+          },
+          night: {
+            url: 'sounds/night-sounds.mp3',
+            baseFreq: 285, // 285 Hz - Healing and tissue regeneration
+            binauralBeatDiff: 3 // 3 Hz - Deep relaxation
+          },
+          rain: {
+            url: 'sounds/gentle-rain.mp3',
+            baseFreq: 396, // 396 Hz - Liberating fear
+            binauralBeatDiff: 7.83 // 7.83 Hz - Earth's Schumann Resonance
+          }
+        };
+        
+        // Current soundscape
+        let currentSoundscape = 'ocean';
+        
+        // Generate binaural beats
+        function createBinauralBeats(baseFrequency, beatFrequency) {
+          // Stop existing beats if any
+          if (leftOscillator) {
+            leftOscillator.stop();
+            rightOscillator.stop();
           }
           
-          lastTapTime = now;
-        });
-      }
-      
-      // Zen mode (minimal UI for deep focus)
-      function activateZenMode() {
-        // First, deactivate any active special modes
-        deactivateSpecialModes();
-        
-        document.body.classList.add('special-mode', 'zen-mode');
-        utils.showToast("✨ Zen Mode Activated (ESC to exit)");
-        
-        // Hide non-essential UI elements
-        document.querySelectorAll('.header, .session-progress-container, .button-container')
-          .forEach(el => {
-            el.classList.add('zen-hidden');
-          });
-        
-        // Enhance the breathing circle
-        state.elements.breathingCircle.classList.add('zen-circle');
-        
-        // Remember that we've unlocked this achievement
-        localStorage.setItem('zen-unlocked', 'true');
-      }
-      
-      // Common function to deactivate special modes
-      function deactivateSpecialModes() {
-        document.body.classList.remove('special-mode', 'rainbow-mode', 'zen-mode');
-        state.elements.breathingCircle.classList.remove('rainbow-breathing', 'zen-circle');
-        
-        // Remove any special particles
-        const particles = document.querySelector('.rainbow-particles');
-        if (particles) particles.remove();
-        
-        // Restore UI elements
-        document.querySelectorAll('.zen-hidden').forEach(el => {
-          el.classList.remove('zen-hidden');
-        });
-        
-        // Restore default text
-        updatePhaseText(state.currentPattern[state.currentPhaseIndex].label);
-        
-        // Remove rainbow buttons
-        document.querySelectorAll('.rainbow-button').forEach(button => {
-          button.classList.remove('rainbow-button');
-        });
-      }
-      
-      // Helper function to play audio effects
-      function playAudioEffect(src) {
-        if (!state.hasInteracted) return;
-        
-        const audio = new Audio(`sounds/${src}`);
-        audio.volume = 0.3;
-        audio.play().catch(e => console.log('Audio play prevented'));
-      }
-      
-      // Helper function to update phase text
-      function updatePhaseText(label) {
-        if (state.elements.timerDisplay) {
-          const displayLabel = label === 'Inhale2' ? 'Inhale' : 
-                             (label.charAt(0).toUpperCase() + label.slice(1));
-          state.elements.timerDisplay.textContent = displayLabel;
+          // Create stereo panner for separate ear channels
+          const leftPanner = audioContext.createStereoPanner();
+          leftPanner.pan.value = -1;  // Hard left
+          
+          const rightPanner = audioContext.createStereoPanner();
+          rightPanner.pan.value = 1;  // Hard right
+          
+          // Create gain node for volume control
+          gainNode = audioContext.createGain();
+          gainNode.gain.value = 0.15; // Low volume for background
+          
+          // Create oscillators
+          leftOscillator = audioContext.createOscillator();
+          leftOscillator.type = 'sine';
+          leftOscillator.frequency.value = baseFrequency;
+          
+          rightOscillator = audioContext.createOscillator();
+          rightOscillator.type = 'sine';
+          rightOscillator.frequency.value = baseFrequency + beatFrequency;
+          
+          // Connect nodes
+          leftOscillator.connect(leftPanner);
+          rightOscillator.connect(rightPanner);
+          leftPanner.connect(gainNode);
+          rightPanner.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          
+          // Start oscillators
+          leftOscillator.start();
+          rightOscillator.start();
         }
+        
+        // Load and play ambient sound
+        async function loadAmbientSound(soundscapeKey) {
+          try {
+            const soundscape = soundscapes[soundscapeKey];
+            const response = await fetch(soundscape.url);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            
+            if (ambientSound) {
+              ambientSound.stop();
+            }
+            
+            ambientSound = audioContext.createBufferSource();
+            ambientSound.buffer = audioBuffer;
+            ambientSound.loop = true;
+            
+            const ambientGain = audioContext.createGain();
+            ambientGain.gain.value = 0.3;
+            
+            ambientSound.connect(ambientGain);
+            ambientGain.connect(audioContext.destination);
+            ambientSound.start();
+            
+            // Create matching binaural beats
+            createBinauralBeats(soundscape.baseFreq, soundscape.binauralBeatDiff);
+            
+            return true;
+          } catch (error) {
+            console.error('Error loading ambient sound:', error);
+            return false;
+          }
+        }
+        
+        // Adapt based on breathing technique
+        function adaptSoundToTechnique(technique) {
+          let recommendedSoundscape;
+          
+          switch(technique) {
+            case 'resonance':
+              recommendedSoundscape = 'ocean';
+              break;
+            case 'box':
+              recommendedSoundscape = 'forest';
+              break;
+            case '478':
+              recommendedSoundscape = 'night';
+              break;
+            case 'physio-sigh':
+              recommendedSoundscape = 'rain';
+              break;
+            default:
+              recommendedSoundscape = 'ocean';
+          }
+          
+          if (recommendedSoundscape !== currentSoundscape) {
+            currentSoundscape = recommendedSoundscape;
+            loadAmbientSound(currentSoundscape);
+          }
+        }
+        
+        // Adjust sound based on breathing phase
+        function adjustSoundToBreathing(phase, progress) {
+          if (!gainNode) return;
+          
+          // Subtle volume changes based on breathing phase
+          switch(phase.toLowerCase()) {
+            case 'inhale':
+            case 'inhale2':
+              // Gradually increase volume during inhale
+              gainNode.gain.linearRampToValueAtTime(
+                0.25, // Target volume
+                audioContext.currentTime + 0.2 // Ramp time
+              );
+              break;
+            case 'exhale':
+              // Gradually decrease volume during exhale
+              gainNode.gain.linearRampToValueAtTime(
+                0.15, // Target volume
+                audioContext.currentTime + 0.2 // Ramp time
+              );
+              break;
+            case 'hold':
+              // Maintain steady volume during hold
+              gainNode.gain.linearRampToValueAtTime(
+                0.2, // Target volume
+                audioContext.currentTime + 0.1 // Ramp time
+              );
+              break;
+          }
+        }
+        
+        // Public interface
+        return {
+          start: () => {
+            // Resume audio context if suspended (autoplay policy)
+            if (audioContext.state === 'suspended') {
+              audioContext.resume();
+            }
+            loadAmbientSound(currentSoundscape);
+          },
+          stop: () => {
+            if (leftOscillator) {
+              leftOscillator.stop();
+              rightOscillator.stop();
+            }
+            if (ambientSound) {
+              ambientSound.stop();
+            }
+          },
+          adaptToTechnique: adaptSoundToTechnique,
+          updateWithBreathing: adjustSoundToBreathing,
+          setSoundscapeVolume: (volume) => {
+            if (gainNode) {
+              gainNode.gain.value = volume;
+            }
+          }
+        };
+      }
+      
+      // ADVANCED HAPTIC PATTERNS BASED ON BREATHING PHASES
+      function initializeAdvancedHaptics() {
+        // Check if vibration API is supported
+        const isSupported = 'vibrate' in navigator;
+        
+        // Enhanced haptic patterns (milliseconds)
+        const hapticPatterns = {
+          // Inhale: subtle build-up pattern
+          inhale: [10, 10, 15, 10, 20, 10, 25, 10, 30],
+          
+          // Hold: uniform gentle pulses
+          hold: [5, 20, 5, 20, 5],
+          
+          // Exhale: gradual fade-out pattern
+          exhale: [30, 10, 25, 10, 20, 10, 15, 10, 10],
+          
+          // Second inhale for physio-sigh: short intense
+          inhale2: [40, 10, 60],
+          
+          // Session completion: celebratory pattern
+          sessionEnd: [50, 50, 50, 50, 100, 50, 150]
+        };
+        
+        // Dynamically adjust haptic intensity based on session progress
+        function getAdjustedPattern(pattern, sessionProgress) {
+          // Calculate intensity factor (increases as session progresses)
+          // This creates a gentle build up of haptic intensity throughout the session
+          const intensityFactor = 0.8 + (sessionProgress * 0.4); // 0.8-1.2 range
+          
+          // Apply intensity factor to each pattern duration
+          return pattern.map(duration => Math.round(duration * intensityFactor));
+        }
+        
+        // Trigger haptic feedback
+        function triggerHaptic(phase, sessionProgress = 0) {
+          if (!isSupported) return false;
+          
+          try {
+            const basePattern = hapticPatterns[phase.toLowerCase()];
+            if (!basePattern) return false;
+            
+            // Get intensity-adjusted pattern
+            const pattern = getAdjustedPattern(basePattern, sessionProgress);
+            
+            // Trigger vibration
+            const result = navigator.vibrate(pattern);
+            return result;
+          } catch (error) {
+            console.warn('Haptic error:', error);
+            return false;
+          }
+        }
+        
+        return {
+          isSupported,
+          triggerForPhase: triggerHaptic,
+          sessionComplete: () => {
+            if (isSupported) {
+              navigator.vibrate(hapticPatterns.sessionEnd);
+            }
+          }
+        };
+      }
+      
+      // BREATHING ANALYTICS AND INSIGHTS DASHBOARD
+      function initializeBreathingAnalytics() {
+        // Local storage key
+        const STORAGE_KEY = 'hagius_breathing_analytics';
+        
+        // Session data structure
+        class SessionData {
+          constructor(technique, duration) {
+            this.id = Date.now();
+            this.date = new Date().toISOString();
+            this.technique = technique;
+            this.duration = duration; // in seconds
+            this.completed = false;
+            this.consistency = 0; // 0-100 score
+            this.mood = null; // pre-session mood
+            this.moodAfter = null; // post-session mood
+          }
+        }
+        
+        // Load existing data
+        function loadAnalyticsData() {
+          try {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : { sessions: [] };
+          } catch (error) {
+            console.error('Error loading analytics data:', error);
+            return { sessions: [] };
+          }
+        }
+        
+        // Save data
+        function saveAnalyticsData(data) {
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            return true;
+          } catch (error) {
+            console.error('Error saving analytics data:', error);
+            return false;
+          }
+        }
+        
+        // Current session
+        let currentSession = null;
+        
+        // Start tracking a new session
+        function startSession(technique, duration) {
+          currentSession = new SessionData(technique, duration);
+          
+          // Update data store
+          const data = loadAnalyticsData();
+          data.sessions.push(currentSession);
+          saveAnalyticsData(data);
+          
+          return currentSession.id;
+        }
+        
+        // End current session
+        function endSession(completed = true, consistency = 95) {
+          if (!currentSession) return false;
+          
+          // Update session data
+          currentSession.completed = completed;
+          currentSession.consistency = consistency;
+          currentSession.endTime = Date.now();
+          
+          // Update in storage
+          const data = loadAnalyticsData();
+          const index = data.sessions.findIndex(s => s.id === currentSession.id);
+          if (index !== -1) {
+            data.sessions[index] = currentSession;
+            saveAnalyticsData(data);
+          }
+          
+          // Ask for mood after session
+          promptForMood('after');
+          
+          return true;
+        }
+        
+        // Prompt user for mood
+        function promptForMood(stage = 'before') {
+          if (!currentSession) return;
+          
+          // Create mood selection modal
+          const modal = document.createElement('div');
+          modal.className = 'mood-modal';
+          modal.innerHTML = `
+            <div class="mood-content">
+              <h2>How do you feel ${stage === 'before' ? 'right now' : 'after this session'}?</h2>
+              <div class="mood-options">
+                <button data-mood="calm" class="mood-button">😌 Calm</button>
+                <button data-mood="stressed" class="mood-button">😰 Stressed</button>
+                <button data-mood="tired" class="mood-button">😴 Tired</button>
+                <button data-mood="focused" class="mood-button">🧠 Focused</button>
+                <button data-mood="anxious" class="mood-button">😟 Anxious</button>
+                <button data-mood="energized" class="mood-button">⚡ Energized</button>
+              </div>
+            </div>
+          `;
+          
+          document.body.appendChild(modal);
+          
+          // Add event listeners
+          const buttons = modal.querySelectorAll('.mood-button');
+          buttons.forEach(button => {
+            button.addEventListener('click', () => {
+              const mood = button.getAttribute('data-mood');
+              
+              // Update session data
+              if (stage === 'before') {
+                currentSession.mood = mood;
+              } else {
+                currentSession.moodAfter = mood;
+              }
+              
+              // Update in storage
+              const data = loadAnalyticsData();
+              const index = data.sessions.findIndex(s => s.id === currentSession.id);
+              if (index !== -1) {
+                data.sessions[index] = currentSession;
+                saveAnalyticsData(data);
+              }
+              
+              // Remove modal
+              modal.remove();
+            });
+          });
+        }
+        
+        // Generate personalized insights
+        function generateInsights(data) {
+          const insights = [];
+          const sessions = data.sessions;
+          
+          if (sessions.length === 0) {
+            return ["Welcome to your breathing journey! Complete your first session to see insights."];
+          }
+          
+          // Most used technique
+          const techniqueCounts = {};
+          sessions.forEach(s => {
+            techniqueCounts[s.technique] = (techniqueCounts[s.technique] || 0) + 1;
+          });
+          
+          const mostUsedTechnique = Object.entries(techniqueCounts)
+            .sort((a, b) => b[1] - a[1])[0][0];
+          
+          insights.push(`Your preferred technique is ${mostUsedTechnique} breathing.`);
+          
+          // Consistency pattern
+          const recentCompletionRate = sessions
+            .slice(-5)
+            .filter(s => s.completed)
+            .length / Math.min(sessions.length, 5);
+          
+          if (recentCompletionRate >= 0.8) {
+            insights.push("You've been very consistent recently. Great work!");
+          } else if (recentCompletionRate <= 0.4 && sessions.length > 3) {
+            insights.push("Try shorter sessions to build consistency.");
+          }
+          
+          // Mood improvement patterns
+          const moodChanges = sessions
+            .filter(s => s.mood && s.moodAfter)
+            .map(s => ({before: s.mood, after: s.moodAfter}));
+          
+          const stressReduction = moodChanges
+            .filter(m => m.before === 'stressed' && (m.after === 'calm' || m.after === 'focused'))
+            .length;
+          
+          if (stressReduction >= 2) {
+            insights.push("Breathing has been effective at reducing your stress levels.");
+          }
+          
+          // Time of day pattern
+          const sessionTimes = sessions.map(s => new Date(s.date).getHours());
+          const morningCount = sessionTimes.filter(h => h >= 5 && h < 12).length;
+          const eveningCount = sessionTimes.filter(h => h >= 18 && h < 24).length;
+          
+          if (morningCount > eveningCount && morningCount > sessions.length * 0.6) {
+            insights.push("You prefer morning sessions, which can help set a calm tone for your day.");
+          } else if (eveningCount > morningCount && eveningCount > sessions.length * 0.6) {
+            insights.push("You prefer evening sessions, which can help you unwind and prepare for rest.");
+          }
+          
+          // Add recommendation if we have fewer than 3 insights
+          if (insights.length < 3) {
+            insights.push("Try the resonance breathing technique for enhanced heart rate variability benefits.");
+          }
+          
+          return insights;
+        }
+        
+        // Generate visual analytics dashboard
+        function createAnalyticsDashboard() {
+          const data = loadAnalyticsData();
+          
+          // Get stats
+          const totalSessions = data.sessions.length;
+          const completedSessions = data.sessions.filter(s => s.completed).length;
+          const totalMinutes = Math.round(data.sessions.reduce((acc, s) => acc + s.duration, 0) / 60);
+          
+          // Aggregate by technique
+          const techniqueStats = {};
+          data.sessions.forEach(session => {
+            if (!techniqueStats[session.technique]) {
+              techniqueStats[session.technique] = 0;
+            }
+            techniqueStats[session.technique]++;
+          });
+          
+          // Create dashboard HTML
+          const dashboard = document.createElement('div');
+          dashboard.className = 'analytics-dashboard';
+          dashboard.innerHTML = `
+            <div class="dashboard-header">
+              <h2>Your Breathing Journey</h2>
+              <button class="close-dashboard">×</button>
+            </div>
+            
+            <div class="dashboard-stats">
+              <div class="stat-card">
+                <div class="stat-number">${totalSessions}</div>
+                <div class="stat-label">Sessions</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">${totalMinutes}</div>
+                <div class="stat-label">Minutes</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">${Math.round((completedSessions/totalSessions || 0) * 100)}%</div>
+                <div class="stat-label">Completion</div>
+              </div>
+            </div>
+            
+            <div class="dashboard-chart">
+              <h3>Your Technique Preferences</h3>
+              <div class="technique-bars">
+                ${Object.entries(techniqueStats).map(([technique, count]) => `
+                  <div class="technique-stat">
+                    <div class="technique-name">${technique}</div>
+                    <div class="technique-bar-container">
+                      <div class="technique-bar" style="width: ${(count/totalSessions)*100}%"></div>
+                      <span class="technique-count">${count}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            
+            <div class="dashboard-insights">
+              <h3>Insights</h3>
+              <ul class="insights-list">
+                ${generateInsights(data).map(insight => `
+                  <li class="insight-item">${insight}</li>
+                `).join('')}
+              </ul>
+            </div>
+          `;
+          
+          // Add to DOM
+          document.body.appendChild(dashboard);
+          
+          // Close button handler
+          dashboard.querySelector('.close-dashboard').addEventListener('click', () => {
+            dashboard.remove();
+          });
+          
+          return dashboard;
+        }
+        
+        // Return public interface
+        return {
+          startSession,
+          endSession,
+          promptForMood,
+          showDashboard: createAnalyticsDashboard
+        };
+      }
+      
+      // DYNAMIC COLOR THERAPY
+      function initializeColorTherapy() {
+        // Color themes mapped to effects/moods
+        const colorThemes = {
+          calm: {
+            primary: '#3a7ca5',
+            secondary: '#63c5da',
+            gradient: 'linear-gradient(to bottom, #3a7ca5, #63c5da)'
+          },
+          focus: {
+            primary: '#7953a9',
+            secondary: '#a893cc',
+            gradient: 'linear-gradient(to bottom, #7953a9, #a893cc)'
+          },
+          energize: {
+            primary: '#da6c42',
+            secondary: '#f3c677',
+            gradient: 'linear-gradient(to bottom, #da6c42, #f3c677)'
+          },
+          sleep: {
+            primary: '#2d4262',
+            secondary: '#6e7e9f',
+            gradient: 'linear-gradient(to bottom, #2d4262, #6e7e9f)'
+          },
+          balance: {
+            primary: '#2a7e19',
+            secondary: '#7ca35f',
+            gradient: 'linear-gradient(to bottom, #2a7e19, #7ca35f)'
+          }
+        };
+        
+        // Current theme
+        let currentTheme = 'calm';
+        
+        // Change theme with smooth transition
+        function changeTheme(themeName) {
+          if (!colorThemes[themeName]) return false;
+          
+          const theme = colorThemes[themeName];
+          const root = document.documentElement;
+          
+          // Create transition style
+          const transitionStyle = document.createElement('style');
+          transitionStyle.textContent = `
+            body {
+              transition: background 1.5s ease-in-out;
+            }
+            .breathing-circle {
+              transition: box-shadow 1.5s ease-in-out, transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            }
+          `;
+          document.head.appendChild(transitionStyle);
+          
+          // Apply new theme
+          document.body.style.background = theme.gradient;
+          root.style.setProperty('--primary-color', theme.primary);
+          root.style.setProperty('--secondary-color', theme.secondary);
+          
+          // Update breathing circle glow
+          const breathingCircle = document.querySelector('.breathing-circle');
+          if (breathingCircle) {
+            breathingCircle.style.boxShadow = `0 0 30px ${theme.primary}50, 0 0 60px ${theme.secondary}30`;
+          }
+          
+          // Remove transition style after animation completes
+          setTimeout(() => {
+            transitionStyle.remove();
+          }, 1500);
+          
+          currentTheme = themeName;
+          return true;
+        }
+        
+        // Recommend theme based on time of day
+        function getTimeBasedTheme() {
+          const hour = new Date().getHours();
+          
+          if (hour >= 5 && hour < 9) {
+            return 'energize'; // Morning energize
+          } else if (hour >= 9 && hour < 15) {
+            return 'focus';    // Daytime focus
+          } else if (hour >= 15 && hour < 20) {
+            return 'balance';  // Evening balance
+          } else {
+            return 'sleep';    // Night sleep
+          }
+        }
+        
+        // Match theme to breathing technique
+        function getThemeForTechnique(technique) {
+          switch(technique) {
+            case 'resonance': return 'calm';
+            case 'box': return 'focus';
+            case '478': return 'sleep';
+            case 'physio-sigh': return 'energize';
+            default: return 'calm';
+          }
+        }
+        
+        // Subtle color pulse with breathing
+        function pulseWithBreathing(phase, progress) {
+          const breathingCircle = document.querySelector('.breathing-circle');
+          if (!breathingCircle) return;
+          
+          const theme = colorThemes[currentTheme];
+          
+          switch(phase.toLowerCase()) {
+            case 'inhale':
+            case 'inhale2':
+              // Brighten during inhale
+              breathingCircle.style.boxShadow = `0 0 30px ${theme.primary}80, 0 0 60px ${theme.secondary}50`;
+              break;
+            case 'exhale':
+              // Dim during exhale
+              breathingCircle.style.boxShadow = `0 0 20px ${theme.primary}40, 0 0 40px ${theme.secondary}20`;
+              break;
+            case 'hold':
+              // Stable during hold
+              breathingCircle.style.boxShadow = `0 0 25px ${theme.primary}60, 0 0 50px ${theme.secondary}30`;
+              break;
+          }
+        }
+        
+        // Expose public interface
+        return {
+          setTheme: changeTheme,
+          getTimeBasedTheme,
+          getThemeForTechnique,
+          pulseWithBreathing
+        };
+      }
+      
+      // VOICE GUIDANCE SYSTEM
+      function initializeVoiceGuidance() {
+        // Create speech synthesis interface
+        const synth = window.speechSynthesis;
+        let speaking = false;
+        let voiceOptions = [];
+        let selectedVoice = null;
+        let volume = 0.8;
+        let enabled = false;
+        
+        // Initialize available voices
+        function loadVoices() {
+          return new Promise((resolve) => {
+            const voices = synth.getVoices();
+            
+            if (voices.length > 0) {
+              voiceOptions = voices;
+              // Select a default voice - prioritize natural-sounding ones
+              selectedVoice = voices.find(v => 
+                v.name.includes('Female') || 
+                v.name.includes('Samantha') || 
+                v.name.includes('Google')
+              ) || voices[0];
+              
+              resolve(true);
+            } else {
+              // Wait for voices to load
+              window.speechSynthesis.onvoiceschanged = () => {
+                voiceOptions = synth.getVoices();
+                selectedVoice = voiceOptions.find(v => 
+                  v.name.includes('Female') || 
+                  v.name.includes('Samantha') || 
+                  v.name.includes('Google')
+                ) || voiceOptions[0];
+                
+                resolve(true);
+              };
+            }
+          });
+        }
+        
+        // Speak guidance text
+        function speak(text, priority = false) {
+          if (!enabled || !selectedVoice) return false;
+          
+          // Cancel current speech if priority
+          if (speaking && priority) {
+            synth.cancel();
+          } else if (speaking) {
+            return false;
+          }
+          
+          // Create utterance
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.voice = selectedVoice;
+          utterance.volume = volume;
+          utterance.rate = 0.9; // Slightly slower for calming effect
+          utterance.pitch = 1;
+          
+          // Set speaking state
+          speaking = true;
+          
+          // Track completion
+          utterance.onend = () => {
+            speaking = false;
+          };
+          
+          // Speak
+          synth.speak(utterance);
+          return true;
+        }
+        
+        // Get appropriate guidance for phase
+        function getPhaseGuidance(phase, technique) {
+          // Vary instructions based on technique and phase
+          switch(technique) {
+            case 'resonance':
+              if (phase.toLowerCase() === 'inhale') {
+                return "Breathe in slowly through your nose";
+              } else if (phase.toLowerCase() === 'exhale') {
+                return "Now exhale gently, letting go of tension";
+              }
+              break;
+              
+            case 'box':
+              if (phase.toLowerCase() === 'inhale') {
+                return "Inhale deeply through your nose";
+              } else if (phase.toLowerCase() === 'hold') {
+                return "Hold your breath gently";
+              } else if (phase.toLowerCase() === 'exhale') {
+                return "Exhale completely";
+              }
+              break;
+              
+            case '478':
+              if (phase.toLowerCase() === 'inhale') {
+                return "Inhale quietly through your nose";
+              } else if (phase.toLowerCase() === 'hold') {
+                return "Hold your breath";
+              } else if (phase.toLowerCase() === 'exhale') {
+                return "Exhale completely through your mouth";
+              }
+              break;
+              
+            case 'physio-sigh':
+              if (phase.toLowerCase() === 'inhale') {
+                return "Take your first inhale";
+              } else if (phase.toLowerCase() === 'inhale2') {
+                return "Second inhale, fill your lungs";
+              } else if (phase.toLowerCase() === 'exhale') {
+                return "Long exhale, release fully";
+              }
+              break;
+              
+            default:
+              if (phase.toLowerCase() === 'inhale') {
+                return "Breathe in";
+              } else if (phase.toLowerCase() === 'hold') {
+                return "Hold";
+              } else if (phase.toLowerCase() === 'exhale') {
+                return "Breathe out";
+              }
+          }
+          
+          return "";
+        }
+        
+        // Create voice guidance settings UI
+        function createSettingsUI() {
+          const modal = document.createElement('div');
+          modal.className = 'voice-settings-modal';
+          modal.innerHTML = `
+            <div class="voice-settings-content">
+              <h2>Voice Guidance Settings</h2>
+              
+              <div class="setting-group">
+                <label class="setting-label">
+                  <span>Enable Voice Guidance</span>
+                  <label class="toggle">
+                    <input type="checkbox" id="voice-enabled" ${enabled ? 'checked' : ''}>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </label>
+              </div>
+              
+              <div class="setting-group">
+                <label for="voice-select" class="setting-label">Voice</label>
+                <select id="voice-select" ${!enabled ? 'disabled' : ''}>
+                  ${voiceOptions.map(voice => `
+                    <option value="${voice.name}" ${voice === selectedVoice ? 'selected' : ''}>
+                      ${voice.name}
+                    </option>
+                  `).join('')}
+                </select>
+              </div>
+              
+              <div class="setting-group">
+                <label for="voice-volume" class="setting-label">Volume</label>
+                <input type="range" id="voice-volume" min="0" max="1" step="0.1" value="${volume}" ${!enabled ? 'disabled' : ''}>
+                <span id="volume-value">${Math.round(volume * 100)}%</span>
+              </div>
+              
+              <div class="setting-group">
+                <button id="test-voice" class="test-voice-btn" ${!enabled ? 'disabled' : ''}>Test Voice</button>
+              </div>
+              
+              <div class="settings-buttons">
+                <button id="save-voice-settings">Save</button>
+                <button id="cancel-voice-settings">Cancel</button>
+              </div>
+            </div>
+          `;
+          
+          document.body.appendChild(modal);
+          
+          // Set up event handlers
+          const enableToggle = document.getElementById('voice-enabled');
+          const voiceSelect = document.getElementById('voice-select');
+          const volumeSlider = document.getElementById('voice-volume');
+          const volumeValue = document.getElementById('volume-value');
+          const testButton = document.getElementById('test-voice');
+          const saveButton = document.getElementById('save-voice-settings');
+          const cancelButton = document.getElementById('cancel-voice-settings');
+          
+          // Enable/disable controls
+          enableToggle.addEventListener('change', () => {
+            const isEnabled = enableToggle.checked;
+            voiceSelect.disabled = !isEnabled;
+            volumeSlider.disabled = !isEnabled;
+            testButton.disabled = !isEnabled;
+          });
+          
+          // Update volume display
+          volumeSlider.addEventListener('input', () => {
+            volumeValue.textContent = `${Math.round(volumeSlider.value * 100)}%`;
+          });
+          
+          // Test voice
+          testButton.addEventListener('click', () => {
+            const testVoice = voiceOptions.find(v => v.name === voiceSelect.value);
+            if (testVoice) {
+              const tempSelected = selectedVoice;
+              const tempVolume = volume;
+              
+              selectedVoice = testVoice;
+              volume = parseFloat(volumeSlider.value);
+              
+              speak("This is how your voice guidance will sound.", true);
+              
+              // Restore settings
+              selectedVoice = tempSelected;
+              volume = tempVolume;
+            }
+          });
+          
+          // Save settings
+          saveButton.addEventListener('click', () => {
+            enabled = enableToggle.checked;
+            volume = parseFloat(volumeSlider.value);
+            selectedVoice = voiceOptions.find(v => v.name === voiceSelect.value) || selectedVoice;
+            
+            modal.remove();
+          });
+          
+          // Cancel
+          cancelButton.addEventListener('click', () => {
+            modal.remove();
+          });
+        }
+        
+        // Initialize and return public interface
+        return loadVoices().then(() => {
+          return {
+            speakPhaseGuidance: (phase, technique) => {
+              const guidance = getPhaseGuidance(phase, technique);
+              return speak(guidance);
+            },
+            speakMessage: (message, priority = false) => {
+              return speak(message, priority);
+            },
+            isEnabled: () => enabled,
+            setEnabled: (value) => {
+              enabled = !!value;
+              return enabled;
+            },
+            showSettings: createSettingsUI
+          };
+        });
+      }
+      
+      // ADD ENHANCED UI ELEMENTS
+      
+      function addThemeSelector() {
+        // Add theme button to top navigation
+        const headerElement = document.querySelector('.header');
+        if (!headerElement) return;
+        
+        const themeButton = document.createElement('button');
+        themeButton.id = 'themeButton';
+        themeButton.className = 'theme-button';
+        themeButton.innerText = '🎨';
+        themeButton.title = 'Change color theme';
+        
+        headerElement.appendChild(themeButton);
+        
+        // Create theme selector panel
+        const themeSelector = document.createElement('div');
+        themeSelector.className = 'theme-selector';
+        themeSelector.innerHTML = `
+          <div class="theme-option" data-theme="calm" style="background: linear-gradient(to bottom, #3a7ca5, #63c5da)"></div>
+          <div class="theme-option" data-theme="focus" style="background: linear-gradient(to bottom, #7953a9, #a893cc)"></div>
+          <div class="theme-option" data-theme="energize" style="background: linear-gradient(to bottom, #da6c42, #f3c677)"></div>
+          <div class="theme-option" data-theme="sleep" style="background: linear-gradient(to bottom, #2d4262, #6e7e9f)"></div>
+          <div class="theme-option" data-theme="balance" style="background: linear-gradient(to bottom, #2a7e19, #7ca35f)"></div>
+        `;
+        
+        headerElement.appendChild(themeSelector);
+        
+        // Toggle theme selector
+        themeButton.addEventListener('click', () => {
+          const isVisible = themeSelector.style.display === 'block';
+          themeSelector.style.display = isVisible ? 'none' : 'block';
+        });
+        
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+          if (e.target !== themeButton && !themeSelector.contains(e.target)) {
+            themeSelector.style.display = 'none';
+          }
+        });
+        
+        // Theme option selection
+        const themeOptions = themeSelector.querySelectorAll('.theme-option');
+        themeOptions.forEach(option => {
+          option.addEventListener('click', () => {
+            const themeName = option.getAttribute('data-theme');
+            
+            // Update active class
+            themeOptions.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+            
+            // Apply theme
+            if (window.colorTherapy) {
+              window.colorTherapy.setTheme(themeName);
+            }
+            
+            // Hide selector
+            themeSelector.style.display = 'none';
+          });
+        });
+      }
+      
+      function addVoiceSettingsButton() {
+        const buttonContainer = document.getElementById('buttonContainer');
+        if (!buttonContainer) return;
+        
+        const voiceButton = document.createElement('button');
+        voiceButton.id = 'voiceSettingsButton';
+        voiceButton.className = 'bottom-button';
+        voiceButton.innerText = 'VOICE';
+        
+        // Add as last button
+        buttonContainer.appendChild(voiceButton);
+        
+        // Add event listener
+        voiceButton.addEventListener('click', () => {
+          if (window.voiceGuidance) {
+            window.voiceGuidance.showSettings();
+          }
+        });
+      }
+      
+      function addAnalyticsButton() {
+        const buttonContainer = document.getElementById('buttonContainer');
+        if (!buttonContainer) return;
+        
+        const analyticsButton = document.createElement('button');
+        analyticsButton.id = 'analyticsButton';
+        analyticsButton.className = 'bottom-button';
+        analyticsButton.innerText = 'STATS';
+        
+        // Insert before install button if it exists
+        const installButton = document.getElementById('installButton');
+        if (installButton) {
+          buttonContainer.insertBefore(analyticsButton, installButton);
+        } else {
+          buttonContainer.appendChild(analyticsButton);
+        }
+        
+        // Add event listener
+        analyticsButton.addEventListener('click', () => {
+          if (window.analytics) {
+            window.analytics.showDashboard();
+          }
+        });
+      }
+      
+      // MAIN ENHANCEMENT FUNCTION
+      function enhanceBreathingApp() {
+        // State for enhancements
+        let particleSystem = null;
+        let soundscapes = null;
+        let haptics = null;
+        let analytics = null;
+        let colorTherapy = null;
+        let voiceGuidance = null;
+        
+        // Only initialize once
+        if (window.hagiusEnhanced) return;
+        window.hagiusEnhanced = true;
+        
+        // Initialize core enhancements
+        particleSystem = initializeParticleSystem();
+        soundscapes = initializeSoundscapes();
+        haptics = initializeAdvancedHaptics();
+        analytics = initializeBreathingAnalytics();
+        colorTherapy = initializeColorTherapy();
+        
+        // Store in window for access
+        window.particleSystem = particleSystem;
+        window.soundscapes = soundscapes;
+        window.haptics = haptics;
+        window.analytics = analytics;
+        window.colorTherapy = colorTherapy;
+        
+        // Initialize voice guidance (async)
+        initializeVoiceGuidance().then(guidance => {
+          voiceGuidance = guidance;
+          window.voiceGuidance = voiceGuidance;
+          
+          // Add voice settings button to app
+          addVoiceSettingsButton();
+        });
+        
+        // Add stats/dashboard button
+        addAnalyticsButton();
+        
+        // Add theme selector
+        addThemeSelector();
+        
+        // Connect to breathing phases
+        connectToBreathingPhases();
+        
+        // Connect to technique selection
+        connectToTechniqueSelection();
+        
+        // Connect to session lifecycle
+        connectToSessionLifecycle();
+        
+        // Add subtle animations to UI elements
+        enhanceUIElements();
+        
+        // Apply time-based color theme
+        if (colorTherapy) {
+          const theme = colorTherapy.getTimeBasedTheme();
+          colorTherapy.setTheme(theme);
+        }
+        
+        // Start ambient sound with binaural beats after a small delay
+        if (soundscapes) {
+          setTimeout(() => {
+            soundscapes.start();
+          }, 2000);
+        }
+      }
+      
+      // Connect to breathing phases
+      function connectToBreathingPhases() {
+        // Monitor phase changes by overriding startPhase function
+        const originalStartPhase = window.startPhase;
+        if (!originalStartPhase) {
+          console.error('Could not find startPhase function to enhance');
+          return;
+        }
+        
+        window.startPhase = function(phaseIndex) {
+          // Call original function first
+          originalStartPhase(phaseIndex);
+          
+          // Now enhance with our features
+          const phase = state.currentPattern[phaseIndex];
+          const progress = 0.5; // Default progress value 
+          const technique = findCurrentTechniqueName();
+          
+          // Update particle system
+          if (window.particleSystem) {
+            window.particleSystem(phase.label, progress);
+          }
+          
+          // Update soundscapes
+          if (window.soundscapes) {
+            window.soundscapes.updateWithBreathing(phase.label, progress);
+          }
+          
+          // Trigger haptic feedback
+          if (window.haptics) {
+            window.haptics.triggerForPhase(phase.label, window.state.sessionElapsed / window.state.sessionDuration);
+          }
+          
+          // Update color therapy
+          if (window.colorTherapy) {
+            window.colorTherapy.pulseWithBreathing(phase.label, progress);
+          }
+          
+          // Speak guidance
+          if (window.voiceGuidance && window.voiceGuidance.isEnabled()) {
+            window.voiceGuidance.speakPhaseGuidance(phase.label, technique);
+          }
+        };
+        
+        // Helper to find current technique
+        function findCurrentTechniqueName() {
+          const techniqueButton = document.getElementById('techniqueButton');
+          if (techniqueButton) {
+            const text = techniqueButton.textContent.toLowerCase().trim();
+            
+            if (text.includes('resonance')) return 'resonance';
+            if (text.includes('box')) return 'box';
+            if (text.includes('4-7-8') || text.includes('478')) return '478';
+            if (text.includes('sigh')) return 'physio-sigh';
+          }
+          
+          return 'resonance'; // Default
+        }
+      }
+      
+      // Connect to technique selection
+      function connectToTechniqueSelection() {
+        // Override technique selection
+        const techniqueButtons = document.querySelectorAll('.technique-panel button');
+        techniqueButtons.forEach(btn => {
+          const originalClick = btn.onclick;
+          
+          btn.onclick = function(e) {
+            if (originalClick) {
+              originalClick.call(this, e);
+            }
+            
+            // Get selected technique
+            const technique = btn.getAttribute('data-technique');
+            if (!technique || technique === 'learn-more') return;
+            
+            // Apply technique-specific enhancements
+            
+            // Change color theme to match technique
+            if (window.colorTherapy) {
+              const theme = window.colorTherapy.getThemeForTechnique(technique);
+              window.colorTherapy.setTheme(theme);
+            }
+            
+            // Adapt sound to technique
+            if (window.soundscapes) {
+              window.soundscapes.adaptToTechnique(technique);
+            }
+            
+            // Announce technique change
+            if (window.voiceGuidance && window.voiceGuidance.isEnabled()) {
+              window.voiceGuidance.speakMessage(`${technique} breathing selected.`);
+            }
+          };
+        });
+      }
+      
+      // Connect to session lifecycle
+      function connectToSessionLifecycle() {
+        // Start session tracking
+        if (window.analytics) {
+          // Prompt for initial mood
+          setTimeout(() => {
+            const technique = findCurrentTechniqueName();
+            const sessionId = window.analytics.startSession(technique, state.sessionDuration);
+            window.analytics.promptForMood('before');
+          }, 3000);
+        }
+        
+        // Helper to find current technique
+        function findCurrentTechniqueName() {
+          const techniqueButton = document.getElementById('techniqueButton');
+          if (techniqueButton) {
+            const text = techniqueButton.textContent.toLowerCase().trim();
+            
+            if (text.includes('resonance')) return 'resonance';
+            if (text.includes('box')) return 'box';
+            if (text.includes('4-7-8') || text.includes('478')) return '478';
+            if (text.includes('sigh')) return 'physio-sigh';
+          }
+          
+          return 'resonance'; // Default
+        }
+      }
+      
+      // Add subtle animations to UI elements
+      function enhanceUIElements() {
+        // Add styles for enhanced UI animations
+        const style = document.createElement('style');
+        style.textContent = `
+          /* Button hover effects */
+          .bottom-button, 
+          .technique-panel button,
+          .timer-options button,
+          .session-progress {
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .bottom-button:after,
+          .technique-panel button:after,
+          .timer-options button:after,
+          .session-progress:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              90deg, 
+              transparent, 
+              rgba(255,255,255,0.2), 
+              transparent
+            );
+            transition: left 0.3s ease;
+          }
+          
+          .bottom-button:hover:after,
+          .technique-panel button:hover:after,
+          .timer-options button:hover:after,
+          .session-progress:hover:after {
+            left: 100%;
+          }
+          
+          /* Pulse animation for the timer display */
+          .timer {
+            animation: subtle-pulse 4s infinite ease-in-out;
+          }
+          
+          @keyframes subtle-pulse {
+            0% { opacity: 0.85; }
+            50% { opacity: 1; }
+            100% { opacity: 0.85; }
+          }
+          
+          /* Make logo a bit more alive */
+          .logo {
+            transition: transform 0.5s ease;
+          }
+          
+          .logo:hover {
+            transform: scale(1.05);
+          }
+          
+          /* Floating animation for breathing circle */
+          .breathing-circle {
+            animation: floating 6s infinite ease-in-out;
+          }
+          
+          @keyframes floating {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1); }
+            100% { transform: translateY(0px) scale(1); }
+          }
+        `;
+        
+        document.head.appendChild(style);
       }
       
       // INITIALIZATION
       function init() {
-        console.log("Starting initialization");
-        
-        // Set initial breathing pattern
-        state.currentPattern = BREATHING_PATTERNS.resonance;
-        
-        // Cache DOM elements - doing this first
         cacheElements();
-        
-        // Initialize audio - this is async
         initializeAudio();
-        
-        // Attach core event listeners - but defer joy features
-        attachCoreEventListeners();
-        
-        // Configure Safari-specific adjustments
+        attachEventListeners();
         detectSafariAndAdjust();
         
         // Set initial ARIA states
-        const focusButton = document.getElementById('focusButton');
-        const techniqueButton = document.getElementById('techniqueButton');
-        if (focusButton) focusButton.setAttribute('aria-pressed', 'false');
-        if (techniqueButton) techniqueButton.setAttribute('aria-expanded', 'false');
+        utils.setAriaState(state.elements.focusButton, 'aria-pressed', false);
+        utils.setAriaState(state.elements.techniqueButton, 'aria-expanded', false);
         
         // Hide the install button initially (will show when ready)
-        const installButton = document.getElementById('installButton');
-        if (installButton) {
-          installButton.style.display = 'none';
+        if (state.elements.installButton) {
+          state.elements.installButton.style.display = 'none';
         }
         
         // Register service worker for offline support if available
@@ -4642,194 +3941,8 @@
           });
         }
         
-        // Safety timeout to ensure app starts even if there are loading issues
-        setTimeout(() => {
-          const loadingContainer = document.getElementById('loadingContainer');
-          const appContainer = document.getElementById('appContainer');
-          
-          if (loadingContainer && loadingContainer.style.opacity !== '0') {
-            console.log('Safety timeout: forcing app to start');
-            
-            // Force loading bar to 100%
-            const loadingBar = document.getElementById('loadingBar');
-            if (loadingBar) {
-              loadingBar.style.width = '100%';
-            }
-            
-            // Fade out loading screen
-            loadingContainer.style.opacity = '0';
-            setTimeout(() => {
-              loadingContainer.style.display = 'none';
-            }, 500);
-            
-            // Show app content
-            if (appContainer) {
-              appContainer.style.opacity = '1';
-            }
-            
-            // Start the app
-            if (!state.animationFrameId) {
-              startBreathing();
-            }
-            
-            if (!state.sessionIntervalId) {
-              startSessionTimer();
-            }
-          }
-        }, 6000); // Final safety timeout
-      }
-      
-      // Separate core event listeners (necessary for basic functionality)
-      // from joy feature event listeners (which can be added later)
-      function attachCoreEventListeners() {
-        console.log("Attaching core event listeners");
-        
-        // First interaction for audio playback
-        document.addEventListener('click', handlers.handleUserInteraction, { once: true });
-        document.addEventListener('touchstart', handlers.handleUserInteraction, { once: true });
-        
-        // Technique Button Toggle
-        const techniqueButton = document.getElementById('techniqueButton');
-        if (techniqueButton) {
-          techniqueButton.addEventListener('click', handlers.toggleTechniquePanel);
-        }
-        
-        // Hide panels when clicking elsewhere
-        document.addEventListener('click', handlers.handleDocumentClick);
-        
-        // Technique Selection
-        const techniquePanel = document.getElementById('techniquePanel');
-        if (techniquePanel) {
-          const techniqueBtns = techniquePanel.querySelectorAll('button');
-          techniqueBtns.forEach(btn => {
-            btn.addEventListener('click', () => handlers.selectTechnique(btn));
-          });
-        }
-        
-        // Focus Mode Toggle
-        const focusButton = document.getElementById('focusButton');
-        if (focusButton) {
-          focusButton.addEventListener('click', handlers.toggleFocusMode);
-        }
-        
-        // Back Button in Knowledge Section
-        const backButton = document.getElementById('backButton');
-        if (backButton) {
-          backButton.addEventListener('click', handlers.hideKnowledgeSection);
-        }
-        
-        // Knowledge Section Technique Navigation
-        const techniqueBtns = document.querySelectorAll('.technique-btn');
-        if (techniqueBtns) {
-          techniqueBtns.forEach(btn => {
-            btn.addEventListener('click', () => handlers.selectTechniqueInfo(btn));
-          });
-        }
-        
-        // Progress Bar Click
-        const progressBar = document.getElementById('progressBar');
-        if (progressBar) {
-          progressBar.addEventListener('click', handlers.toggleTimerOptions);
-        }
-        
-        // Timer Options
-        const timerOptionBtns = document.querySelectorAll('.timer-options button');
-        if (timerOptionBtns) {
-          timerOptionBtns.forEach(btn => {
-            btn.addEventListener('click', () => handlers.selectTimerOption(btn));
-          });
-        }
-        
-        // Tab visibility changes (for battery optimization)
-        document.addEventListener('visibilitychange', handlers.handleVisibilityChange);
-        
-        // Window unload - clean up resources
-        window.addEventListener('beforeunload', () => {
-          // Cancel any pending animations or timers
-          if (state.animationFrameId) {
-            cancelAnimationFrame(state.animationFrameId);
-          }
-          if (state.sessionIntervalId) {
-            clearInterval(state.sessionIntervalId);
-          }
-        });
-        
-        // Handle keyboard accessibility
-        document.addEventListener('keydown', (e) => {
-          // Escape key closes any open panels
-          if (e.key === 'Escape') {
-            if (techniquePanel && techniquePanel.style.display === 'block') {
-              techniquePanel.style.display = 'none';
-              techniqueButton.setAttribute('aria-expanded', 'false');
-            }
-            
-            const timerOptions = document.getElementById('timerOptions');
-            if (timerOptions && timerOptions.style.display === 'block') {
-              timerOptions.style.display = 'none';
-            }
-            
-            const knowledgeSection = document.getElementById('knowledgeSection');
-            if (knowledgeSection && knowledgeSection.style.display === 'block') {
-              handlers.hideKnowledgeSection();
-            }
-            
-            if (document.body.classList.contains('special-mode')) {
-              deactivateSpecialModes();
-            }
-          }
-        });
-        
-        // Install button event
-        const installButton = document.getElementById('installButton');
-        if (installButton) {
-          installButton.addEventListener('click', handleInstallClick);
-        }
-      }
-      
-      // Initialize joy features safely after app is loaded
-      function initializeJoyFeatures() {
-        console.log("Initializing joy features");
-        try {
-          // Set up interactive circle effects
-          setupCircleInteractions();
-          
-          // Set up secret codes
-          setupSecretCodes();
-          
-          // Add theme selection and management - only after app is loaded
-          let tapCount = 0;
-          let tapTimer = null;
-          
-          // Add a hidden triple-tap gesture on the logo
-          const mainLogo = document.getElementById('mainLogo');
-          if (mainLogo) {
-            mainLogo.addEventListener('click', () => {
-              tapCount++;
-              clearTimeout(tapTimer);
-              
-              if (tapCount === 3) {
-                cycleTheme();
-                tapCount = 0;
-              } else {
-                tapTimer = setTimeout(() => tapCount = 0, 1000);
-              }
-            });
-          }
-          
-          // Check for saved theme preference - but only after app is fully loaded
-          const savedTheme = localStorage.getItem('preferred-theme');
-          if (savedTheme && state.themes.available.includes(savedTheme)) {
-            // Small delay to avoid interfering with initial animations
-            setTimeout(() => {
-              applyTheme(savedTheme);
-            }, 1000);
-          }
-          
-          console.log("Joy features initialized successfully");
-        } catch (error) {
-          console.error("Error initializing joy features:", error);
-          // Continue with basic app functionality even if joy features fail
-        }
+        // Initialize enhanced features
+        enhanceBreathingApp();
       }
       
       // Safari detection and adjustment function
@@ -4854,9 +3967,24 @@
         }
       }
       
+      // Make functions available globally
+      window.state = state;
+      window.startBreathing = startBreathing;
+      window.resetBreathing = resetBreathing;
+      window.startPhase = startPhase;
+      window.startSessionTimer = startSessionTimer;
+      window.updateProgressBar = updateProgressBar;
+      window.updateRemainingTimeDisplay = updateRemainingTimeDisplay;
+      window.endSession = endSession;
+      window.checkAllResourcesLoaded = checkAllResourcesLoaded;
+      
       // Initialize the app when DOM is ready
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
       } else {
         init();
       }
+    })();
+  </script>
+</body>
+</html>
